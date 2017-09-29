@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kalkulator propagacijskih parametara</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Latest compiled and minified JQuery -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Moj JQ i CSS -->
+	<script src="js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+		
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html"><img src="images/home.png" width="27"></a>
+			</div>
+
+				<ul class="nav navbar-nav">	
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Opcije  <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="friis.html">Friisova jednadžba</a></li>
+							<li><a href="free_path.html">Gušenje slobodnog prostora</a></li>
+							<li><a href="pnpa.html">Polje na prijemnoj anteni</a></li>
+							<li><a href="ezs.html">Efektivno zračena snaga</a></li>
+							<li><a href="">Fresnelove zone</a></li>
+							<li><a href="">Rayleigh</a></li>
+							<li><a href="">Propagacija ravne</a></li>
+							<li><a href="">Gusenje ravne</a></li>
+							<li><a href="">Hata/COST231</a></li>
+						</ul>
+					</li>			
+				</ul>
+		</div><!-- Nav cont -->
+	</nav>
+
+	
+
+	
+<div class="container">
+
+	<div class="page-header">
+        <h1>Propagacijski modeli</h1>
+    </div>
+
+  		<div class="row">
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="friis.html" class="btn btn-link">Friisova jednadžba</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik1">Info</a></div>
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="free_path.html" class="btn btn-link">Gušenje slobodnog prostora</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik2">Info</a></div>
+  		</div>
+
+  		<div class="row">
+  			<div class="well well-sm col-md-6" id="abt1" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+
+			<div class="well well-sm col-md-offset-6" id="abt2" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+		</div>
+		
+		<br />
+
+
+
+		<div class="row">
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="pnpa.html" class="btn btn-link">Polje na prijemnoj anteni</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik3">Info</a></div>
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="ezs.html" class="btn btn-link">Efektivno zračena snaga (ERP)</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik4">Info</a></div>
+  		</div>
+  		<div class="row">
+  			<div class="well well-sm col-md-6" id="abt3" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+
+			<div class="well well-sm col-md-offset-6" id="abt4" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+		</div>
+		<br />
+
+		<div class="row">
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="#" class="btn btn-link">Fresnelove zone</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik5">Info</a></div>
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="#" class="btn btn-link">Rayleighjev kriterij hrapavosti površine</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik6">Info</a></div>
+  		</div>
+  		<div class="row">
+  			<div class="well well-sm col-md-6" id="abt5" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+
+			<div class="well well-sm col-md-offset-6" id="abt6" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+		</div>
+		<br />
+
+		<div class="row">
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="#" class="btn btn-link">Propagacija preko ravne reflektirajuće površine</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik7">Info</a></div>
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="#" class="btn btn-link">Gušenje sl. prostora preko ravne reflektirajuće površine</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik8">Info</a></div>
+  		</div>
+  		<div class="row">
+  			<div class="well well-sm col-md-6" id="abt7" style="display:none;">
+  				Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! Look, I'm in a small well! 
+			</div>
+
+			<div class="well well-sm col-md-offset-6" id="abt8" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+		</div>
+		<br />
+
+		<div class="row">
+  			<div class="col-md-5"><a><img src="images/calc.png" width="40" /></a><a href="#" class="btn btn-link">Hata/COST 231 model</a></div>
+  			<div class="col-md-1"><a class="btn btn-info" id="klik9">Info</a></div>
+  			
+  		</div>
+  		<div class="row">
+  			<div class="well well-sm col-md-6" id="abt9" style="display:none;">
+  				Look, I'm in a small well!
+			</div>
+
+			
+		</div>
+		<br />
+
+
+
+</div>
+
+
+
+</body>
+</html>
