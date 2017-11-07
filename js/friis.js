@@ -317,7 +317,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
     });
 }); 
 
-$(document).ready(function(){ //promjena rezultta i submit buttona
+$(document).ready(function(){ //promjena rezultata i submit buttona
 
     var rez_sel_prev = document.getElementById("rez_sel").value;
 
@@ -446,6 +446,36 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
             $('#in5').attr("placeholder","Frequency") 
         }
     });
+});
+
+$(document).ready(function(){ //promjena unosa za frekvenciju
+        if($('#wf').val() == '1'){
+            $('#freq_sel').change(function(){
+                console.log("promjena fz");
+
+
+
+
+
+            });
+
+
+
+
+
+            
+        } 
+        else {
+            $('#freq_sel').change(function(){
+                console.log("promjena wave");
+
+
+
+
+
+            });
+            
+        }
 }); 
 
 $(document).ready(function () {
