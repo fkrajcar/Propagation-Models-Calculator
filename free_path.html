@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Gušenje slobodnog prostora</title>
-
+  <title>Free Space Loss</title>
+  
+  <link rel="icon" href="images/antenna.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,17 +38,17 @@
       </div>
 
         <ul class="nav navbar-nav"> 
-          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Opcije  <span class="caret"></span></a>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Propagation Models <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="friis.html">Friisova jednadžba</a></li>
-              <li><a href="free_path.html">Gušenje slobodnog prostora</a></li>
-              <li><a href="pnpa.html">Polje na prijemnoj anteni</a></li>
-              <li><a href="">Efektivno zračena snaga</a></li>
-              <li><a href="">Fresnelove zone</a></li>
-              <li><a href="">Rayleigh</a></li>
-              <li><a href="">Propagacija ravne</a></li>
-              <li><a href="">Gusenje ravne</a></li>
-              <li><a href="">Hata/COST231</a></li>
+              <li><a href="friis.html">The Friis Equation</a></li>
+              <li><a href="free_path.html">Free Space Loss</a></li>
+              <li><a href="pnpa.html">E-field at Receiver Antenna</a></li>
+              <li><a href="ezs.html">Effective Radiated Power (ERP)</a></li>
+              <li><a href="">Fresnel Zones</a></li>
+              <li><a href="">Rayleigh Criterion for Surface Roughness</a></li>
+              <li><a href="">Plane-earth Model</a></li>
+              <li><a href="">Free Space Loss for Plane-earth Model</a></li>
+              <li><a href="">Hata/COST231-Hata Model</a></li>
             </ul>
           </li>     
         </ul>
@@ -61,11 +62,11 @@
   
 
     <div class="page-header">
-      <h1>Gušenje slobodnog prostora</h1>
+      <h1>Free Space Loss</h1>
     </div>
 
   <div style="display: inline-block;">
-  <label for="slike">Odabir jednadžbe: </label>
+  <label for="slike">Choose: </label>
   <select class="image-picker show-html" id="slike" name="glavni_odabir" method="post"> 
     <option data-img-src="images/p1.png" value="1"></option>
     <option data-img-src="images/p2.png" value="2"></option>
@@ -84,8 +85,6 @@
 
     <div id="sub1" style="display: block;"> <!-- forma1! -->
       <form method="post" class="form-inline" id="form1">
-
-      
         
         <div class="row">
 
@@ -93,6 +92,7 @@
           <input type="text" placeholder="Receiver power" class="form-control vcenter col-md-2" id="fr1_pr" name="fr1_pr" value="">
 
           <select class="form-control input-md" id="fr1_pr_sel" name="fr1_pr_sel" style="width: 90px">
+            <option value="mw">mW</option>
             <option value="w">W</option>
             <option value="dbm" selected="selected">dBm</option>
             <option value="dbw">dBW</option>
@@ -107,6 +107,7 @@
             <input type="text" placeholder="Transmitter power" class="form-control vcenter col-md-2" id="fr1_pt" name="fr1_pt" value="">
 
             <select class="form-control input-md" id="fr1_pt_sel" name="fr1_pt_sel" style="width: 90px">
+              <option value="mw">mW</option>
               <option value="w">W</option>
               <option value="dbm" selected="selected">dBm</option>
               <option value="dbw">dBW</option>
@@ -124,9 +125,8 @@
               <label class="col-md-1 vcenter text-center">FSPL</label>   
               <input type="text" placeholder="Free Space Path Loss" class="form-control vcenter col-md-2" id="fr1_rez" value="" disabled="" >
               <select class="form-control input-md" id="fr1_rez_sel" name="fr1_rez_sel" style="width: 90px">
-                  <option value="w">W</option>
-                  <option value="dbm">dBm</option>
-                  <option value="dbw">dBW</option>
+                  <option value="dless">d'less</option>
+                  <option value="dbi">dB</option>
               </select>
         </div>  
 
@@ -184,9 +184,9 @@
               <input type="text" placeholder="Distance" class="form-control vcenter col-md-2" id="fr2_d" name="fr2_d" value="">
 
               <select class="form-control input-md" id="fr2_d_sel" name="fr2_d_sel" style="width: 90px">
-                  <option value="m">m</option>
+                  <option value="cm">cm</option>
+                  <option value="m" selected="selected">m</option>
                   <option value="km">km</option>
-                  <option value="miles">miles</option>
               </select>
 
         
@@ -236,9 +236,8 @@
               <input type="text" placeholder="Free Space Path Loss" class="form-control vcenter col-md-2" id="fr2_rez" value="" disabled="" >
               
               <select class="form-control input-md" id="fr2_rez_sel" name="fr2_rez_sel" style="width: 90px">
-                  <option value="w">W</option>
-                  <option value="dbm">dBm</option>
-                  <option value="dbw">dBW</option>
+                  <option value="dless">d'less</option>
+                  <option value="db">dB</option>
               </select>
 
 
@@ -269,9 +268,9 @@
                 <input type="text" placeholder="Distance" class="form-control vcenter col-md-2" id="fr3_d" name="fr3_d" value="">
       
                 <select class="form-control input-md" id="fr3_d_sel" name="fr3_d_sel" style="width: 90px">
-                    <option value="m">m</option>
+                    <option value="cm">miles</option>
+                    <option value="m" selected="selected">m</option>
                     <option value="km">km</option>
-                    <option value="miles">miles</option>
                 </select>
             </div>
             <br />
@@ -316,9 +315,8 @@
                 <input type="text" placeholder="Free Space Path Loss" class="form-control vcenter col-md-2" id="fr3_rez" value="" disabled="" >
                 
                 <select class="form-control input-md" id="fr3_rez_sel" name="fr3_rez_sel" style="width: 90px">
-                    <option value="w">W</option>
-                    <option value="dbm">dBm</option>
-                    <option value="dbw">dBW</option>
+                    <option value="dless">d'less</option>
+                    <option value="db">dB</option>
                 </select>
       
       

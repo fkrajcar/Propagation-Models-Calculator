@@ -161,9 +161,9 @@
 
                 }
                 
-                else if ($d_sel == "miles"){
+                else if ($d_sel == "cm"){
                     for($i = 1; $i <= $d_tocke; $i++){
-                        $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1609.344));
+                        $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                         $y = pow(10, (($y-30)/10));
                         array_push($dataPoints, array($i, $y));
                     }
@@ -192,9 +192,9 @@
                 }
             }
             
-            else if ($d_sel == "miles"){
+            else if ($d_sel == "cm"){
                 for($i = 1; $i <= $d_tocke; $i++){
-                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1609.344));
+                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                     $y = $y-30;
                     array_push($dataPoints, array($i,$y));
                 }
@@ -222,9 +222,9 @@
 
                 }
                 
-                else if ($d_sel == "miles"){
+                else if ($d_sel == "cm"){
                     for($i = 1; $i <= $d_tocke; $i++){
-                        $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1609.344));
+                        $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                         array_push($dataPoints, array($i, $y));
                     }
                 }

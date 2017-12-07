@@ -6,6 +6,24 @@ $(document).ready(function(){ //resetiraj unose
     });
 });
 
+$(document).ready(function(){ //resetiraj unose
+    $("#in1").click(function(){
+        $("#in1").select();
+    });
+    $("#in2").click(function(){
+        $("#in2").select();
+    });
+    $("#in3").click(function(){
+        $("#in3").select();
+    });
+    $("#in4").click(function(){
+        $("#in4").select();
+    });
+    $("#in5").click(function(){
+        $("#in5").select();
+    });
+});
+
 $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt 
     
     var gt_sel_prev = document.getElementById("gt_sel").value;
@@ -22,7 +40,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbi":
                     gt = 10*Math.log10(gt);
 
-                    gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(8);
                    
                       
                     break;
@@ -30,7 +48,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbd":
                     gt = 10*Math.log10(gt) - 2.15;
 
-                    gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(8);
                      
                     
                     break;
@@ -41,14 +59,14 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbd":
                         gt -= 2.15;
 
-                        gt_val.value = gt.toFixed(3);
+                        gt_val.value = gt.toFixed(8);
                           
                         break;
 
                     case "dless":
                         gt = Math.pow(10, gt/10);
 
-                        gt_val.value = gt.toFixed(3);
+                        gt_val.value = gt.toFixed(8);
                           
                         break;
 
@@ -58,7 +76,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbi":
                         gt += 2.15;
 
-                        gt_val.value = gt.toFixed(3);
+                        gt_val.value = gt.toFixed(8);
                           
                         break;
 
@@ -66,7 +84,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                         gt += 2.15;
                         gt = Math.pow(10, gt/10);
 
-                        gt_val.value = gt.toFixed(3);
+                        gt_val.value = gt.toFixed(8);
                           
                         break;
 
@@ -77,7 +95,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
     });
 });  
 
-$(document).ready(function(){ //promjene unosa/mjernih jedinica - gt 
+$(document).ready(function(){ //promjene unosa/mjernih jedinica - gr 
     
     var gr_sel_prev = document.getElementById("gr_sel").value;
 
@@ -93,7 +111,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbi":
                     gr = 10*Math.log10(gr);
 
-                    gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(8);
                      
                       
                     break;
@@ -101,7 +119,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbd":
                     gr = 10*Math.log10(gr) - 2.15;
 
-                    gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(8);
                        
                     
                     break;
@@ -112,14 +130,14 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbd":
                         gr -= 2.15;
 
-                        gr_val.value = gr.toFixed(3);
+                        gr_val.value = gr.toFixed(8);
                             
                         break;
 
                     case "dless":
                         gr = Math.pow(10, gr/10);
 
-                        gr_val.value = gr.toFixed(3);
+                        gr_val.value = gr.toFixed(8);
                             
                         break;
 
@@ -129,7 +147,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                 case "dbi":
                         gr += 2.15;
 
-                        gr_val.value = gr.toFixed(3);
+                        gr_val.value = gr.toFixed(8);
                             
                         break;
 
@@ -137,7 +155,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - gt
                         gr += 2.15;
                         gr = Math.pow(10, gr/10);
 
-                        gr_val.value = gr.toFixed(3);
+                        gr_val.value = gr.toFixed(8);
                             
                         break;
 
@@ -164,7 +182,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
                 case "km":
                     d = d/1000;
 
-                    d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(8);
                      
                       
                     break;
@@ -172,7 +190,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
                 case "cm":
                     d = d*100;
 
-                    d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(8);
                        
                     
                     break;
@@ -183,14 +201,14 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
                 case "m":
                         d = d*1000;
 
-                        d_val.value = d.toFixed(3);
+                        d_val.value = d.toFixed(8);
                             
                         break;
 
                     case "cm":
                         d = d*100000;
 
-                        d_val.value = d.toFixed(3);
+                        d_val.value = d.toFixed(8);
                             
                         break;
 
@@ -200,7 +218,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
                 case "km":
                         d = d/100000;
 
-                        d_val.value = d.toFixed(3);
+                        d_val.value = d.toFixed(8);
                             
                         break;
 
@@ -208,7 +226,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
                         d = d/100;
                         
 
-                        d_val.value = d.toFixed(3);
+                        d_val.value = d.toFixed(8);
                             
                         break;
 
@@ -219,7 +237,7 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
     });
 });
 
-$(document).ready(function(){ //promjene unosa/mjernih jedinica - d
+$(document).ready(function(){ //promjene unosa/mjernih jedinica - pt
     
     var pt_sel_prev = document.getElementById("pt_sel").value;
 
@@ -316,6 +334,119 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - d
     pt_sel_prev = document.getElementById("pt_sel").value;   
     });
 }); 
+
+$(document).ready(function(){ //promjena unosa za frekvenciju
+    $('#wf').change(function(){
+        if($('#wf').val() == '1'){
+            $('#o1').text("mm")
+            $('#o2').text("cm")
+            $('#o3').text("m")
+            $('#in5').attr("placeholder","Wavelenght")
+        } else {
+            $('#o1').text("Hz")
+            $('#o2').text("MHz")
+            $('#o3').text("GHz") 
+            $('#in5').attr("placeholder","Frequency") 
+        }
+    });
+});
+
+$(document).ready(function(){ //promjena unosa za frekvenciju
+        var wf = $('#wf').val();
+        var o_prev = $('#freq_sel').val();
+        var ulaz = $('#in5').val();
+        //console.log(wf);
+        var out;
+        
+        $('#wf').change(function(){
+            ulaz = $('#in5').val();
+            o = $('#freq_sel').val();
+            if (ulaz){
+                if (o == 'hz'){
+                    out = 3e8/ulaz;
+                    out = out.toFixed(8);
+                    $('#in5').val(out*1000);
+                }
+                if (o == 'mhz'){
+                    out = 3e8/(ulaz*1000);
+                    out = out.toFixed(8);
+                    $('#in5').val(out*100);
+                }
+                if (o == 'ghz'){
+                    out = 3e8/(ulaz*1000000);
+                    out = out.toFixed(8);
+                    $('#in5').val(out);
+                }
+            }
+
+                
+        });
+
+        $('#freq_sel').change(function(){
+            o = $('#freq_sel').val();
+            ulaz = $('#in5').val();
+            //console.log(o_prev);
+            //console.log(o);
+            //console.log(ulaz);
+
+            if (ulaz){
+                        
+
+                
+                if (wf==0){
+                    
+                    // mijenjaj frekvenciju
+                    if (o_prev == 'mhz'){
+                        
+                        if (o == 'hz') $('#in5').val(ulaz*1000);
+                        if (o == 'ghz') $('#in5').val(ulaz/1000);
+                    }
+                    if (o_prev == 'ghz'){
+                        
+
+                        if (o == 'hz') $('#in5').val(ulaz*1000000);
+                        if (o == 'mhz') $('#in5').val(ulaz*1000);
+                    }
+                    if (o_prev == 'hz'){
+                        
+
+                        if (o == 'mhz') $('#in5').val(ulaz/1000);
+                        if (o == 'ghz') $('#in5').val(ulaz/1000000);
+                    }
+                    
+
+                } 
+                else if (wf==1){
+                    if (o_prev == 'mhz'){//cm
+                        
+                        if (o == 'hz') $('#in5').val(ulaz*10);//mm
+                        if (o == 'ghz') $('#in5').val(ulaz/100);//m
+                    }
+                    if (o_prev == 'ghz'){//m
+                        
+
+                        if (o == 'hz') $('#in5').val(ulaz*1000);//mm
+                        if (o == 'mhz') $('#in5').val(ulaz*100);//cm
+                    }
+                    if (o_prev == 'hz'){//mm
+                        
+
+                        if (o == 'mhz') $('#in5').val(ulaz/10);//cm
+                        if (o == 'ghz') $('#in5').val(ulaz/1000);//m
+                    }
+                    
+
+                }
+            }
+            o_prev = $('#freq_sel').val();
+            //console.log(o_prev);
+            
+        });
+
+            
+        
+
+});
 
 $(document).ready(function(){ //promjena rezultata i submit buttona
 
@@ -431,66 +562,19 @@ $(document).ready(function(){ //promjena rezultata i submit buttona
     });
 });
 
-
-$(document).ready(function(){ //promjena unosa za frekvenciju
-    $('#wf').change(function(){
-        if($('#wf').val() == '1'){
-            $('#o1').text("mm")
-            $('#o2').text("cm")
-            $('#o3').text("m")
-            $('#in5').attr("placeholder","Wavelenght")
-        } else {
-            $('#o1').text("Hz")
-            $('#o2').text("MHz")
-            $('#o3').text("GHz") 
-            $('#in5').attr("placeholder","Frequency") 
-        }
-    });
-});
-
-$(document).ready(function(){ //promjena unosa za frekvenciju
-        if($('#wf').val() == '1'){
-            $('#freq_sel').change(function(){
-                console.log("promjena fz");
-
-
-
-
-
-            });
-
-
-
-
-
-            
-        } 
-        else {
-            $('#freq_sel').change(function(){
-                console.log("promjena wave");
-
-
-
-
-
-            });
-            
-        }
-}); 
-
 $(document).ready(function () {
         $('#myform').validate({ // pokrenut plugin
             rules: {
                 n1: {
                     required: true,
                     number: true,
-                    min: 0.1
+                    min: 0.0001
                 
                 },
                 n2: {
                     required: true,
                     number: true,
-                    min: 0.1
+                    min: 0.0001
                 
                 },
                 n3: { //minimalno 1 metar za graf
@@ -502,14 +586,14 @@ $(document).ready(function () {
                 n4: {
                     required: true,
                     number: true,
-                    min: 0.1
+                    min: 0.0001
             
                 
                 },
                 n5: {
                     required: true,
                     number: true,
-                    min: 0.1
+                    min: 0.0001
                 
                 },
             },
@@ -527,12 +611,12 @@ $(document).ready(function () {
                     var dataPoints = [];
                     $.getJSON("results/friis_pts.json", function(data) { //uzmi JSON za tocke grafa
                         $.each(data, function(key, value){
-                            dataPoints.push({ x: value[0], y: parseFloat(value[1]) });
+                            dataPoints.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
                         });
                     
                         var chart = new CanvasJS.Chart("chartContainer",{ //opcije za graf
                             zoomEnabled: true,
-                            animationEnabled: false,
+                            animationEnabled: true,
                             exportEnabled: true,
                             theme: "theme3",
                             
@@ -543,7 +627,7 @@ $(document).ready(function () {
                                 title: "Distance"
                             },
                             data: [{
-                              
+                        
                                 type: "spline",
                                 dataPoints : dataPoints,
                             }]
@@ -554,7 +638,7 @@ $(document).ready(function () {
                     $.ajax({ //vrati rezultat
                         url:"results/friis_rez.json",
                         success:function(result){
-                            $("#disabledInput").val(result.toFixed(3));
+                            $("#disabledInput").val(result.toFixed(8));
                         }
                     });  
                     $("#chart").show();     
