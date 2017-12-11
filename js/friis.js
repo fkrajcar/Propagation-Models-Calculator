@@ -368,12 +368,12 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
                     $('#in5').val(out*1000);
                 }
                 if (o == 'mhz'){
-                    out = 3e8/(ulaz*1000);
+                    out = 3e8/(ulaz*1000000);
                     out = out.toFixed(8);
                     $('#in5').val(out*100);
                 }
                 if (o == 'ghz'){
-                    out = 3e8/(ulaz*1000000);
+                    out = 3e8/(ulaz*1000000000);
                     out = out.toFixed(8);
                     $('#in5').val(out);
                 }
@@ -385,6 +385,7 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
         $('#freq_sel').change(function(){
             o = $('#freq_sel').val();
             ulaz = $('#in5').val();
+            var wf = $('#wf').val();
             //console.log(o_prev);
             //console.log(o);
             //console.log(ulaz);
@@ -398,20 +399,20 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
                     // mijenjaj frekvenciju
                     if (o_prev == 'mhz'){
                         
-                        if (o == 'hz') $('#in5').val(ulaz*1000);
+                        if (o == 'hz') $('#in5').val(ulaz*1000000);
                         if (o == 'ghz') $('#in5').val(ulaz/1000);
                     }
                     if (o_prev == 'ghz'){
                         
 
-                        if (o == 'hz') $('#in5').val(ulaz*1000000);
+                        if (o == 'hz') $('#in5').val(ulaz*1000000000);
                         if (o == 'mhz') $('#in5').val(ulaz*1000);
                     }
                     if (o_prev == 'hz'){
                         
 
-                        if (o == 'mhz') $('#in5').val(ulaz/1000);
-                        if (o == 'ghz') $('#in5').val(ulaz/1000000);
+                        if (o == 'mhz') $('#in5').val(ulaz/1000000);
+                        if (o == 'ghz') $('#in5').val(ulaz/1000000000);
                     }
                     
 
@@ -423,14 +424,11 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
                         if (o == 'ghz') $('#in5').val(ulaz/100);//m
                     }
                     if (o_prev == 'ghz'){//m
-                        
 
                         if (o == 'hz') $('#in5').val(ulaz*1000);//mm
                         if (o == 'mhz') $('#in5').val(ulaz*100);//cm
                     }
                     if (o_prev == 'hz'){//mm
-                        
-
                         if (o == 'mhz') $('#in5').val(ulaz/10);//cm
                         if (o == 'ghz') $('#in5').val(ulaz/1000);//m
                     }
@@ -442,10 +440,6 @@ $(document).ready(function(){ //promjena unosa za frekvenciju
             //console.log(o_prev);
             
         });
-
-            
-        
-
 });
 
 $(document).ready(function(){ //promjena rezultata i submit buttona

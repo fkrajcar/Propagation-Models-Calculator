@@ -108,15 +108,15 @@
     
     else if ($glavni == 2){
         
-        $gt = $_POST['fr2_gt'];
-        $gr = $_POST['fr2_gr'];
-        $f = $_POST['fr2_f'];
-        $d = $_POST['fr2_d'];
-        $d_ulaz = $_POST['fr2_d'];
+        $gt = $_POST['n1'];
+        $gr = $_POST['n2'];
+        $f = $_POST['n5'];
+        $d = $_POST['n3'];
+        $d_ulaz = $_POST['n3'];
 
 
 
-        switch ($_POST['fr2_gt_sel']) {
+        switch ($_POST['gt_sel']) {
             case 'dbd':
                 $gt +=2.15;
                 break;
@@ -125,7 +125,7 @@
                 break;
         }
 
-        switch ($_POST['fr2_gr_sel']) {
+        switch ($_POST['gr_sel']) {
             case 'dbd':
                 $gr +=2.15;
                 break;
@@ -135,7 +135,7 @@
                 break;
         }
 
-        switch ($_POST['fr2_f_sel']) {
+        switch ($_POST['freq_sel']) {
             case 'mhz':
                 $f *=1000000;
                 break;
@@ -149,7 +149,7 @@
                 break;
         }
 
-        switch ($_POST['fr2_d_sel']) {
+        switch ($_POST['d_sel']) {
             case 'km':
                 $d *= 1000;
                 break;
@@ -166,7 +166,7 @@
         $result = 20*log10($f) + 20*log10($d) -10*log10($gt) - 10*log10($gr) - 147.56;
 
 
-        switch ($_POST['fr2_d_sel']) {
+        switch ($_POST['d_sel']) {
             case 'km':
                 for($i = 1; $i <= $d_ulaz; $i++){
                     $y = 20*log10($f) + 20*log10($i*1000) -10*log10($gt) - 10*log10($gr) - 147.56;
