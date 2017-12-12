@@ -13,7 +13,7 @@
     $gr_sel = $_POST['gr_si'];
     $d_sel = $_POST['d_si']; //unos m, km, milje
     $freq_sel = $_POST['freq_si'];
-    $rez_sel = $_POST['fr3_rez_sel'];
+    $rez_sel = $_POST['fr2_rez_sel'];
     $wf_sel = $_POST['wff'];
 
         switch($d_sel) //pretvoriti u metre
@@ -26,12 +26,10 @@
             $d = $d * 1000;
             break;
 
-            
         }
 
         switch($gt_sel) //pretvoriti u dbi
         {
-
             case 'dless':
             $gt = 10*log10($gt);
             break;
@@ -54,19 +52,21 @@
 
 
     if ($wf_sel == "1"){ //ovisno jel odabrana f ili lambda
-        switch($freq_sel) //pretvaranje u metre
+        switch($freq_sel) //pretvaranje u metre, ako 1 onda imamo lambdu
         {
-            case 'mhz': //pretvori u cm
-            $lambda = $freq/100;
+            case 'hz': //mm
+            $freq = 300000000/($freq/1000);
             break;
 
-            case 'ghz': //pretvori u mm
-            $lambda = $freq;
+            case 'mhz': //cm
+            $freq = 300000000/($freq/100);
             break;
 
-            case 'hz': //pretvori u mm
-            $lambda = $freq/1000;
+            case 'ghz': //m
+            $freq = 300000000/$freq;
             break;
+
+            
         }
         
     }
@@ -75,33 +75,80 @@
         switch($freq_sel) // pretvorba u hz
         {
             case 'mhz':
-            $freq = doubleval($_POST['n5']*1000000);
+            $freq = $freq*1000000;
             break;
 
             case 'ghz':
-            $freq = doubleval($_POST['n5']*1000000000);
+            $freq = $freq*1000000000;
             break;
 
             case 'hz':
-            $freq = doubleval($_POST['n5']);
             break;
         }
-
-        $lambda = 300000000 / $freq;
     }
-    
 
-    $result = -10*log($gt) -10*log($gr) + 20*log($freq) + 20*log($d) - 147.56; //rezultat za metre, hz, dbi i dbm, za rez u dbm print
+    $result = -$gt -$gr + 20*log10($freq) + 20*log10($d) - 147.5582278; //rezultat za metre, hz, dbi i dbm, za rez u dbm print
 
     switch($rez_sel) //zadnje prije ispisa svega, ovdje napravit za tocke i pretvorbu u kilometre
         {
             case 'dless':
-            break;
+                $result = pow(10, $result/10);
+                if ($d_sel == "km"){
+                        for($i = 1; $i <= $d_tocke; $i++){
+                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
+                            $y = pow(10, $y/10);
+                            array_push($dataPoints, array($i, $y));
+                        }
 
-            
+                    }
+                    
+                    else if ($d_sel == "cm"){
+                        for($i = 1; $i <= $d_tocke; $i++){
+                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
+                            $y = pow(10, $y/10);
+                            array_push($dataPoints, array($i, $y));
+                        }
 
-            case 'db':
-            break;
+                    }
+                    
+                    else{
+                        for($i = 1; $i <= $d_tocke; $i++){
+                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
+                            $y = pow(10, $y/10);
+                            array_push($dataPoints, array($i, $y));
+                        }
+                    }   
+                break;
+
+                case 'db':
+         
+                    if ($d_sel == "km"){
+                            for($i = 1; $i <= $d_tocke; $i++){
+                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
+                                
+                                array_push($dataPoints, array($i, $y));
+                            }
+
+                        }
+                        
+                        else if ($d_sel == "cm"){
+                            for($i = 1; $i <= $d_tocke; $i++){
+                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
+                                
+                                array_push($dataPoints, array($i, $y));
+                            }
+
+                        }
+                        
+                        else{
+                            for($i = 1; $i <= $d_tocke; $i++){
+                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
+                                
+                                array_push($dataPoints, array($i, $y));
+                            }
+                        }   
+                break;
+
         }
 
 

@@ -615,10 +615,10 @@ $(document).ready(function () {
                             theme: "theme3",
                             
                             axisY: {
-                                title: "Power received"
+                                title: "Power received" + " [" + rez_sel.value + "]"
                             },
                             axisX: {
-                                title: "Distance"
+                                title: "Distance" + " [" + d_sel.value + "]"
                             },
                             data: [{
                         
