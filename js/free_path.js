@@ -17,16 +17,32 @@ $(document).ready(function(){ //funkcija za tabove
     });
 });
 
-$(document).ready(function(){//jedan klik da je select svega
+$(document).ready(function(){ //jedan klik da je select svega
     $('#fr1_pr').click(function(){
         $('#fr1_pr').select();
     });
     $('#fr1_pt').click(function(){
         $('#fr1_pt').select();
     });
+    $('#in1').click(function(){
+        $('#in1').select();
+    });
+    $('#in2').click(function(){
+        $('#in2').select();
+    });
+    $('#in3').click(function(){
+        $('#in3').select();
+    });
+    $('#in5').click(function(){
+        $('#in5').select();
+    });
+    $('#fr3_d').click(function(){
+        $('#fr3_d').select();
+    });
+    $('#fr3_f').click(function(){
+        $('#fr3_f').select();
+    });  
 });
-
-//forma#1
 
 $(document).ready(function(){ //promjene unosa/mjernih jedinica - pr
     
@@ -231,18 +247,18 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - rez1
     $("#fr1_rez_sel").change(function(){
         var fr1_rez_val = document.getElementById("fr1_rez");
         var fr1_rez_sel = document.getElementById("fr1_rez_sel");
-        var fr1_rez = parseFloat(fr1_rez_val.value);
+        var rezultat1 = $('#fr1_rez').val();
 
-    if (fr1_rez){
+    if (rezultat1){
         console.log(fr1_rez_sel_prev);
 
-        if (fr1_rez_sel_prev == 'dbi'){
-            rezultat = Math.pow(10, rezultat/10);
-            fr1_rez_val.value = rezultat.toFixed(8);
+        if (fr1_rez_sel_prev == 'db'){
+            rezultat1 = Math.pow(10, rezultat1/10);
+            fr1_rez_val.value = rezultat1.toFixed(8);
         }
         else {
-            rezultat = 10*Math.log10(rezultat);
-            fr1_rez_val.value = rezultat.toFixed(8);
+            rezultat1 = 10*Math.log10(rezultat1);
+            fr1_rez_val.value = rezultat1.toFixed(8);
         }
         
         
@@ -253,7 +269,6 @@ $(document).ready(function(){ //promjene unosa/mjernih jedinica - rez1
 });
 
 //graf
-
 $(document).ready(function () {
     $('#form1').validate({ // pokrenut plugin
         rules: {
@@ -266,7 +281,8 @@ $(document).ready(function () {
             fr1_pt: {
                 required: true,
                 number: true,
-                min: 0.0001
+                min: 0.0001,
+                max: 100000
             
             },
             
@@ -278,139 +294,52 @@ $(document).ready(function () {
 
       
 
-        submitHandler: function () {
-            var pr = new Number($("#fr1_pr").val());
-            var pt = new Number($("#fr1_pt").val());
-            var pr_sel = $("#fr1_pr_sel").val();
-            var pt_sel = $("#fr1_pt_sel").val();
-            var rez_sel = $("#fr1_rez_sel").val();
-
-
-            
-           
-                switch(pr_sel){
-                    case 'dbw':{
-                        pr = Math.pow (10, pr/10);
-                        break;
-                    }
-
-                    case "dbm":
-                        pr -= 30;
-                        pr = Math.pow (10, pr/10);
-                        break;
-                    case 'mw':{
-                        pr = pr/1000;
-                        break;
-                        
-                    }
-                    
-                }
-
-                switch(pt_sel){
-                    case 'dbw':{
-                        pt = Math.pow (10, pt/10);
-                        break;
-                        
-                    }
-                    break;
-
-                    case 'dbm':{
-                        pt -= 30;
-                        pt = Math.pow (10, pt/10);
-                        break;
-                       
-                    }
-                    case 'mw':{
-                        pt = pt/1000;
-                        break;
-
-                    }
-                }
-
-                 //w
-                rezultat = 10*Math.log10(pt/pr);
-                switch(rez_sel){
-                    case 'dless':{
-
-                        rezultat = Math.pow(10, rezultat/10);
-                        break;
-                    }
-                    
-                    
-                }
-
-            $("#fr1_rez").val(rezultat.toFixed(8));
-
-            }
-        });
-});
-
-
-//forma 3 + graf
-$(document).ready(function () {
-    $('#form3').validate({ // pokrenut plugin
-        rules: {
-            fr3_f: {
-                required: true,
-                number: true,
-                min: 0.0001
-            
-            },
-            fr3_d: {
-                required: true,
-                number: true,
-                min: 0.0001
-            } 
-        },
-        
-        errorPlacement: function(error, element) {
-            element.parent().append(error); //postavi prikaz errora na kraj
-        },
-
         submitHandler: function (form) {
-          $.ajax({ //predaj formu php-u
-            type: 'post',
-            url: 'free.php',
-            data: $('#form3').serialize(),
-            success: function(){
-                var dataPoints = [];
-                $.getJSON("results/free_pts3.json", function(data) { //uzmi JSON za tocke grafa
-                    $.each(data, function(key, value){
-                        dataPoints.push({ x: value[0], y: parseFloat(value[1]) });
+            
+            $.ajax({ //predaj formu php-u
+                type: 'post',
+                url: 'free_path.php',
+                data: $('#form1').serialize(),
+                success: function(){
+                    var dataPoints = [];
+                    $.getJSON("results/free_pts1.json", function(data) { //uzmi JSON za tocke grafa
+                        $.each(data, function(key, value){
+                            dataPoints.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
+                        });
+                    
+                        var chart = new CanvasJS.Chart("chartContainer1",{ //opcije za graf
+                            zoomEnabled: true,
+                            animationEnabled: false,
+                            exportEnabled: true,
+                            theme: "theme3",
+                            
+                            axisY: {
+                                //valueFormatString: "######,.##",
+                                title: "Free Space Path Loss" + " [" + fr1_rez_sel.value + "]"
+                            },
+                            axisX: {
+                                title: "Pt" + " [" + fr1_pt_sel.value + "]"
+                            },
+                            data: [{
+                              
+                                type: "spline",
+                                dataPoints : dataPoints,
+                            }]
+                        });
+                        chart.render();
                     });
-                
-                    var chart = new CanvasJS.Chart("chartContainer3",{ //opcije za graf
-                        zoomEnabled: true,
-                        animationEnabled: false,
-                        exportEnabled: true,
-                        theme: "theme3",
-                        
-                        axisY: {
-                            //valueFormatString: "######,.##",
-                            title: "Free Space Path Loss"
-                        },
-                        axisX: {
-                            title: "Distance"
-                        },
-                        data: [{
-                          
-                            type: "spline",
-                            dataPoints : dataPoints,
-                        }]
-                    });
-                    chart.render();
-                });
 
-                $.ajax({ //vrati rezultat
-                    url:"results/free_rez3.json",
-                    success:function(result){
-                        $("#fr3_rez").val(result);
-                    }
-                });  
-                $("#chart3").show();
-                $("#chartContainer3").show();    
-            }
-        });
-    }
+                    $.ajax({ //vrati rezultat
+                        url:"results/free_rez1.json",
+                        success:function(result){
+                            $("#fr1_rez").val(result.toFixed(8));
+                        }
+                    });  
+                    $("#chart1").show();
+                    $("#chartContainer1").show();    
+                }
+            });   
+        }
+            
     });
 });

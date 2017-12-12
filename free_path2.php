@@ -94,60 +94,60 @@
             case 'dless':
                 $result = pow(10, $result/10);
                 if ($d_sel == "km"){
-                        for($i = 1; $i <= $d_tocke; $i++){
-                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
-                            $y = pow(10, $y/10);
-                            array_push($dataPoints, array($i, $y));
-                        }
-
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
+                        $y = pow(10, $y/10);
+                        array_push($dataPoints, array($i, $y));
                     }
-                    
-                    else if ($d_sel == "cm"){
-                        for($i = 1; $i <= $d_tocke; $i++){
-                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
-                            $y = pow(10, $y/10);
-                            array_push($dataPoints, array($i, $y));
-                        }
 
+                }
+                    
+                else if ($d_sel == "cm"){
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
+                        $y = pow(10, $y/10);
+                        array_push($dataPoints, array($i, $y));
                     }
-                    
-                    else{
-                        for($i = 1; $i <= $d_tocke; $i++){
-                            $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
-                            $y = pow(10, $y/10);
-                            array_push($dataPoints, array($i, $y));
-                        }
-                    }   
-                break;
 
-                case 'db':
+                }
+                    
+                else{
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
+                        $y = pow(10, $y/10);
+                        array_push($dataPoints, array($i, $y));
+                    }
+                }   
+            break;
+
+            case 'db':
          
-                    if ($d_sel == "km"){
-                            for($i = 1; $i <= $d_tocke; $i++){
-                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
-                                
-                                array_push($dataPoints, array($i, $y));
-                            }
-
-                        }
+                if ($d_sel == "km"){
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i*1000) - 147.5582278;
                         
-                        else if ($d_sel == "cm"){
-                            for($i = 1; $i <= $d_tocke; $i++){
-                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
-                                
-                                array_push($dataPoints, array($i, $y));
-                            }
+                        array_push($dataPoints, array($i, $y));
+                    }
 
-                        }
+                }
+                    
+                else if ($d_sel == "cm"){
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i/100) - 147.5582278;
                         
-                        else{
-                            for($i = 1; $i <= $d_tocke; $i++){
-                                $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
-                                
-                                array_push($dataPoints, array($i, $y));
-                            }
-                        }   
-                break;
+                        array_push($dataPoints, array($i, $y));
+                    }
+
+                }
+                
+                else{
+                    for($i = 1; $i <= $d_tocke; $i++){
+                        $y = -$gt -$gr + 20*log10($freq) + 20*log10($i) - 147.5582278;
+                        
+                        array_push($dataPoints, array($i, $y));
+                    }
+                }   
+            break;
 
         }
 

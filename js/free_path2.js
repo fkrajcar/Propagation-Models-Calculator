@@ -354,25 +354,26 @@ $(document).ready(function () {
             n1: {
                 required: true,
                 number: true,
-                min: 0.0001
+                
             
             },
             n2: {
                 required: true,
                 number: true,
-                min: 0.0001
+                
             
             },
-            n3: {
+            n3: {//udaljenost, za graf
                 required: true,
                 number: true,
-                min: 0.0001
+                min: 1,
+                max: 100000
             
             },
             n5: {
                 required: true,
                 number: true,
-                min: 0.0001
+                min: 0
             
             }    
         },

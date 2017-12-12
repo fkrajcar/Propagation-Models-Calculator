@@ -1,217 +1,136 @@
 <?php 
     
     $dataPoints = array();
-    $glavni = $_POST['glavni_odabir'];
 
-    if ($glavni == 3){
-        $d = $_POST['fr3_d'];
-        $d_ulaz = $_POST['fr3_d'];
-        $f = $_POST['fr3_f'];
+    $pr = $_POST['fr1_pr'];
+    $pt = $_POST['fr1_pt'];
+    $pt_pts = $_POST['fr1_pt'];
+    $pr_sel = $_POST['fr1_pr_sel'];
+    $pt_sel = $_POST['fr1_pt_sel'];
+    $rez_sel = $_POST['fr1_rez_sel'];
 
-        switch ($_POST['fr3_f_sel']) {
-            case 'mhz':
-                $f *= 1000000;
-                break;
+    switch($pr_sel){
+        case 'dbw':
+            $pr = pow(10, $pr/10);
+            break;
+        
 
-            case 'ghz':
-                $f *= 1000000000;
-                break;
-            
-            default:
-                break;
-        }
-
-
-        switch ($_POST['fr3_d_sel']) {
-            case 'km':{
-                $result = 20*log10($f) + 20*log10($d*1000) - 147.56;
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i*1000) - 147.56;
-                    array_push($dataPoints, array($i, $y));
-                }
-
-
-            }
-                
-                break;
-
-            case 'miles':{
-                $result = 20*log10($f) + 20*log10($d*1609.344) - 147.56;
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i*1609.344) - 147.56;
-                    array_push($dataPoints, array($i, $y));
-                }
-
-            }
-                
-                break;
-            
-            default:{
-                $result = 20*log10($f) + 20*log10($d) - 147.56;
-
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i) - 147.56;
-                    array_push($dataPoints, array($i, $y));
-                }
-            }
-                break;
-        }
-
-
-        $f3p = fopen('results/free_rez3.json', 'w'); //upis rezultata za ispis
-        fwrite($f3p, json_encode($result));
-        fclose($f3p);
-
-        $w3p = fopen('results/free_pts3.json', 'w'); //upis tocaka za graf
-        fwrite($w3p, json_encode($dataPoints)); 
-        fclose($w3p);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        case "dbm":
+            $pr -= 30;
+            $pr = pow(10, $pr/10);
+            break;
+        
+        case 'mw':
+            $pr = $pr/1000;
+            break;
 
     }
 
+    switch($pt_sel){
+        case 'dbw':
+            $pt = pow(10, $pt/10);
+            break;
 
-
+        case 'dbm':
+            $pt -= 30;
+            $pt = pow(10, $pt/10);
+            break;
+           
+        case 'mw':
+            $pt = $pt/1000;
+            break;
+        
+    }
 
     
-    else if ($glavni == 2){
-        
-        $gt = $_POST['n1'];
-        $gr = $_POST['n2'];
-        $f = $_POST['n5'];
-        $d = $_POST['n3'];
-        $d_ulaz = $_POST['n3'];
-
-
-
-        switch ($_POST['gt_sel']) {
-            case 'dbd':
-                $gt +=2.15;
-                break;
+    $rezultat = 10*log10($pt/$pr); //sve u W, rezultat u dB
+    
+    switch($rez_sel){
+        case 'dless':
+            $rezultat = pow(10, $rezultat/10);
             
-            default:
-                break;
-        }
+            if ($pt_sel == "mw"){
+                    for($i = 1; $i <= $pt_pts; $i++){
+                       $y = $rezultat;
+                       array_push($dataPoints, array($i, $y));
+                    }
 
-        switch ($_POST['gr_sel']) {
-            case 'dbd':
-                $gr +=2.15;
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-
-        switch ($_POST['freq_sel']) {
-            case 'mhz':
-                $f *=1000000;
-                break;
-
-            case 'ghz':
-                $f *=1000000000;
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-
-        switch ($_POST['d_sel']) {
-            case 'km':
-                $d *= 1000;
-                break;
-
-            case 'miles':
-                $d *= 1609.344;
-                break;
-            
-            default:
-                # code...
-                break;
-        }
-
-        $result = 20*log10($f) + 20*log10($d) -10*log10($gt) - 10*log10($gr) - 147.56;
-
-
-        switch ($_POST['d_sel']) {
-            case 'km':
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i*1000) -10*log10($gt) - 10*log10($gr) - 147.56;
+            }
+                    
+            else if ($pt_sel == "w"){
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = $rezultat;
                     array_push($dataPoints, array($i, $y));
                 }
-                break;
 
-            case 'miles':
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i*1609.344) -10*log10($gt) - 10*log10($gr) - 147.56;
+            }
+                
+            else if ($pt_sel == "dbm"){
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = $rezultat;
                     array_push($dataPoints, array($i, $y));
                 }
-                break;
-            
-            default:
-                for($i = 1; $i <= $d_ulaz; $i++){
-                    $y = 20*log10($f) + 20*log10($i) -10*log10($gt) - 10*log10($gr) - 147.56;
+
+            }
+
+            else{
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = $rezultat;
                     array_push($dataPoints, array($i, $y));
                 }
-                break;
-        }
+            }
+        break;
 
+       
         
 
 
 
 
 
+        case 'db':
+            if ($pt_sel == "mw"){
+                    for($i = 0; $i <= $pt_pts; $i++){
+                       $y = $i;
+                       array_push($dataPoints, array($i, $y));
+                    }
 
+            }
+                    
+            else if ($pt_sel == "w"){
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = 10*log10($i/$pr);
+                    array_push($dataPoints, array($i, $y));
+                }
 
+            }
+                
+            else if ($pt_sel == "dbm"){
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = $rezultat;
+                    array_push($dataPoints, array($i, $y));
+                }
 
+            }
 
-        $fp2 = fopen('results/free_rez2.json', 'w'); //upis rezultata za ispis
-        fwrite($fp2, json_encode($result));
-        fclose($fp2);
-
-        $wp = fopen('results/free_pts2.json', 'w'); //upis tocaka za graf
-        fwrite($wp, json_encode($dataPoints)); 
-        fclose($wp);
-
+            else{
+                for($i = 1; $i <= $pt_pts; $i++){
+                    $y = $rezultat;
+                    array_push($dataPoints, array($i, $y));
+                }
+            }
+        break;
     }
+        
+        
 
+    $fp = fopen('results/free_rez1.json', 'w'); //upis rezultata za ispis
+    fwrite($fp, json_encode($rezultat));
+    fclose($fp);
 
-
-    
+    $wp = fopen('results/free_pts1.json', 'w'); //upis tocaka za graf
+    fwrite($wp, json_encode($dataPoints)); 
+    fclose($wp);
 
 
 ?>
