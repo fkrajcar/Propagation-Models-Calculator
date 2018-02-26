@@ -1,35 +1,9 @@
-
-$(document).ready(function () { //resetiraj unose
-    $("#res").click(function () {
-        $("#myform")[0].reset();
-        $("#chart").hide();
-    });
-});
-
-$(document).ready(function () { //resetiraj unose
-    $("#in1").click(function () {
-        $("#in1").select();
-    });
-    $("#in2").click(function () {
-        $("#in2").select();
-    });
-    $("#in3").click(function () {
-        $("#in3").select();
-    });
-    $("#in4").click(function () {
-        $("#in4").select();
-    });
-    $("#in5").click(function () {
-        $("#in5").select();
-    });
-});
-
 $(document).ready(function () { //promjene unosa/mjernih jedinica - gt 
 
     var gt_sel_prev = document.getElementById("gt_sel").value;
 
     $("#gt_sel").change(function () {
-        var gt_val = document.getElementById("in1");
+        var gt_val = document.getElementById("gt");
         var gt_sel = document.getElementById("gt_sel");
         var gt = parseFloat(gt_val.value);
 
@@ -100,7 +74,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gr
     var gr_sel_prev = document.getElementById("gr_sel").value;
 
     $("#gr_sel").change(function () {
-        var gr_val = document.getElementById("in2");
+        var gr_val = document.getElementById("gr");
         var gr_sel = document.getElementById("gr_sel");
         var gr = parseFloat(gr_val.value);
 
@@ -171,7 +145,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
     var d_sel_prev = document.getElementById("d_sel").value;
 
     $("#d_sel").change(function () {
-        var d_val = document.getElementById("in3");
+        var d_val = document.getElementById("d");
         var d_sel = document.getElementById("d_sel");
         var d = parseFloat(d_val.value);
 
@@ -242,7 +216,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
     var pt_sel_prev = document.getElementById("pt_sel").value;
 
     $("#pt_sel").change(function () {
-        var pt_val = document.getElementById("in4");
+        var pt_val = document.getElementById("pt");
         var pt_sel = document.getElementById("pt_sel");
         var pt = parseFloat(pt_val.value);
 
@@ -335,57 +309,57 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
     });
 });
 
-$(document).ready(function () { //promjena unosa za frekvenciju
-    $('#wf').change(function () {
-        if ($('#wf').val() == '1') {
+$(document).ready(function () { //promjena odabira frekvencija / wavelenght
+    $('#wOrf').change(function () {
+        if ($('#wOrf').val() == '1') {
             $('#o1').text("mm")
             $('#o2').text("cm")
             $('#o3').text("m")
-            $('#in5').attr("placeholder", "Wavelenght")
+            $('#fq').attr("placeholder", "Wavelenght")
         } else {
             $('#o1').text("Hz")
             $('#o2').text("MHz")
             $('#o3').text("GHz")
-            $('#in5').attr("placeholder", "Frequency")
+            $('#fq').attr("placeholder", "Frequency")
         }
     });
 });
 
 $(document).ready(function () { //promjena unosa za frekvenciju
-    var wf = $('#wf').val();
-    var o_prev = $('#freq_sel').val();
-    var ulaz = $('#in5').val();
+    var wf = $('#wOrf').val();
+    var o_prev = $('#fq_sel').val();
+    var ulaz = $('#fq').val();
     //console.log(wf);
     var out;
 
-    $('#wf').change(function () {
-        ulaz = $('#in5').val();
-        o = $('#freq_sel').val();
+    $('#wOrf').change(function () {
+        ulaz = $('#fq').val();
+        o = $('#fq_sel').val();
         if (ulaz) {
             if (o == 'hz') {
                 out = 3e8 / ulaz;
                 out = out.toFixed(8);
-                $('#in5').val(out * 1000);
+                $('#fq').val(out * 1000);
             }
             if (o == 'mhz') {
                 out = 3e8 / (ulaz * 1000000);
                 out = out.toFixed(8);
-                $('#in5').val(out * 100);
+                $('#fq').val(out * 100);
             }
             if (o == 'ghz') {
                 out = 3e8 / (ulaz * 1000000000);
                 out = out.toFixed(8);
-                $('#in5').val(out);
+                $('#fq').val(out);
             }
         }
 
 
     });
 
-    $('#freq_sel').change(function () {
-        o = $('#freq_sel').val();
-        ulaz = $('#in5').val();
-        var wf = $('#wf').val();
+    $('#fq_sel').change(function () {
+        o = $('#fq_sel').val();
+        ulaz = $('#fq').val();
+        var wf = $('#wOrf').val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
@@ -399,20 +373,20 @@ $(document).ready(function () { //promjena unosa za frekvenciju
                 // mijenjaj frekvenciju
                 if (o_prev == 'mhz') {
 
-                    if (o == 'hz') $('#in5').val(ulaz * 1000000);
-                    if (o == 'ghz') $('#in5').val(ulaz / 1000);
+                    if (o == 'hz') $('#fq').val(ulaz * 1000000);
+                    if (o == 'ghz') $('#fq').val(ulaz / 1000);
                 }
                 if (o_prev == 'ghz') {
 
 
-                    if (o == 'hz') $('#in5').val(ulaz * 1000000000);
-                    if (o == 'mhz') $('#in5').val(ulaz * 1000);
+                    if (o == 'hz') $('#fq').val(ulaz * 1000000000);
+                    if (o == 'mhz') $('#fq').val(ulaz * 1000);
                 }
                 if (o_prev == 'hz') {
 
 
-                    if (o == 'mhz') $('#in5').val(ulaz / 1000000);
-                    if (o == 'ghz') $('#in5').val(ulaz / 1000000000);
+                    if (o == 'mhz') $('#fq').val(ulaz / 1000000);
+                    if (o == 'ghz') $('#fq').val(ulaz / 1000000000);
                 }
 
 
@@ -420,227 +394,24 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             else if (wf == 1) {
                 if (o_prev == 'mhz') {//cm
 
-                    if (o == 'hz') $('#in5').val(ulaz * 10);//mm
-                    if (o == 'ghz') $('#in5').val(ulaz / 100);//m
+                    if (o == 'hz') $('#fq').val(ulaz * 10);//mm
+                    if (o == 'ghz') $('#fq').val(ulaz / 100);//m
                 }
                 if (o_prev == 'ghz') {//m
 
-                    if (o == 'hz') $('#in5').val(ulaz * 1000);//mm
-                    if (o == 'mhz') $('#in5').val(ulaz * 100);//cm
+                    if (o == 'hz') $('#fq').val(ulaz * 1000);//mm
+                    if (o == 'mhz') $('#fq').val(ulaz * 100);//cm
                 }
                 if (o_prev == 'hz') {//mm
-                    if (o == 'mhz') $('#in5').val(ulaz / 10);//cm
-                    if (o == 'ghz') $('#in5').val(ulaz / 1000);//m
+                    if (o == 'mhz') $('#fq').val(ulaz / 10);//cm
+                    if (o == 'ghz') $('#fq').val(ulaz / 1000);//m
                 }
 
 
             }
         }
-        o_prev = $('#freq_sel').val();
+        o_prev = $('#fq_sel').val();
         //console.log(o_prev);
 
     });
 });
-
-$(document).ready(function () { //promjena rezultata i submit buttona
-
-    var rez_sel_prev = document.getElementById("rez_sel").value;
-
-
-    $('#rez_sel').change(function () {
-
-        var rez_val = document.getElementById("disabledInput");
-        var rez_sel = document.getElementById("rez_sel");
-        var rez = parseFloat(rez_val.value);
-
-        console.log(rez_sel_prev);
-        console.log(rez);
-
-        if (rez) {
-            $('#sub_but').val("Refresh the graph!");
-            $('#sub_but').css("background-color", "green");
-
-            $('#sub_but').click(function () {
-                $('#sub_but').val("Calculate");
-                $('#sub_but').css("background-color", "#2c3e50");
-            });
-
-            if (rez_sel_prev == "mw") {
-                switch (rez_sel.value) {
-                    case "w":
-                        rez = rez / 1000;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbm":
-                        rez = rez / 1000;
-                        rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbw":
-                        rez = rez / 1000;
-                        rez = 10 * Math.log10(rez);
-
-                        rez_val.value = rez.toFixed(8);
-                        break;
-                }
-            }
-            else if (rez_sel_prev == "w") {
-                switch (rez_sel.value) {
-                    case "mw":
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbm":
-                        rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbw":
-                        rez = 10 * Math.log10(rez);
-                        rez_val.value = rez.toFixed(8);
-                        break;
-                }
-            }
-            else if (rez_sel_prev == "dbm") {
-                switch (rez_sel.value) {
-                    case "mw":
-                        rez -= 30;
-                        rez = Math.pow(10, rez / 10);
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "w":
-                        rez -= 30;
-                        rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbw":
-                        rez = rez - 30;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-                }
-            }
-
-            else if (rez_sel_prev == "dbw") {
-                switch (rez_sel.value) {
-                    case "mw":
-                        rez = Math.pow(10, rez / 10);
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "w":
-                        rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(8);
-                        break;
-
-                    case "dbm":
-                        rez += 30;
-                        rez_val.value = rez.toFixed(8);
-                        break;
-                }
-            }
-
-        }
-
-        rez_sel_prev = document.getElementById("rez_sel").value;
-
-
-
-
-    });
-});
-
-$(document).ready(function () {
-    $('#myform').validate({ // pokrenut plugin
-        rules: {
-            n1: {
-                required: true,
-                number: true,
-                //min: 0.0001
-
-            },
-            n2: {
-                required: true,
-                number: true,
-                //min: 0.0001
-
-            },
-            n3: { //minimalno 1 metar za graf
-                required: true,
-                number: true,
-                min: 1,
-                max: 100000
-
-            },
-            n4: {
-                required: true,
-                number: true,
-                min: 0
-
-
-            },
-            n5: {
-                required: true,
-                number: true,
-                min: 0
-
-            },
-        },
-
-        errorPlacement: function (error, element) {
-            element.parent().append(error); //postavi prikaz errora na kraj
-        },
-
-        submitHandler: function (form) {
-            $.ajax({ //predaj formu php-u
-                type: 'post',
-                url: 'friis.php',
-                data: $('#myform').serialize(),
-                success: function () {
-                    var dataPoints = [];
-                    $.getJSON("results/friis_pts.json", function (data) { //uzmi JSON za tocke grafa
-                        $.each(data, function (key, value) {
-                            dataPoints.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
-                        });
-
-                        var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
-                            zoomEnabled: true,
-                            animationEnabled: true,
-                            exportEnabled: true,
-                            theme: "theme3",
-
-                            axisY: {
-                                title: "Power received" + " [" + rez_sel.value + "]"
-                            },
-                            axisX: {
-                                title: "Distance" + " [" + d_sel.value + "]"
-                            },
-                            data: [{
-
-                                type: "spline",
-                                dataPoints: dataPoints,
-                            }]
-                        });
-                        chart.render();
-                    });
-
-                    $.ajax({ //vrati rezultat
-                        url: "results/friis_rez.json",
-                        success: function (result) {
-                            $("#disabledInput").val(result.toFixed(8));
-                        }
-                    });
-                    $("#chart").show();
-                }
-            });
-        }
-    });
-});
-
-

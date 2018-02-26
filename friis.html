@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>The Friis Equation</title>
   <link rel="icon" href="images/antenna.png">
@@ -8,12 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Latest compiled and minified JQuery -->
-  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>  
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 
-  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT"
+    crossorigin="anonymous">
 
   <!-- Latest compiled and minified BootStrap -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
 
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
@@ -26,187 +29,217 @@
 </head>
 
 <body>
-
-
-
   <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
-    
+
       <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="images/home.png" width="27"></a>
+        <a class="navbar-brand" href="index.html">
+          <img src="images/home.png" width="27">
+        </a>
       </div>
 
-        <ul class="nav navbar-nav"> 
-          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Propagation Models <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="friis.html">The Friis Equation</a></li>
-              <li><a href="free_path.html">Free Space Loss</a></li>
-              <li><a href="pnpa.html">E-field at Receiver Antenna</a></li>
-              <li><a href="ezs.html">Effective Radiated Power (ERP)</a></li>
-              <li><a href="">Fresnel Zones</a></li>
-              <li><a href="">Rayleigh Criterion for Surface Roughness</a></li>
-              <li><a href="">Plane-earth Model</a></li>
-              <li><a href="">Free Space Loss for Plane-earth Model</a></li>
-              <li><a href="">Hata/COST231-Hata Model</a></li>
-            </ul>
-          </li>     
-        </ul>
-    </div><!-- Nav cont -->
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Propagation Models
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="friis.html">The Friis Equation</a>
+            </li>
+            <li>
+              <a href="free_path.html">Free Space Loss</a>
+            </li>
+            <li>
+              <a href="efield.html">E-field at Receiver Antenna</a>
+            </li>
+            <li>
+              <a href="erp.html">Effective Radiated Power (ERP)</a>
+            </li>
+            <li>
+              <a href="">Fresnel Zones</a>
+            </li>
+            <li>
+              <a href="">Rayleigh Criterion for Surface Roughness</a>
+            </li>
+            <li>
+              <a href="">Plane-earth Model</a>
+            </li>
+            <li>
+              <a href="">Free Space Loss for Plane-earth Model</a>
+            </li>
+            <li>
+              <a href="">Hata/COST231-Hata Model</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nav>
+  <!-- Nav cont -->
 
-  
 
-  
+
+
   <div class="container">
-  
 
     <div class="page-header">
       <h1>The Friis Equation</h1>
     </div>
 
+    <img src="images/friis_pic.png">
+    <img src="images/friis_eq.png">
 
-      <img src="images/friis_pic.png"> <img src="images/friis_eq.png">
-
-
-<form method="post" class="form-inline" id="myform">
-
+    <form method="post" class="form-inline" id="myform">
 
       <div class="row">
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in1">G<sub>t</sub></label>
-          <input type="text" placeholder="Transmitter gain" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in1" name="n1" value="">
 
-          <select class="form-control input-md" id="gt_sel" name="gt_si" style="width: 90px">
-              <option value="dless">d'less</option>
-              <option value="dbi">dBi</option>
-              <option value="dbd">dBd</option>  
-          </select>
-          
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in1">
+          G
+          <sub>t</sub>
+        </label>
+        <input type="text" placeholder="Transmitter gain" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in1" name="n1"
+          value="">
+
+        <select class="form-control input-md" id="gt_sel" name="gt_si" style="width: 90px">
+          <option value="dless">d'less</option>
+          <option value="dbi">dBi</option>
+          <option value="dbd">dBd</option>
+        </select>
+
       </div>
       <br />
 
 
 
-      
-
-      <div class="row">
-        
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in2">G<sub>r</sub></label>
-          <input type="text" placeholder="Receiver gain" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in2" name="n2" value="">
-
-          <select class="form-control input-md" id="gr_sel" name="gr_si" style="width: 90px">
-              <option value="dless">d'less</option>
-              <option value="dbi">dBi</option>
-              <option value="dbd">dBd</option>
-          </select>
-
-      
-
-  
-      </div>
-      <br />
-
-      
-
-      <div class="row">
-     
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in3">d</label>
-          <input type="text" placeholder="Distance" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in3" name="n3" value="">
-
-          <select class="form-control input-md" id="d_sel" name="d_si" style="width: 90px">
-              <option value="cm">cm</option>
-              <option value="m" selected="selected">m</option>
-              <option value="km">km</option>
-              
-          </select>
-
-    
-
-   
-      </div>
-      <br />
-
-     
 
 
       <div class="row">
-       
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in4">P<sub>t</sub></label>
-          <input type="text" placeholder="Transmitter power" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in4" name="n4" value="">
 
-          <select class="form-control input-md" id="pt_sel" name="pt_si" style="width: 90px">
-            <option value="mw">mW</option>
-            <option value="w">W</option>
-            <option value="dbm" selected="selected">dBm</option>
-            <option value="dbw">dBW</option>
-          </select>
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in2">G
+          <sub>r</sub>
+        </label>
+        <input type="text" placeholder="Receiver gain" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in2" name="n2"
+          value="">
+
+        <select class="form-control input-md" id="gr_sel" name="gr_si" style="width: 90px">
+          <option value="dless">d'less</option>
+          <option value="dbi">dBi</option>
+          <option value="dbd">dBd</option>
+        </select>
 
 
-    
+
+
       </div>
       <br />
 
 
-       <div class="row">
-     
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in5">
-            
-            <select class="form-control" id="wf" name="wff">
-              <option value="0">f</option>
-              <option value="1">λ</option>  
-            </select>
 
-          </label>
-                
-          <input type="text" placeholder="Frequency" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in5" name="n5" value="">
-          
-          <select class="form-control input-md" id="freq_sel"  name="freq_si" style="width: 90px">
-              <option id="o1" value="hz">Hz</option>
-              <option id="o2" value="mhz" selected="selected">MHz</option>
-              <option id="o3" value="ghz">GHz</option>  
+      <div class="row">
+
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in3">d</label>
+        <input type="text" placeholder="Distance" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in3" name="n3" value="">
+
+        <select class="form-control input-md" id="d_sel" name="d_si" style="width: 90px">
+          <option value="cm">cm</option>
+          <option value="m" selected="selected">m</option>
+          <option value="km">km</option>
+
+        </select>
+
+
+
+
+      </div>
+      <br />
+
+
+
+
+      <div class="row">
+
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in4">P
+          <sub>t</sub>
+        </label>
+        <input type="text" placeholder="Transmitter power" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in4" name="n4"
+          value="">
+
+        <select class="form-control input-md" id="pt_sel" name="pt_si" style="width: 90px">
+          <option value="mw">mW</option>
+          <option value="w">W</option>
+          <option value="dbm" selected="selected">dBm</option>
+          <option value="dbw">dBW</option>
+        </select>
+
+
+
+      </div>
+      <br />
+
+
+      <div class="row">
+
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center" for="in5">
+
+          <select class="form-control" id="wf" name="wff">
+            <option value="0">f</option>
+            <option value="1">λ</option>
           </select>
-      </div>  
+
+        </label>
+
+        <input type="text" placeholder="Frequency" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="in5" name="n5" value="">
+
+        <select class="form-control input-md" id="freq_sel" name="freq_si" style="width: 90px">
+          <option id="o1" value="hz">Hz</option>
+          <option id="o2" value="mhz" selected="selected">MHz</option>
+          <option id="o3" value="ghz">GHz</option>
+        </select>
+      </div>
       <br />
 
       <div class="border"></div>
       <br />
 
       <div class="row">
-    
-          <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center">
-              P<sub>r</sub>
-          </label>
-                
-          <input type="text" placeholder="Power received" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="disabledInput" value="" disabled="" >
-          
-          <select class="form-control input-md" id="rez_sel" name="rez_si" style="width: 90px">
-              <option value="mw">mW</option>
-              <option value="w">W</option>
-              <option value="dbm" selected="selected">dBm</option>
-              <option value="dbw">dBW</option>
-          </select>
 
+        <label class="col-md-1 col-sm-1 col-xs-1 vcenter text-center">
+          P
+          <sub>r</sub>
+        </label>
 
-   
-      </div>  
-      <br />
-      
-      <div class="row">
-      	<input href="#chartContainer" class="btn btn-primary col-md-2 col-sm-2 col-xs-1" type="submit" id="sub_but" name="submit" value="Calculate">
-      	<input class="btn btn-danger col-md-2 col-md-offset-2" type="reset" value="Reset" id="res">
+        <input type="text" placeholder="Power received" class="form-control vcenter col-md-2 col-sm-2 col-xs-1" id="disabledInput"
+          value="" disabled="">
+
+        <select class="form-control input-md" id="rez_sel" name="rez_si" style="width: 90px">
+          <option value="mw">mW</option>
+          <option value="w">W</option>
+          <option value="dbm" selected="selected">dBm</option>
+          <option value="dbw">dBW</option>
+        </select>
+
       </div>
-  </form>
+      <br />
+
+      <div class="row">
+        <input href="#chartContainer" class="btn btn-primary col-md-2 col-sm-2 col-xs-1" type="submit" id="sub_but" name="submit"
+          value="Calculate">
+        <input class="btn btn-danger col-md-2 col-md-offset-2" type="reset" value="Reset" id="res">
+      </div>
+    </form>
 
 
 
 
-  
-<div id ="chart" style="display: none;">
-  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-</div>
 
+    <div id="chart" style="display: none;">
+      <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    </div>
 
-    
-    
-  </div><!-- container / -->
+  </div>
+  <!-- container / -->
 </body>
+
 </html>
