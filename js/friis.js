@@ -637,6 +637,10 @@ $(document).ready(function () {
                         }
                     });
                     $("#chart").show();
+                    var element_to_scroll_to = document.getElementById('chart');
+                    element_to_scroll_to.scrollIntoView();
+               
+                    
                 }
             });
         }
