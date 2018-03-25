@@ -241,16 +241,7 @@
         
         }
 
-
-  
-
-    $fp = fopen('results/friis_rez.json', 'w'); //upis rezultata za ispis
-    fwrite($fp, json_encode($result));
-    fclose($fp);
-
-
-    $wp = fopen('results/friis_pts.json', 'w'); //upis tocaka za graf
-    fwrite($wp, json_encode($dataPoints)); 
-    fclose($wp);
+     //upis rezultata za ispis
+    echo json_encode(array("tocke" => $dataPoints, "rezultat" => $result));
 
 ?>

@@ -2,6 +2,8 @@
 $(document).ready(function () { //resetiraj unose
     $("#res").click(function () {
         $("#myform")[0].reset();
+        $("label.error").hide();
+        $(".error").removeClass("error");
         $("#chart").hide();
     });
 });
@@ -34,62 +36,65 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gt
         var gt = parseFloat(gt_val.value);
 
 
+        if (gt) {
+            if (gt_sel_prev == "dless") {
+                switch (gt_sel.value) {
+                    case "dbi":
+                        gt = 10 * Math.log10(gt);
 
-        if (gt_sel_prev == "dless") {
-            switch (gt_sel.value) {
-                case "dbi":
-                    gt = 10 * Math.log10(gt);
-
-                    gt_val.value = gt.toFixed(8);
-
-
-                    break;
-
-                case "dbd":
-                    gt = 10 * Math.log10(gt) - 2.15;
-
-                    gt_val.value = gt.toFixed(8);
+                        gt_val.value = gt.toFixed(3);
 
 
-                    break;
+                        break;
+
+                    case "dbd":
+                        gt = 10 * Math.log10(gt) - 2.15;
+
+                        gt_val.value = gt.toFixed(3);
+
+
+                        break;
+                }
+            }
+            else if (gt_sel_prev == "dbi") {
+                switch (gt_sel.value) {
+                    case "dbd":
+                        gt -= 2.15;
+
+                        gt_val.value = gt.toFixed(3);
+
+                        break;
+
+                    case "dless":
+                        gt = Math.pow(10, gt / 10);
+
+                        gt_val.value = gt.toFixed(3);
+
+                        break;
+
+                }
+            }
+            else if (gt_sel_prev == "dbd") {
+                switch (gt_sel.value) {
+                    case "dbi":
+                        gt += 2.15;
+
+                        gt_val.value = gt.toFixed(3);
+
+                        break;
+
+                    case "dless":
+                        gt += 2.15;
+                        gt = Math.pow(10, gt / 10);
+
+                        gt_val.value = gt.toFixed(3);
+
+                        break;
+
+                }
             }
         }
-        else if (gt_sel_prev == "dbi") {
-            switch (gt_sel.value) {
-                case "dbd":
-                    gt -= 2.15;
 
-                    gt_val.value = gt.toFixed(8);
-
-                    break;
-
-                case "dless":
-                    gt = Math.pow(10, gt / 10);
-
-                    gt_val.value = gt.toFixed(8);
-
-                    break;
-
-            }
-        } else if (gt_sel_prev == "dbd") {
-            switch (gt_sel.value) {
-                case "dbi":
-                    gt += 2.15;
-
-                    gt_val.value = gt.toFixed(8);
-
-                    break;
-
-                case "dless":
-                    gt += 2.15;
-                    gt = Math.pow(10, gt / 10);
-
-                    gt_val.value = gt.toFixed(8);
-
-                    break;
-
-            }
-        }
 
         gt_sel_prev = document.getElementById("gt_sel").value;
     });
@@ -105,62 +110,66 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gr
         var gr = parseFloat(gr_val.value);
 
 
+        if (gr) {
+            if (gr_sel_prev == "dless") {
+                switch (gr_sel.value) {
+                    case "dbi":
+                        gr = 10 * Math.log10(gr);
 
-        if (gr_sel_prev == "dless") {
-            switch (gr_sel.value) {
-                case "dbi":
-                    gr = 10 * Math.log10(gr);
-
-                    gr_val.value = gr.toFixed(8);
-
-
-                    break;
-
-                case "dbd":
-                    gr = 10 * Math.log10(gr) - 2.15;
-
-                    gr_val.value = gr.toFixed(8);
+                        gr_val.value = gr.toFixed(3);
 
 
-                    break;
+                        break;
+
+                    case "dbd":
+                        gr = 10 * Math.log10(gr) - 2.15;
+
+                        gr_val.value = gr.toFixed(3);
+
+
+                        break;
+                }
             }
+            else if (gr_sel_prev == "dbi") {
+                switch (gr_sel.value) {
+                    case "dbd":
+                        gr -= 2.15;
+
+                        gr_val.value = gr.toFixed(3);
+
+                        break;
+
+                    case "dless":
+                        gr = Math.pow(10, gr / 10);
+
+                        gr_val.value = gr.toFixed(3);
+
+                        break;
+
+                }
+            }
+            else if (gr_sel_prev == "dbd") {
+                switch (gr_sel.value) {
+                    case "dbi":
+                        gr += 2.15;
+
+                        gr_val.value = gr.toFixed(3);
+
+                        break;
+
+                    case "dless":
+                        gr += 2.15;
+                        gr = Math.pow(10, gr / 10);
+
+                        gr_val.value = gr.toFixed(3);
+
+                        break;
+
+                }
+            }
+
         }
-        else if (gr_sel_prev == "dbi") {
-            switch (gr_sel.value) {
-                case "dbd":
-                    gr -= 2.15;
 
-                    gr_val.value = gr.toFixed(8);
-
-                    break;
-
-                case "dless":
-                    gr = Math.pow(10, gr / 10);
-
-                    gr_val.value = gr.toFixed(8);
-
-                    break;
-
-            }
-        } else if (gr_sel_prev == "dbd") {
-            switch (gr_sel.value) {
-                case "dbi":
-                    gr += 2.15;
-
-                    gr_val.value = gr.toFixed(8);
-
-                    break;
-
-                case "dless":
-                    gr += 2.15;
-                    gr = Math.pow(10, gr / 10);
-
-                    gr_val.value = gr.toFixed(8);
-
-                    break;
-
-            }
-        }
 
         gr_sel_prev = document.getElementById("gr_sel").value;
     });
@@ -182,7 +191,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
                     case "km":
                         d = d / 1000;
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
 
                         break;
@@ -190,7 +199,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
                     case "cm":
                         d = d * 100;
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
 
                         break;
@@ -201,14 +210,14 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
                     case "m":
                         d = d * 1000;
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
                         break;
 
                     case "cm":
                         d = d * 100000;
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
                         break;
 
@@ -218,7 +227,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
                     case "km":
                         d = d / 100000;
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
                         break;
 
@@ -226,7 +235,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
                         d = d / 100;
 
 
-                        d_val.value = d.toFixed(8);
+                        d_val.value = d.toFixed(3);
 
                         break;
 
@@ -252,20 +261,20 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
                 switch (pt_sel.value) {
                     case "w":
                         pt = pt / 1000;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbm":
                         pt = pt / 1000;
                         pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbw":
                         pt = pt / 1000;
                         pt = 10 * Math.log10(pt);
 
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
                 }
             }
@@ -273,17 +282,17 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
                 switch (pt_sel.value) {
                     case "mw":
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbm":
                         pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbw":
                         pt = 10 * Math.log10(pt);
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
                 }
             }
@@ -293,18 +302,18 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
                         pt -= 30;
                         pt = Math.pow(10, pt / 10);
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "w":
                         pt -= 30;
                         pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbw":
                         pt = pt - 30;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
                 }
             }
@@ -314,17 +323,17 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
                     case "mw":
                         pt = Math.pow(10, pt / 10);
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "w":
                         pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
 
                     case "dbm":
                         pt += 30;
-                        pt_val.value = pt.toFixed(8);
+                        pt_val.value = pt.toFixed(3);
                         break;
                 }
             }
@@ -364,12 +373,12 @@ $(document).ready(function () { //promjena unosa za frekvenciju
         if (ulaz) {
             if (o == 'hz') {
                 out = 3e8 / ulaz;
-                out = out.toFixed(8);
+                out = out.toFixed(3);
                 $('#in5').val(out * 1000);
             }
             if (o == 'mhz') {
                 out = 3e8 / (ulaz * 1000000);
-                out = out.toFixed(8);
+                out = out.toFixed(3);
                 $('#in5').val(out * 100);
             }
             if (o == 'ghz') {
@@ -469,7 +478,7 @@ $(document).ready(function () { //promjena rezultata i submit buttona
                 switch (rez_sel.value) {
                     case "w":
                         rez = rez / 1000;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbm":
@@ -549,10 +558,6 @@ $(document).ready(function () { //promjena rezultata i submit buttona
         }
 
         rez_sel_prev = document.getElementById("rez_sel").value;
-
-
-
-
     });
 });
 
@@ -592,6 +597,7 @@ $(document).ready(function () {
 
             },
         },
+        onfocusout: false,
 
         errorPlacement: function (error, element) {
             element.parent().append(error); //postavi prikaz errora na kraj
@@ -602,45 +608,43 @@ $(document).ready(function () {
                 type: 'post',
                 url: 'friis.php',
                 data: $('#myform').serialize(),
-                success: function () {
-                    var dataPoints = [];
-                    $.getJSON("results/friis_pts.json", function (data) { //uzmi JSON za tocke grafa
-                        $.each(data, function (key, value) {
-                            dataPoints.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
-                        });
+                success: function (response) {
+                    console.log(response);
 
-                        var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
-                            zoomEnabled: true,
-                            animationEnabled: true,
-                            exportEnabled: true,
-                            theme: "theme3",
+                    var data_array = $.parseJSON(response);
 
-                            axisY: {
-                                title: "Power received" + " [" + rez_sel.value + "]"
-                            },
-                            axisX: {
-                                title: "Distance" + " [" + d_sel.value + "]"
-                            },
-                            data: [{
+                    var tocke_grafa = []; //array za tocke grafa
 
-                                type: "spline",
-                                dataPoints: dataPoints,
-                            }]
-                        });
-                        chart.render();
+                    //uzmi JSON za tocke grafa
+                    $.each(data_array.tocke, function (key, value) {
+                        tocke_grafa.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
                     });
 
-                    $.ajax({ //vrati rezultat
-                        url: "results/friis_rez.json",
-                        success: function (result) {
-                            $("#disabledInput").val(result.toFixed(8));
-                        }
+                    var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
+                        zoomEnabled: true,
+                        exportEnabled: true,
+                        theme: "theme3",
+
+                        axisY: {
+                            title: "Power received" + " [" + rez_sel.value + "]"
+                        },
+                        axisX: {
+                            title: "Distance" + " [" + d_sel.value + "]"
+                        },
+                        data: [{
+                            type: "spline",
+                            dataPoints: tocke_grafa,
+                        }]
                     });
+                    chart.render();
+
+                    $("#disabledInput").val(data_array.rezultat.toFixed(8));
+
                     $("#chart").show();
                     var element_to_scroll_to = document.getElementById('chart');
                     element_to_scroll_to.scrollIntoView();
-               
-                    
+
+
                 }
             });
         }
