@@ -40,56 +40,56 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gt
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
                     case "dbi":
-                        gt = 10 * Math.log10(gt);
+                    gt = 10 * Math.log10(gt);
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
 
-                        break;
+                    break;
 
                     case "dbd":
-                        gt = 10 * Math.log10(gt) - 2.15;
+                    gt = 10 * Math.log10(gt) - 2.15;
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
 
-                        break;
+                    break;
                 }
             }
             else if (gt_sel_prev == "dbi") {
                 switch (gt_sel.value) {
                     case "dbd":
-                        gt -= 2.15;
+                    gt -= 2.15;
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
-                        break;
+                    break;
 
                     case "dless":
-                        gt = Math.pow(10, gt / 10);
+                    gt = Math.pow(10, gt / 10);
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             }
             else if (gt_sel_prev == "dbd") {
                 switch (gt_sel.value) {
                     case "dbi":
-                        gt += 2.15;
+                    gt += 2.15;
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
-                        break;
+                    break;
 
                     case "dless":
-                        gt += 2.15;
-                        gt = Math.pow(10, gt / 10);
+                    gt += 2.15;
+                    gt = Math.pow(10, gt / 10);
 
-                        gt_val.value = gt.toFixed(3);
+                    gt_val.value = gt.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             }
@@ -116,56 +116,56 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gr
             if (gr_sel_prev == "dless") {
                 switch (gr_sel.value) {
                     case "dbi":
-                        gr = 10 * Math.log10(gr);
+                    gr = 10 * Math.log10(gr);
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
 
-                        break;
+                    break;
 
                     case "dbd":
-                        gr = 10 * Math.log10(gr) - 2.15;
+                    gr = 10 * Math.log10(gr) - 2.15;
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
 
-                        break;
+                    break;
                 }
             }
             else if (gr_sel_prev == "dbi") {
                 switch (gr_sel.value) {
                     case "dbd":
-                        gr -= 2.15;
+                    gr -= 2.15;
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
-                        break;
+                    break;
 
                     case "dless":
-                        gr = Math.pow(10, gr / 10);
+                    gr = Math.pow(10, gr / 10);
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             }
             else if (gr_sel_prev == "dbd") {
                 switch (gr_sel.value) {
                     case "dbi":
-                        gr += 2.15;
+                    gr += 2.15;
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
-                        break;
+                    break;
 
                     case "dless":
-                        gr += 2.15;
-                        gr = Math.pow(10, gr / 10);
+                    gr += 2.15;
+                    gr = Math.pow(10, gr / 10);
 
-                        gr_val.value = gr.toFixed(3);
+                    gr_val.value = gr.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             }
@@ -191,55 +191,55 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
             if (d_sel_prev == "m") {
                 switch (d_sel.value) {
                     case "km":
-                        d = d / 1000;
+                    d = d / 1000;
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
 
-                        break;
+                    break;
 
                     case "cm":
-                        d = d * 100;
+                    d = d * 100;
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
 
-                        break;
+                    break;
                 }
             }
             else if (d_sel_prev == "km") {
                 switch (d_sel.value) {
                     case "m":
-                        d = d * 1000;
+                    d = d * 1000;
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
-                        break;
+                    break;
 
                     case "cm":
-                        d = d * 100000;
+                    d = d * 100000;
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             } else if (d_sel_prev == "cm") {
                 switch (d_sel.value) {
                     case "km":
-                        d = d / 100000;
+                    d = d / 100000;
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
-                        break;
+                    break;
 
                     case "m":
-                        d = d / 100;
+                    d = d / 100;
 
 
-                        d_val.value = d.toFixed(3);
+                    d_val.value = d.toFixed(3);
 
-                        break;
+                    break;
 
                 }
             }
@@ -262,81 +262,81 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
             if (pt_sel_prev == "mw") {
                 switch (pt_sel.value) {
                     case "w":
-                        pt = pt / 1000;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = pt / 1000;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbm":
-                        pt = pt / 1000;
-                        pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = pt / 1000;
+                    pt = 10 * Math.log10(pt) + 30;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbw":
-                        pt = pt / 1000;
-                        pt = 10 * Math.log10(pt);
+                    pt = pt / 1000;
+                    pt = 10 * Math.log10(pt);
 
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt_val.value = pt.toFixed(3);
+                    break;
                 }
             }
             else if (pt_sel_prev == "w") {
                 switch (pt_sel.value) {
                     case "mw":
-                        pt = pt * 1000;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = pt * 1000;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbm":
-                        pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = 10 * Math.log10(pt) + 30;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbw":
-                        pt = 10 * Math.log10(pt);
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = 10 * Math.log10(pt);
+                    pt_val.value = pt.toFixed(3);
+                    break;
                 }
             }
             else if (pt_sel_prev == "dbm") {
                 switch (pt_sel.value) {
                     case "mw":
-                        pt -= 30;
-                        pt = Math.pow(10, pt / 10);
-                        pt = pt * 1000;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt -= 30;
+                    pt = Math.pow(10, pt / 10);
+                    pt = pt * 1000;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "w":
-                        pt -= 30;
-                        pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt -= 30;
+                    pt = Math.pow(10, pt / 10);
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbw":
-                        pt = pt - 30;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = pt - 30;
+                    pt_val.value = pt.toFixed(3);
+                    break;
                 }
             }
 
             else if (pt_sel_prev == "dbw") {
                 switch (pt_sel.value) {
                     case "mw":
-                        pt = Math.pow(10, pt / 10);
-                        pt = pt * 1000;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = Math.pow(10, pt / 10);
+                    pt = pt * 1000;
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "w":
-                        pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt = Math.pow(10, pt / 10);
+                    pt_val.value = pt.toFixed(3);
+                    break;
 
                     case "dbm":
-                        pt += 30;
-                        pt_val.value = pt.toFixed(3);
-                        break;
+                    pt += 30;
+                    pt_val.value = pt.toFixed(3);
+                    break;
                 }
             }
 
@@ -479,81 +479,81 @@ $(document).ready(function () { //promjena rezultata i submit buttona
             if (rez_sel_prev == "mw") {
                 switch (rez_sel.value) {
                     case "w":
-                        rez = rez / 1000;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = rez / 1000;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbm":
-                        rez = rez / 1000;
-                        rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = rez / 1000;
+                    rez = 10 * Math.log10(rez) + 30;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbw":
-                        rez = rez / 1000;
-                        rez = 10 * Math.log10(rez);
+                    rez = rez / 1000;
+                    rez = 10 * Math.log10(rez);
 
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez_val.value = rez.toFixed(3);
+                    break;
                 }
             }
             else if (rez_sel_prev == "w") {
                 switch (rez_sel.value) {
                     case "mw":
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = rez * 1000;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbm":
-                        rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = 10 * Math.log10(rez) + 30;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbw":
-                        rez = 10 * Math.log10(rez);
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = 10 * Math.log10(rez);
+                    rez_val.value = rez.toFixed(3);
+                    break;
                 }
             }
             else if (rez_sel_prev == "dbm") {
                 switch (rez_sel.value) {
                     case "mw":
-                        rez -= 30;
-                        rez = Math.pow(10, rez / 10);
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez -= 30;
+                    rez = Math.pow(10, rez / 10);
+                    rez = rez * 1000;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "w":
-                        rez -= 30;
-                        rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez -= 30;
+                    rez = Math.pow(10, rez / 10);
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbw":
-                        rez = rez - 30;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = rez - 30;
+                    rez_val.value = rez.toFixed(3);
+                    break;
                 }
             }
 
             else if (rez_sel_prev == "dbw") {
                 switch (rez_sel.value) {
                     case "mw":
-                        rez = Math.pow(10, rez / 10);
-                        rez = rez * 1000;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = Math.pow(10, rez / 10);
+                    rez = rez * 1000;
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "w":
-                        rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez = Math.pow(10, rez / 10);
+                    rez_val.value = rez.toFixed(3);
+                    break;
 
                     case "dbm":
-                        rez += 30;
-                        rez_val.value = rez.toFixed(3);
-                        break;
+                    rez += 30;
+                    rez_val.value = rez.toFixed(3);
+                    break;
                 }
             }
 
@@ -599,7 +599,7 @@ $(document).ready(function () {
 
             },
         },
-       
+        
 
         errorPlacement: function (error, element) {
             element.parent().append(error); //postavi prikaz errora na kraj
