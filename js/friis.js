@@ -36,7 +36,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gt
         var gt = parseFloat(gt_val.value);
 
 
-        if (gt) {
+        if (gt!=0) {
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
                     case "dbi":
@@ -94,6 +94,8 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gt
                 }
             }
         }
+
+
 
 
         gt_sel_prev = document.getElementById("gt_sel").value;
@@ -383,7 +385,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             }
             if (o == 'ghz') {
                 out = 3e8 / (ulaz * 1000000000);
-                out = out.toFixed(8);
+                out = out.toFixed(3);
                 $('#in5').val(out);
             }
         }
@@ -484,14 +486,14 @@ $(document).ready(function () { //promjena rezultata i submit buttona
                     case "dbm":
                         rez = rez / 1000;
                         rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbw":
                         rez = rez / 1000;
                         rez = 10 * Math.log10(rez);
 
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
                 }
             }
@@ -499,17 +501,17 @@ $(document).ready(function () { //promjena rezultata i submit buttona
                 switch (rez_sel.value) {
                     case "mw":
                         rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbm":
                         rez = 10 * Math.log10(rez) + 30;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbw":
                         rez = 10 * Math.log10(rez);
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
                 }
             }
@@ -519,18 +521,18 @@ $(document).ready(function () { //promjena rezultata i submit buttona
                         rez -= 30;
                         rez = Math.pow(10, rez / 10);
                         rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "w":
                         rez -= 30;
                         rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbw":
                         rez = rez - 30;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
                 }
             }
@@ -540,17 +542,17 @@ $(document).ready(function () { //promjena rezultata i submit buttona
                     case "mw":
                         rez = Math.pow(10, rez / 10);
                         rez = rez * 1000;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "w":
                         rez = Math.pow(10, rez / 10);
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
 
                     case "dbm":
                         rez += 30;
-                        rez_val.value = rez.toFixed(8);
+                        rez_val.value = rez.toFixed(3);
                         break;
                 }
             }
@@ -597,7 +599,7 @@ $(document).ready(function () {
 
             },
         },
-        onfocusout: false,
+       
 
         errorPlacement: function (error, element) {
             element.parent().append(error); //postavi prikaz errora na kraj
@@ -609,7 +611,7 @@ $(document).ready(function () {
                 url: 'friis.php',
                 data: $('#myform').serialize(),
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
 
                     var data_array = $.parseJSON(response);
 
@@ -617,7 +619,7 @@ $(document).ready(function () {
 
                     //uzmi JSON za tocke grafa
                     $.each(data_array.tocke, function (key, value) {
-                        tocke_grafa.push({ x: value[0], y: parseFloat(value[1].toFixed(8)) });
+                        tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
                     });
 
                     var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
@@ -638,7 +640,7 @@ $(document).ready(function () {
                     });
                     chart.render();
 
-                    $("#disabledInput").val(data_array.rezultat.toFixed(8));
+                    $("#disabledInput").val(data_array.rezultat.toFixed(3));
 
                     $("#chart").show();
                     var element_to_scroll_to = document.getElementById('chart');
@@ -650,5 +652,4 @@ $(document).ready(function () {
         }
     });
 });
-
 
