@@ -1,9 +1,9 @@
 <?php 
 
-$dataPoints = array();
+    $dataPoints = array();
 
-$gt = $_POST['n1'];
-$gr = $_POST['n2'];
+    $gt = $_POST['n1'];
+    $gr = $_POST['n2'];
     $d = $_POST['n3']; //udaljenost
     $pt = $_POST['n4'];
     $freq = $_POST['n5'];
