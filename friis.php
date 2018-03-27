@@ -2,13 +2,13 @@
 
     $dataPoints = array();
 
-    $gt = $_POST['n1'];
-    $gr = $_POST['n2'];
-    $d = $_POST['n3']; //udaljenost
-    $pt = $_POST['n4'];
-    $freq = $_POST['n5'];
+    $gt = $_POST['gt'];
+    $gr = $_POST['gr'];
+    $d = $_POST['d']; //udaljenost
+    $pt = $_POST['pt'];
+    $freq = $_POST['freq'];
     
-    $d_tocke = $_POST['n3']; //za kasniji unos
+    $d_tocke = $_POST['d']; //za kasniji unos
 
     $gt_sel = $_POST['gt_si'];
     $gr_sel = $_POST['gr_si'];
@@ -31,30 +31,30 @@
             
         }
 
-        switch($gt_sel) //pretvoriti u dbi
+        switch($gt_sel) //pretvoriti u dBi
         {
 
             case 'dless':
             $gt = 10*log10($gt);
             break;
 
-            case 'dbd':
+            case 'dBd':
             $gt = $gt+2.15;
             break;
         }
 
-        switch($gr_sel) //pretvoriti u dbi
+        switch($gr_sel) //pretvoriti u dBi
         {
             case 'dless':
             $gr = 10*log10($gr);
             break;
 
-            case 'dbd':
+            case 'dBd':
             $gr = $gr+2.15;
             break;
         }
 
-        switch($pt_sel) //pretvoriti u dbm
+        switch($pt_sel) //pretvoriti u dBm
         {
             case 'w':{
                 $pt = 10*log10($pt);
@@ -62,14 +62,14 @@
                 break;
             }
 
-            case 'mw':{
+            case 'mW':{
                 $pt = $pt / 1000;
                 $pt = 10*log10($pt);
                 $pt = $pt + 30;
                 break;
             }
 
-            case 'dbw':
+            case 'dBW':
             $pt = $pt + 30;
             break;
         }
@@ -77,15 +77,15 @@
     if ($wf_sel == "1"){ //ovisno jel odabrana f ili lambda
         switch($freq_sel) //pretvaranje u metre
         {
-            case 'mhz': //pretvori u cm
+            case 'MHz': //pretvori u cm
             $lambda = $freq/100;
             break;
 
-            case 'ghz': //pretvori u mm
+            case 'GHz': //pretvori u mm
             $lambda = $freq;
             break;
 
-            case 'hz': //pretvori u mm
+            case 'Hz': //pretvori u mm
             $lambda = $freq/1000;
             break;
         }
@@ -93,18 +93,18 @@
     }
     
     else{
-        switch($freq_sel) // pretvorba u hz
+        switch($freq_sel) // pretvorba u Hz
         {
-            case 'mhz':
-            $freq = doubleval($_POST['n5']*1000000);
+            case 'MHz':
+            $freq = doubleval($_POST['freq']*1000000);
             break;
 
-            case 'ghz':
-            $freq = doubleval($_POST['n5']*1000000000);
+            case 'GHz':
+            $freq = doubleval($_POST['freq']*1000000000);
             break;
 
-            case 'hz':
-            $freq = doubleval($_POST['n5']);
+            case 'Hz':
+            $freq = doubleval($_POST['freq']);
             break;
         }
 
@@ -112,19 +112,25 @@
     }
     
 
-    $result = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$d)); //rezultat za metre, hz, dbi i dbm, za rez u dbm print
+    $result = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$d)); //rezultat za metre, Hz, dBi i dBm, za rez u dBm print
+    
 
     switch($rez_sel) //zadnje prije ispisa svega, ovdje napravit za tocke i pretvorbu u kilometre
     {
 
-        case 'mw':{
+        case 'mW':{
             $result = pow(10, (($result-30)/10))*1000;
-
+            
             if ($d_sel == "km"){
+                
+                
                 for($i = 1; $i <= $d_tocke; $i++){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     $y = pow(10, (($y-30)/10))*1000;
+
                     array_push($dataPoints, array($i, $y));
+                   
+
                 }
 
             }
@@ -181,7 +187,7 @@
             break;
         }
 
-        case 'dbw':{         
+        case 'dBW':{         
             $result = $result - 30;
 
             if ($d_sel == "km"){
@@ -212,7 +218,7 @@
         }
 
 
-        case 'dbm':{
+        case 'dBm':{
 
             if ($d_sel == "km"){
                 for($i = 1; $i <= $d_tocke; $i++){
@@ -230,9 +236,10 @@
             }
 
             else{
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d/50;
+                for($i = 1; $i < $d_tocke; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
-                    array_push($dataPoints, array($i, round($y, 3) ));
+                    array_push($dataPoints, array($i, $y));
                 }
             }
             
@@ -241,6 +248,8 @@
         
     }
 
+
+    array_push($dataPoints, array((float)$d_tocke, $result));
     
      //upis rezultata za ispis
     echo json_encode(array("tocke" => $dataPoints, "rezultat" => round($result, 3)));
