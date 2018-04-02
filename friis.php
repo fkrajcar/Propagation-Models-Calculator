@@ -252,6 +252,6 @@
     array_push($dataPoints, array((float)$d_tocke, $result));
     
      //upis rezultata za ispis
-    echo json_encode(array("tocke" => $dataPoints, "rezultat" => round($result, 3)));
+    echo json_encode(array("tocke" => $dataPoints, "rezultat" => round($result, 6)));
 
     ?>
