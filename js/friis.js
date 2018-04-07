@@ -598,7 +598,6 @@ $(document).ready(function() {
 
                             zoomEnabled: true,
                             exportEnabled: true,
-                            theme: "theme3",
 
                             axisY: {
                                 title: "Power received" + " [" + rez_sel.value + "]"
@@ -607,14 +606,14 @@ $(document).ready(function() {
                                 title: "Distance" + " [" + d_sel.value + "]"
                             },
                             data: [{
+                                markerType: "none",
                                 type: "spline",
                                 dataPoints: tocke_grafa
-
                             }]
                         });
                         chart.render();
 
-                        $("#rez").val(data_array.rezultat.toFixed(6));
+                        $("#rez").val(data_array.rezultat);
 
                         $("#chart").show();
                         var element_to_scroll_to = document.getElementById('chart');
@@ -650,7 +649,6 @@ $(document).ready(function() {
 
                     zoomEnabled: true,
                     exportEnabled: true,
-                    theme: "theme3",
 
                     axisY: {
                         title: "Power received" + " [" + rez_sel.value + "]"
@@ -659,6 +657,7 @@ $(document).ready(function() {
                         title: "Distance" + " [" + d_sel.value + "]"
                     },
                     data: [{
+                        markerType: "none",
                         type: "spline",
                         dataPoints: tocke_grafa
 
@@ -666,12 +665,11 @@ $(document).ready(function() {
                 });
                 chart.render();
 
-                $("#rez").val(data_array.rezultat.toFixed(6));
+                $("#rez").val(data_array.rezultat);
 
                 $("#chart").show();
                 var element_to_scroll_to = document.getElementById('chart');
                 element_to_scroll_to.scrollIntoView();
-
             }
         });
     });
