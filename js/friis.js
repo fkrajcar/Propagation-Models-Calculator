@@ -559,7 +559,7 @@ $(document).ready(function() {
                 d: { //minimalno 1 metar za graf
                     required: true,
                     number: true,
-                    min: 1,
+                    min: 0.001,
                     max: 100000
                 },
                 pt: {
@@ -619,9 +619,6 @@ $(document).ready(function() {
                         $("#chart").show();
                         var element_to_scroll_to = document.getElementById('chart');
                         element_to_scroll_to.scrollIntoView();
-
-
-
                     }
                 });
             }

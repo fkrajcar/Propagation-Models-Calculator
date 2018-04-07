@@ -122,9 +122,8 @@
             $result = pow(10, (($result-30)/10))*1000;
             
             if ($d_sel == "km"){
-                
-                
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     $y = pow(10, (($y-30)/10))*1000;
 
@@ -136,7 +135,8 @@
             }
 
             else if ($d_sel == "cm"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                     $y = pow(10, (($y-30)/10))*1000;
                     array_push($dataPoints, array($i, $y));
@@ -145,7 +145,8 @@
             }
 
             else{
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
                     $y = pow(10, (($y-30)/10))*1000;
                     array_push($dataPoints, array($i, $y));
@@ -159,7 +160,8 @@
             $result = pow(10, (($result-30)/10));
 
             if ($d_sel == "km"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     $y = pow(10, (($y-30)/10));
                     array_push($dataPoints, array($i, $y));
@@ -168,7 +170,8 @@
             }
 
             else if ($d_sel == "cm"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                     $y = pow(10, (($y-30)/10));
                     array_push($dataPoints, array($i, $y));
@@ -177,7 +180,8 @@
             }
 
             else{
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
                     $y = pow(10, (($y-30)/10));
                     array_push($dataPoints, array($i, $y));
@@ -191,7 +195,8 @@
             $result = $result - 30;
 
             if ($d_sel == "km"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     $y = $y-30;
                     array_push($dataPoints, array($i,$y));
@@ -199,7 +204,8 @@
             }
             
             else if ($d_sel == "cm"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                     $y = $y-30;
                     array_push($dataPoints, array($i,$y));
@@ -207,7 +213,8 @@
             }
             
             else{
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
                     $y = $y-30;
                     array_push($dataPoints, array($i,$y));
@@ -221,7 +228,8 @@
         case 'dBm':{
 
             if ($d_sel == "km"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     array_push($dataPoints, array($i, $y));
                 }
@@ -229,15 +237,16 @@
             }
 
             else if ($d_sel == "cm"){
-                for($i = 1; $i <= $d_tocke; $i++){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
                     array_push($dataPoints, array($i, $y));
                 }
             }
 
             else{
-                $brojac = $d/50;
-                for($i = 1; $i < $d_tocke; $i=$i+$brojac){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
                     $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
                     array_push($dataPoints, array($i, $y));
                 }
@@ -249,7 +258,7 @@
     }
 
 
-    array_push($dataPoints, array((float)$d_tocke, $result));
+    array_push($dataPoints, array((float)$d_tocke, $result)); //pushaj zadnju tocku za graf
     
      //upis rezultata za ispis
     echo json_encode(array("tocke" => $dataPoints, "rezultat" => round($result, 6)));
