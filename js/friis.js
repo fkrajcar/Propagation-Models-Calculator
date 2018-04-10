@@ -33,35 +33,27 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gt
         var gt_val = document.getElementById("gt");
         var gt_sel = document.getElementById("gt_sel");
         var gt = parseFloat(gt_val.value);
-        console.log(gt);
+        //console.log(gt);
 
         if (!isNaN(gt)) {
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
                     case "dBi":
                         gt = 10 * Math.log10(gt);
-                        gt_val.value = gt.toFixed(6);
-
                         break;
 
                     case "dBd":
                         gt = 10 * Math.log10(gt) - 2.15;
-                        gt_val.value = gt.toFixed(6);
-
                         break;
                 }
             } else if (gt_sel_prev == "dBi") {
                 switch (gt_sel.value) {
                     case "dBd":
                         gt -= 2.15;
-                        gt_val.value = gt.toFixed(6);
-
                         break;
 
                     case "dless":
                         gt = Math.pow(10, gt / 10);
-                        gt_val.value = gt.toFixed(6);
-
                         break;
 
                 }
@@ -69,20 +61,19 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gt
                 switch (gt_sel.value) {
                     case "dBi":
                         gt += 2.15;
-                        gt_val.value = gt.toFixed(6);
-
                         break;
 
                     case "dless":
                         gt += 2.15;
                         gt = Math.pow(10, gt / 10);
 
-                        gt_val.value = gt.toFixed(6);
 
                         break;
 
                 }
             }
+
+            gt_val.value = gt.toPrecision(8);
         }
 
         gt_sel_prev = document.getElementById("gt_sel").value;
@@ -103,28 +94,20 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
                 switch (gr_sel.value) {
                     case "dBi":
                         gr = 10 * Math.log10(gr);
-                        gr_val.value = gr.toFixed(6);
-
                         break;
 
                     case "dBd":
                         gr = 10 * Math.log10(gr) - 2.15;
-                        gr_val.value = gr.toFixed(6);
-
                         break;
                 }
             } else if (gr_sel_prev == "dBi") {
                 switch (gr_sel.value) {
                     case "dBd":
                         gr -= 2.15;
-                        gr_val.value = gr.toFixed(6);
-
                         break;
 
                     case "dless":
                         gr = Math.pow(10, gr / 10);
-                        gr_val.value = gr.toFixed(6);
-
                         break;
 
                 }
@@ -132,20 +115,17 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
                 switch (gr_sel.value) {
                     case "dBi":
                         gr += 2.15;
-                        gr_val.value = gr.toFixed(6);
-
                         break;
 
                     case "dless":
                         gr += 2.15;
                         gr = Math.pow(10, gr / 10);
-
-                        gr_val.value = gr.toFixed(6);
-
                         break;
 
                 }
             }
+
+            gr_val.value = gr.toPrecision(8);
 
         }
 
@@ -169,34 +149,20 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
                 switch (d_sel.value) {
                     case "km":
                         d = d / 1000;
-
-                        d_val.value = d.toFixed(6);
-
-
                         break;
 
                     case "cm":
                         d = d * 100;
-
-                        d_val.value = d.toFixed(6);
-
-
                         break;
                 }
             } else if (d_sel_prev == "km") {
                 switch (d_sel.value) {
                     case "m":
                         d = d * 1000;
-
-                        d_val.value = d.toFixed(6);
-
                         break;
 
                     case "cm":
                         d = d * 100000;
-
-                        d_val.value = d.toFixed(6);
-
                         break;
 
                 }
@@ -204,21 +170,17 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
                 switch (d_sel.value) {
                     case "km":
                         d = d / 100000;
-
-                        d_val.value = d.toFixed(6);
-
                         break;
 
                     case "m":
                         d = d / 100;
-
-
-                        d_val.value = d.toFixed(6);
-
                         break;
 
                 }
             }
+
+            d_val.value = d.toPrecision(8);
+
         }
         d_sel_prev = document.getElementById("d_sel").value;
     });
@@ -239,21 +201,24 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                 switch (pt_sel.value) {
                     case "w":
                         pt = pt / 1000;
-                        pt_val.value = pt.toFixed(6);
+                        
+
+                        break;
+
+                    case "nW":
+                        pt = pt * 1000000;
 
                         break;
 
                     case "dBm":
                         pt = pt / 1000;
                         pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(6);
 
                         break;
 
                     case "dBW":
                         pt = pt / 1000;
                         pt = 10 * Math.log10(pt);
-                        pt_val.value = pt.toFixed(6);
 
                         break;
                 }
@@ -261,19 +226,21 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                 switch (pt_sel.value) {
                     case "mW":
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(6);
+
+                        break;
+
+                    case "nW":
+                        pt = pt * 1000000000;
 
                         break;
 
                     case "dBm":
                         pt = 10 * Math.log10(pt) + 30;
-                        pt_val.value = pt.toFixed(6);
 
                         break;
 
                     case "dBW":
                         pt = 10 * Math.log10(pt);
-                        pt_val.value = pt.toFixed(6);
 
                         break;
                 }
@@ -283,20 +250,24 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                         pt -= 30;
                         pt = Math.pow(10, pt / 10);
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(6);
+
+                        break;
+
+                    case "nW":
+                        pt -= 30;
+                        pt = Math.pow(10, pt / 10);
+                        pt = pt * 1000000000;
 
                         break;
 
                     case "w":
                         pt -= 30;
                         pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(6);
 
                         break;
 
                     case "dBW":
                         pt = pt - 30;
-                        pt_val.value = pt.toFixed(6);
 
                         break;
                 }
@@ -305,26 +276,68 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                     case "mW":
                         pt = Math.pow(10, pt / 10);
                         pt = pt * 1000;
-                        pt_val.value = pt.toFixed(6);
+
+                        break;
+
+                    case "nW":
+                        pt = Math.pow(10, pt / 10);
+                        pt = pt * 1000000000;
 
                         break;
 
                     case "w":
                         pt = Math.pow(10, pt / 10);
-                        pt_val.value = pt.toFixed(6);
 
                         break;
 
                     case "dBm":
                         pt += 30;
-                        pt_val.value = pt.toFixed(6);
+
+                        break;
+                }
+            } else if (pt_sel_prev == "nW") {
+                switch (pt_sel.value) {
+                    case "w":
+                        pt = pt / 1000000000;
+
+                        break;
+
+                    case "mW":
+                        pt = pt / 1000000;
+
+                        break;
+
+                    case "dBm":
+                        pt = pt / 1000000000;
+                        pt = 10 * Math.log10(pt) + 30;
+
+                        break;
+
+                    case "dBW":
+                        pt = pt / 1000000000;
+                        pt = 10 * Math.log10(pt);
 
                         break;
                 }
             }
 
+            /*function numDigits(x) {
+                x = Number(String(x).replace(/[^0-9]/g, ''));
+                return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
+            }*/
+
+            /*if (numDigits(pt) > 8){
+                pt = pt.toFixed(6);
+                pt = pt.toExponential();
+                
+            }*/
+            
+            //console.log(numDigits(pt));
+            
+            pt_val.value = pt.toPrecision(6);
         }
 
+        
         pt_sel_prev = document.getElementById("pt_sel").value;
     });
 });
@@ -358,19 +371,21 @@ $(document).ready(function() { //promjena unosa za frekvenciju
         if (ulaz) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
-                out = out.toFixed(6);
+                out = out.toPrecision(8);
                 $('#freq').val(out * 1000);
             }
             if (o == 'MHz') {
                 out = 3e8 / (ulaz * 1000000);
-                out = out.toFixed(6);
+                out = out.toPrecision(8);
                 $('#freq').val(out * 100);
             }
             if (o == 'GHz') {
                 out = 3e8 / (ulaz * 1000000000);
-                out = out.toFixed(6);
+                out = out.toPrecision(8);
                 $('#freq').val(out);
             }
+
+
         }
 
 

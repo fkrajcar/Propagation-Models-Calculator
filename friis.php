@@ -62,6 +62,13 @@
                 break;
             }
 
+            case 'nW':{
+                $pt = $pt / 1000000000;
+                $pt = 10*log10($pt);
+                $pt = $pt + 30;
+                break;
+            }
+
             case 'mW':{
                 $pt = $pt / 1000;
                 $pt = 10*log10($pt);
@@ -117,6 +124,44 @@
 
     switch($rez_sel) //zadnje prije ispisa svega, ovdje napravit za tocke i pretvorbu u kilometre
     {
+
+        case 'nW':{
+            $result = pow(10, (($result-30)/10))*1000000000;
+            
+            if ($d_sel == "km"){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
+                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000000000));
+                    $y = pow(10, (($y-30)/10))*1000000000;
+
+                    array_push($dataPoints, array($i, $y));
+                   
+
+                }
+
+            }
+
+            else if ($d_sel == "cm"){
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
+                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i/100));
+                    $y = pow(10, (($y-30)/10))*1000000000;
+                    array_push($dataPoints, array($i, $y));
+                }
+
+            }
+
+            else{
+                $brojac = $d_tocke/50;
+                for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
+                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i));
+                    $y = pow(10, (($y-30)/10))*1000000000;
+                    array_push($dataPoints, array($i, $y));
+                }
+            }    
+
+            break;
+        }
 
         case 'mW':{
             $result = pow(10, (($result-30)/10))*1000;
