@@ -77,7 +77,6 @@
 
         case 'uVm':{
             $result = $result * 1e6;
-
             break;
         }
 

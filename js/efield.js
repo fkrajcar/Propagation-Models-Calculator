@@ -7,6 +7,13 @@ $(document).ready(function() { //resetiraj unose i errore
     });
 });
 
+$(document).ready(function () { //funkcija za tabove 
+    $("#myTab a").click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+});
+
 function numDigits(x) {
     x = Number(String(x).replace(/[^0-9]/g, ''));
     return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
@@ -17,6 +24,9 @@ $(document).ready(function() { //na klik za input odaberi cijeli input (lakse br
         this.select();
     });
     $("#gr").click(function() {
+        this.select();
+    });
+    $("#e").click(function() {
         this.select();
     });
     $("#d").click(function() {
@@ -165,6 +175,72 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
 
         }
         d_sel_prev = document.getElementById("d_sel").value;
+    });
+});
+
+$(document).ready(function() { //promjene unosa/mjernih jedinica - d
+
+    var e_sel_prev = document.getElementById("e_sel").value;
+
+    $("#e_sel").change(function() {
+        var e_val = document.getElementById("e");
+        var e_sel = document.getElementById("e_sel");
+        var e = parseFloat(e_val.value);
+
+        if (!isNaN(e)) {
+
+            if (e_sel_prev == "uVm") {
+                switch (e_sel.value) {
+                    case "Vm":
+                        e /= 1e6; 
+                        break;
+
+                    case "dBuVm":
+                        e /= 1e6;
+                        e = 20*Math.log10(e) + 120;
+                        break;
+                }
+            } else if (e_sel_prev == "Vm") {
+                switch (e_sel.value) {
+                    case "uVm":
+                        e *= 1e6; 
+                        break;
+
+                    case "dBuVm":
+                        e = 20*Math.log10(e) + 120;
+                        break;
+
+                }
+            } else if (e_sel_prev == "dBuVm") {
+                switch (e_sel.value) {
+                    case "uVm":
+                        e = Math.pow(10, (e-120) / 20);
+                        e *= 1e6;
+                        break;
+
+                    case "Vm":
+                        e = Math.pow(10, (e-120) / 20);
+                        break;
+
+                }
+            }
+
+            function numDigits(x) {
+                x = Number(String(x).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+            }
+
+            console.log("broj znam" + numDigits(e));
+
+
+            if ( numDigits(e) > 5 || e > 999 || e < 0.0001){
+                e_val.value = e.toExponential(3);
+            }else{
+                e_val.value = e;
+            }
+
+        }
+        e_sel_prev = document.getElementById("e_sel").value;
     });
 });
 
@@ -331,6 +407,205 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
     });
 });
 
+$(document).ready(function() { //promjene unosa/mjernih jedinica - gr 
+
+    var gr_sel_prev = document.getElementById("gr_sel").value;
+
+    $("#gr_sel").change(function() {
+        var gr_val = document.getElementById("gr");
+        var gr_sel = document.getElementById("gr_sel");
+        var gr = parseFloat(gr_val.value);
+
+        if(gr_sel_prev=="dless" && gr < 0){
+            alert("Can't be negative while dimensionless!");
+            document.getElementById("gr_sel").value = gr_sel_prev;
+        }
+
+        if (!isNaN(gr) && ((gr_sel_prev=="dless" && gr > 0) || (gr_sel_prev!="dless")) ) {
+            if (gr_sel_prev == "dless") {
+                switch (gr_sel.value) {
+                    case "dBi":
+                        gr = 10 * Math.log10(gr);
+                        break;
+
+                    case "dBd":
+                        gr = 10 * Math.log10(gr) - 2.15;
+                        break;
+                }
+            } else if (gr_sel_prev == "dBi") {
+                switch (gr_sel.value) {
+                    case "dBd":
+                        gr -= 2.15;
+                        break;
+
+                    case "dless":
+                        gr = Math.pow(10, gr / 10);
+                        break;
+
+                }
+            } else if (gr_sel_prev == "dBd") {
+                switch (gr_sel.value) {
+                    case "dBi":
+                        gr += 2.15;
+                        break;
+
+                    case "dless":
+                        gr += 2.15;
+                        gr = Math.pow(10, gr / 10);
+                        break;
+
+                }
+            }
+
+            gr_val.value = gr.toPrecision(3);
+
+        }
+
+
+        gr_sel_prev = document.getElementById("gr_sel").value;
+    });
+});
+
+$(document).ready(function() { //promjena unosa za frekvenciju
+    $('#wf').change(function() {
+        if ($('#wf').val() == '1') {
+            $('#o1').text("mm")
+            $('#o2').text("cm")
+            $('#o3').text("m")
+            $('#freq').attr("placeholder", "Wavelenght")
+        } else {
+            $('#o1').text("Hz")
+            $('#o2').text("MHz")
+            $('#o3').text("GHz")
+            $('#freq').attr("placeholder", "Frequency")
+        }
+    });
+});
+
+$(document).ready(function() { //promjena unosa za frekvenciju
+    var wf = $('#wf').val();
+    var o_prev = $('#freq_sel').val();
+    var ulaz = $('#freq').val();
+    console.log(ulaz);
+    var out;
+
+    $('#wf').change(function() {
+        ulaz = $('#freq').val();
+        o = $('#freq_sel').val();
+        if (ulaz) {
+            if (o == 'Hz') {
+                out = 3e8 / ulaz;
+                out = out.toPrecision(3);
+                $('#freq').val(out * 1000);
+            }
+            if (o == 'MHz') {
+                out = 3e8 / (ulaz * 1000000);
+                out = out.toPrecision(3);
+                $('#freq').val(out * 100);
+            }
+            if (o == 'GHz') {
+                out = 3e8 / (ulaz * 1000000000);
+                out = out.toPrecision(3);
+                $('#freq').val(out);
+            }
+
+
+        }
+    });
+
+    $('#freq_sel').change(function() {
+        console.log(ulaz);
+        o = $('#freq_sel').val();
+        ulaz = $('#freq').val();
+        var wf = $('#wf').val();
+        //console.log(o_prev);
+        //console.log(o);
+        
+
+        if (!isNaN(ulaz) && ulaz ) {
+            if (wf == 0) {
+
+                // mijenjaj frekvenciju
+                if (o_prev == 'MHz') {
+
+                    if (o == 'Hz'){
+                        ulaz *= 1000000;
+                        //ulaz = ulaz.toPrecision(3);
+                      //$('#freq').val(ulaz);  
+                    } 
+                    if (o == 'GHz'){
+                        ulaz /= 1000;
+                        //ulaz = ulaz.toPrecision(3);
+                     //$('#freq').val(ulaz);   
+                    }
+
+                        
+                }
+                if (o_prev == 'GHz') {
+
+
+                    if (o == 'Hz'){
+                        ulaz *= 1000000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);
+                    }
+                    if (o == 'MHz'){
+                        ulaz *= 1000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);   
+                    }
+
+
+                     
+                }
+                if (o_prev == 'Hz') {
+
+
+                    if (o == 'MHz'){
+                        ulaz /= 1000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);
+                    }
+                    if (o == 'GHz'){
+                        ulaz /= 1000000000;
+                        //ulaz = ulaz.toPrecision(3);
+                       // $('#freq').val(ulaz);
+                    }
+
+
+                     
+                }
+
+
+            } else if (wf == 1) {
+                if (o_prev == 'MHz') { //cm
+
+                    if (o == 'Hz') ulaz *= 10; //mm
+                    if (o == 'GHz') ulaz /= 100; //m
+                }
+                if (o_prev == 'GHz') { //m
+
+                    if (o == 'Hz') ulaz *= 1000; //mm
+                    if (o == 'MHz') ulaz *= 100; //cm
+                }
+                if (o_prev == 'Hz') { //mm
+                    if (o == 'MHz') ulaz /= 10; //cm
+                    if (o == 'GHz') ulaz /= 1000; //m
+                }
+
+
+            }
+
+            ulaz = ulaz.toExponential(3);
+            $('#freq').val(ulaz);
+        }
+
+        
+        o_prev = $('#freq_sel').val();
+        //console.log(o_prev);
+    });
+});
+
 $(document).ready(function() {
     
     $("#sub_but").click(function() {
@@ -423,6 +698,95 @@ $(document).ready(function() {
                     rez = rez.toPrecision(4);
                 }
                 $("#rez").val(rez);
+
+                
+            }
+        });
+    });
+});
+
+//rez2
+
+$(document).ready(function() {
+    
+    $("#sub_but_pr").click(function() {
+        $('#myform_pr').validate({ // pokrenut plugin
+            rules: {
+                e: {
+                    number: true,
+                    required: true,
+                },
+                
+                gr: {
+                    required: true,
+                    number: true,
+                    min: function(element){
+
+                        if ( $("#gr_sel").val() == "dless" )
+                            return 0.000000001;
+                        else return;
+                    }
+                },
+
+                freq: {
+                    required: true,
+                    number: true,
+                    min:0.000000001
+                }
+                
+            },
+
+
+            errorPlacement: function(error, element) {
+                element.parent().append(error); //postavi prikaz errora na kraj
+            },
+
+            submitHandler: function(form) {
+                $.ajax({ //predaj formu php-u
+                    type: 'post',
+                    url: 'efield_pr.php',
+                    data: $('#myform_pr').serialize(),
+                    success: function(response) {
+                        console.log(response);
+
+                        var data_array = $.parseJSON(response);
+
+                        var rez_pr = data_array.rezultat;
+                        if (numDigits(rez) > 5){
+                            rez_pr = rez_pr.toExponential(2);
+                        }else{
+                            rez_pr = rez_pr.toPrecision(4);
+                        }
+                        $("#rez_pr").val(rez_pr);
+
+                        
+                    }
+                });
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $("#rez_pr_sel").change(function() {
+        // pokrenut plugin
+
+        $.ajax({ //predaj formu php-u
+            type: 'post',
+            url: 'efield_pr.php',
+            data: $('#myform_pr').serialize(),
+            success: function(response) {
+                console.log(response);
+
+                var data_array = $.parseJSON(response);
+
+                var rez_pr = data_array.rezultat;
+                if (numDigits(rez) > 5){
+                    rez_pr = rez_pr.toExponential(2);
+                }else{
+                    rez_pr = rez_pr.toPrecision(4);
+                }
+                $("#rez_pr").val(rez_pr);
 
                 
             }
