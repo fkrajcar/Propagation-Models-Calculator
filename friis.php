@@ -131,7 +131,7 @@
             if ($d_sel == "km"){
                 $brojac = $d_tocke/50;
                 for($i = $brojac; $i < $d_tocke-$brojac; $i=$i+$brojac){
-                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000000000));
+                    $y = $gt + $gr + $pt + 20*log10($lambda/(4*pi()*$i*1000));
                     $y = pow(10, (($y-30)/10))*1000000000;
 
                     array_push($dataPoints, array($i, $y));
@@ -306,6 +306,6 @@
     array_push($dataPoints, array((float)$d_tocke, $result)); //pushaj zadnju tocku za graf
     
      //upis rezultata za ispis
-    echo json_encode(array("tocke" => $dataPoints, "rezultat" => round($result, 6)));
+    echo json_encode(array("tocke" => $dataPoints, "rezultat" => $result));
 
     ?>

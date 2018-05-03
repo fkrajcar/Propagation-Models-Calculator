@@ -94,19 +94,28 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gt
                 }
             }
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+            function numDigits(z) {
+                z = Number(String(z).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
             }
 
-            console.log("broj znam" + numDigits(gt));
-
-
-            if (numDigits(gt) > 5){
-                gt_val.value = gt.toExponential(2);
-            }else{
-                gt_val.value = gt.toPrecision(4);
+            if (gt > 99999){
+                gt = gt.toExponential(3);
             }
+            else if(gt > 0.001 && gt < 100000){
+                gt = gt.toFixed(3);
+            }
+            else if(gt < 0 && gt > -99999){
+                gt = gt.toFixed(3);
+            }
+            else if(gt <= -100000){
+                gt = gt.toExponential(3);
+            }
+            else if(gt <= 0.001){
+                gt = gt.toExponential(3);
+            }
+
+            gt_val.value = gt;
             
         }
 
@@ -167,18 +176,35 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
             console.log("broj znam" + numDigits(d));
 
 
-            if (numDigits(d) > 5){
-                d_val.value = d.toExponential(2);
-            }else{
-                d_val.value = d.toPrecision(4);
+            function numDigits(z) {
+                z = Number(String(z).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
             }
+
+            if (d > 99999){
+                d = d.toExponential(3);
+            }
+            else if(d > 0.001 && d < 100000){
+                d = d.toFixed(3);
+            }
+            else if(d < 0 && d > -99999){
+                d = d.toFixed(3);
+            }
+            else if(d <= -100000){
+                d = d.toExponential(3);
+            }
+            else if(d <= 0.001){
+                d = d.toExponential(3);
+            }
+
+            d_val.value = d;
 
         }
         d_sel_prev = document.getElementById("d_sel").value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - d
+$(document).ready(function() { //promjene unosa/mjernih jedinica - e
 
     var e_sel_prev = document.getElementById("e_sel").value;
 
@@ -225,19 +251,28 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
                 }
             }
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+            function numDigits(z) {
+                z = Number(String(z).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
             }
 
-            console.log("broj znam" + numDigits(e));
-
-
-            if ( numDigits(e) > 5 || e > 999 || e < 0.0001){
-                e_val.value = e.toExponential(3);
-            }else{
-                e_val.value = e;
+            if (e > 99999){
+                e = e.toExponential(3);
             }
+            else if(e > 0.001 && e < 100000){
+                e = e.toFixed(3);
+            }
+            else if(e < 0 && e > -99999){
+                e = e.toFixed(3);
+            }
+            else if(e <= -100000){
+                e = e.toExponential(3);
+            }
+            else if(e <= 0.001){
+                e = e.toExponential(3);
+            }
+
+            e_val.value = e;
 
         }
         e_sel_prev = document.getElementById("e_sel").value;
@@ -254,9 +289,9 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
         var pt = parseFloat(pt_val.value);
 
 
-        if (!( (  (pt_sel_prev=="w" && pt > 0) || (pt_sel_prev=="mW" && pt > 0) || (pt_sel_prev=="nW" && pt > 0) || ( pt_sel_prev!="w" && pt_sel_prev!="nW" && pt_sel_prev!="mW" )   ) )){
+        if (   ( pt_sel_prev=="w" || pt_sel_prev=="nW" || pt_sel_prev=="mW" ) && pt < 0 ){
             alert("Can't be negative!");
-            document.getElementById("pt_sel").value = pt_sel_prev;
+            document.getElementById(sel_val).value = pt_sel_prev;
         }
 
         if (!isNaN(pt) && (  (pt_sel_prev=="w" && pt > 0) || (pt_sel_prev=="mW" && pt > 0) || (pt_sel_prev=="nW" && pt > 0) || ( pt_sel_prev!="w" && pt_sel_prev!="nW" && pt_sel_prev!="mW" )   ) ) {
@@ -385,24 +420,30 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                 }
             }
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+            function numDigits(z) {
+                z = Number(String(z).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
             }
 
-            console.log("broj znam" + numDigits(pt));
-
-
-            if (numDigits(pt) > 5){
-                pt_val.value = pt.toExponential(2);
-            }else{
-                pt_val.value = pt.toPrecision(4);
+            if (pt > 99999){
+                pt = pt.toExponential(3);
+            }
+            else if(pt > 0.001 && pt < 100000){
+                pt = pt.toFixed(3);
+            }
+            else if(pt < 0 && pt > -99999){
+                pt = pt.toFixed(3);
+            }
+            else if(pt <= -100000){
+                pt = pt.toExponential(3);
+            }
+            else if(pt <= 0.001){
+                pt = pt.toExponential(3);
             }
 
-
+            pt_val.value = pt;
         }
 
-        
         pt_sel_prev = document.getElementById("pt_sel").value;
     });
 });
@@ -457,7 +498,28 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
                 }
             }
 
-            gr_val.value = gr.toPrecision(3);
+            function numDigits(z) {
+                z = Number(String(z).replace(/[^0-9]/g, ''));
+                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
+            }
+
+            if (gr > 99999){
+                gr = gr.toExponential(3);
+            }
+            else if(gr > 0.001 && gr < 100000){
+                gr = gr.toFixed(3);
+            }
+            else if(gr < 0 && gr > -99999){
+                gr = gr.toFixed(3);
+            }
+            else if(gr <= -100000){
+                gr = gr.toExponential(3);
+            }
+            else if(gr <= 0.001){
+                gr = gr.toExponential(3);
+            }
+
+            gr_val.value = gr;
 
         }
 
@@ -662,14 +724,29 @@ $(document).ready(function() {
                         var data_array = $.parseJSON(response);
 
                         var rez = data_array.rezultat;
-                        if (numDigits(rez) > 5){
-                            rez = rez.toExponential(2);
-                        }else{
-                            rez = rez.toPrecision(4);
-                        }
-                        $("#rez").val(rez);
 
-                        
+                        function numDigits(z) {
+                            z = Number(String(z).replace(/[^0-9]/g, ''));
+                            return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
+                        }
+
+                        if (rez > 99999){
+                            rez = rez.toExponential(3);
+                        }
+                        else if(rez > 0.001 && rez < 100000){
+                            rez = rez.toFixed(3);
+                        }
+                        else if(rez < 0 && rez > -99999){
+                            rez = rez.toFixed(3);
+                        }
+                        else if(rez <= -100000){
+                            rez = rez.toExponential(3);
+                        }
+                        else if(rez <= 0.001){
+                            rez = rez.toExponential(3);
+                        }
+
+                        $("#rez").val(rez);
                     }
                 });
             }
@@ -692,11 +769,28 @@ $(document).ready(function() {
 
                 //data_array.rezultat.toPrecision(8);
                 var rez = data_array.rezultat;
-                if (numDigits(rez) > 5){
-                    rez = rez.toExponential(2);
-                }else{
-                    rez = rez.toPrecision(4);
+
+                function numDigits(z) {
+                    z = Number(String(z).replace(/[^0-9]/g, ''));
+                    return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
                 }
+
+                if (rez > 99999){
+                    rez = rez.toExponential(3);
+                }
+                else if(rez > 0.001 && rez < 100000){
+                    rez = rez.toFixed(3);
+                }
+                else if(rez < 0 && rez > -99999){
+                    rez = rez.toFixed(3);
+                }
+                else if(rez <= -100000){
+                    rez = rez.toExponential(3);
+                }
+                else if(rez <= 0.001){
+                    rez = rez.toExponential(3);
+                }
+
                 $("#rez").val(rez);
 
                 
@@ -752,11 +846,27 @@ $(document).ready(function() {
                         var data_array = $.parseJSON(response);
 
                         var rez_pr = data_array.rezultat;
-                        if (numDigits(rez) > 5){
-                            rez_pr = rez_pr.toExponential(2);
-                        }else{
-                            rez_pr = rez_pr.toPrecision(4);
+                        function numDigits(z) {
+                            z = Number(String(z).replace(/[^0-9]/g, ''));
+                            return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
                         }
+
+                        if (rez_pr > 99999){
+                            rez_pr = rez_pr.toExponential(3);
+                        }
+                        else if(rez_pr > 0.001 && rez_pr < 100000){
+                            rez_pr = rez_pr.toFixed(3);
+                        }
+                        else if(rez_pr < 0 && rez_pr > -99999){
+                            rez_pr = rez_pr.toFixed(3);
+                        }
+                        else if(rez_pr <= -100000){
+                            rez_pr = rez_pr.toExponential(3);
+                        }
+                        else if(rez_pr <= 0.001){
+                            rez_pr = rez_pr.toExponential(3);
+                        }
+
                         $("#rez_pr").val(rez_pr);
 
                         
@@ -781,11 +891,27 @@ $(document).ready(function() {
                 var data_array = $.parseJSON(response);
 
                 var rez_pr = data_array.rezultat;
-                if (numDigits(rez) > 5){
-                    rez_pr = rez_pr.toExponential(2);
-                }else{
-                    rez_pr = rez_pr.toPrecision(4);
+                function numDigits(z) {
+                    z = Number(String(z).replace(/[^0-9]/g, ''));
+                    return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
                 }
+
+                if (rez_pr > 99999){
+                    rez_pr = rez_pr.toExponential(3);
+                }
+                else if(rez_pr > 0.001 && rez_pr < 100000){
+                    rez_pr = rez_pr.toFixed(3);
+                }
+                else if(rez_pr < 0 && rez_pr > -99999){
+                    rez_pr = rez_pr.toFixed(3);
+                }
+                else if(rez_pr <= -100000){
+                    rez_pr = rez_pr.toExponential(3);
+                }
+                else if(rez_pr <= 0.001){
+                    rez_pr = rez_pr.toExponential(3);
+                }
+
                 $("#rez_pr").val(rez_pr);
 
                 
