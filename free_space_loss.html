@@ -47,7 +47,7 @@
                             <a href="efield.html">E-field at Receiver Antenna</a>
                         </li>
                         <li>
-                            <a href="erp.html">Effective Radiated Power (ERP)</a>
+                            <a href="">Effective Radiated Power (ERP)</a>
                         </li>
                         <li>
                             <a href="">Fresnel Zones</a>
@@ -304,7 +304,89 @@
                 </div>
             </div>
             <div id="sectionC" class="tab-pane fade">
+                <form method="post" class="form-horizontal" id="myform_c">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- lijevi dio forme !-->
 
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="d_c">d</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="d_c" name="d_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="d_sel_c" name="d_si_c" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2" for="freq_c">
+                                    <select class="form-control" style="min-width:75px;" id="wf_c" name="wff_c" tabindex="-1">
+                                        <option value="0">f</option>
+                                        <option value="1">λ</option>
+                                    </select>
+                                </label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Frequency" class="form-control" id="freq_c" name="freq_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="freq_sel_c" name="freq_si_c" tabindex="-1">
+                                        <option id="o1_c" value="Hz">Hz</option>
+                                        <option id="o2_c" value="MHz" selected="selected">MHz</option>
+                                        <option id="o3_c" value="GHz">GHz</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- desni dio forme -->
+                            <div class="row">
+                                <img class="col-sm-6" src="images/friis_pic.png">
+                                <img class="col-sm-6" src="images/friis_eq.png">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ispod bordera -->
+                    <div class="border"></div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-xs-2">
+                                <label class="control-label">
+                                    L
+                                    <sub>f</sub>
+                                </label>
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" placeholder="Losless" class="form-control" id="rez_c" value="" disabled="">
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control" id="rez_sel_c" name="rez_si_c" tabindex="-1">
+                                    <option value="dless">d'less</option>
+                                    <option value="dBi" selected="selected">dBi</option>
+                                    <option value="dBd">dBd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but_c" name="submit">Calculate</button>
+                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_c">
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="chart_c">
+                    <div id="chartContainer_c"></div>
+                </div>
             </div>
         </div>
     </div>
