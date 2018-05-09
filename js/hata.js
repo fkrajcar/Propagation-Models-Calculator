@@ -4,6 +4,8 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        $("img").hide();
+        $("#home_icon").show();
     });
 });
 
@@ -750,6 +752,7 @@ $(document).ready(function () {
                         rez = format(rez);
 
                         $("img").hide();
+                        $("#home_icon").show();
 
                         $("#" + hata).show();
                         $("#" + ahr).show();
@@ -793,6 +796,7 @@ $(document).ready(function () {
                 rez = format(rez);
 
                 $("img").hide();
+                $("#home_icon").show();
 
                 $("#" + hata).show();
                 $("#" + ahr).show();

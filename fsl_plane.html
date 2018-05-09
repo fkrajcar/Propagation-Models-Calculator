@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Free Space Loss for Plane-Earth</title>
+    <link rel="icon" href="images/antenna.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified JQuery -->
+    <script src="libs/jquery-3.3.1.min.js"></script>
+    <link href="libs/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified BootStrap -->
+    <script src="libs/bootstrap.min.js"></script>
+    <script src="libs/canvasjs.min.js"></script>
+    <script src="libs/jquery.validate.js"></script>
+    <script src="libs/additional-methods.js"></script>
+    <!-- Moj JQ i CSS -->
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="js/fsl_plane.js"></script>
+
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/home.png" width="27">
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Propagation Models
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="friis.html">The Friis Equation</a>
+                        </li>
+                        <li>
+                            <a href="free_space_loss.html">Free Space Loss</a>
+                        </li>
+                        <li>
+                            <a href="efield.html">E-field at Receiver Antenna</a>
+                        </li>
+                        <li>
+                            <a href="erp.html">Effective Radiated Power (ERP)</a>
+                        </li>
+                        <li>
+                            <a href="fresnel_zones.html">Fresnel Zones</a>
+                        </li>
+                        <li>
+                            <a href="rayleigh.html">Rayleigh Criterion for Surface Roughness</a>
+                        </li>
+                        <li>
+                            <a href="plane_earth.html">Plane-earth Model</a>
+                        </li>
+                        <li>
+                            <a href="fsl_plane.html">Free Space Loss for Plane-earth Model</a>
+                        </li>
+                        <li>
+                            <a href="hata.html">Hata/COST231-Hata Model</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Nav cont -->
+    <div class="container">
+        <div class="page-header">
+            <h1 style="font-size: 30px">Free Space Loss for Plane-Earth</h1>
+        </div>
+
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active">
+                <a href="#sectionA" style="min-width:250px; text-align: center; font-size: 15px">
+                    P
+                    <sub>t</sub>/P
+                    <sub>r</sub>
+                </a>
+            </li>
+            <li>
+                <a href="#sectionB" style="min-width:250px; text-align: center; font-size: 15px">
+                    G
+                    <sub>t</sub>, G
+                    <sub>r</sub>, h<sub>t</sub>, h<sub>r</sub>, d</a>
+            </li>
+            <li>
+                <a href="#sectionC" style="min-width:250px; text-align: center; font-size: 15px">
+                    Isotropic antennas</a>
+            </li>
+        </ul>
+        <br />
+        <div class="tab-content">
+            <div id="sectionA" class="tab-pane fade in active">
+                <form method="post" class="form-horizontal" id="myform">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- lijevi dio forme !-->
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="pt">P
+                                    <sub>t</sub>
+                                </label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Transmitter power" class="form-control" id="pt" name="pt" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control input-md" id="pt_sel" name="pt_si" tabindex="-1">
+                                        <option value="nW">nW</option>
+                                        <option value="mW">mW</option>
+                                        <option value="w">W</option>
+                                        <option value="dBm" selected="selected">dBm</option>
+                                        <option value="dBW">dBW</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="pr">P
+                                    <sub>r</sub>
+                                </label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Power received" class="form-control" id="pr" name="pr" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control input-md" id="pr_sel" name="pr_si" tabindex="-1">
+                                        <option value="nW">nW</option>
+                                        <option value="mW">mW</option>
+                                        <option value="w">W</option>
+                                        <option value="dBm" selected="selected">dBm</option>
+                                        <option value="dBW">dBW</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- desni dio forme -->
+                            <div class="row">
+                                <img class="col-sm-12" src="images/free_space_1.png">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ispod bordera -->
+                    <div class="border"></div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-xs-2">
+                                <label class="control-label">
+                                    L
+                                    <sub>f</sub>
+                                </label>
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" placeholder="Loss" class="form-control" id="rez" value="" disabled="">
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control" id="rez_sel" name="rez_si" tabindex="-1">
+                                    <option value="dless">d'less</option>
+                                    <option value="dBi" selected="selected">dBi</option>
+                                    <option value="dBd">dBd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but" name="submit">Calculate</button>
+                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res">
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="chart">
+                    <div id="chartContainer"></div>
+                </div>
+            </div>
+            <!-- efield_pr -->
+            <div id="sectionB" class="tab-pane fade">
+                <form method="post" class="form-horizontal" id="myform_b">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- lijevi dio forme !-->
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="gt_b">
+                                    G
+                                    <sub>t</sub>
+                                </label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Transmitter gain" class="form-control" id="gt_b" name="gt_b" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="gt_sel_b" name="gt_si_b" tabindex="-1">
+                                        <option value="dless">d'less</option>
+                                        <option value="dBi" selected="selected">dBi</option>
+                                        <option value="dBd">dBd</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="gr_b">
+                                    G
+                                    <sub>r</sub>
+                                </label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Receiver gain" class="form-control" id="gr_b" name="gr_b" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="gr_sel_b" name="gr_si_b" tabindex="-1">
+                                        <option value="dless">d'less</option>
+                                        <option value="dBi" selected="selected">dBi</option>
+                                        <option value="dBd">dBd</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="ht_b">h<sub>t</sub></label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="ht_b" name="ht_b" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="ht_sel_b" name="ht_si_b" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="hr_b">h<sub>r</sub></label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="hr_b" name="hr_b" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="hr_sel_b" name="hr_si_b" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="d_b">d</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="d_b" name="d_b" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="d_sel_b" name="d_si_b" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- desni dio forme -->
+                            <div class="row">
+                                <img class="col-sm-12" src="images/fsl_plane_b.png">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ispod bordera -->
+                    <div class="border"></div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-xs-2">
+                                <label class="control-label">
+                                    L
+                                    <sub>p</sub>
+                                </label>
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" placeholder="Loss" class="form-control" id="rez_b" value="" disabled="">
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control" id="rez_sel_b" name="rez_si_b" tabindex="-1">
+                                    <option value="dless">d'less</option>
+                                    <option value="dBi" selected="selected">dBi</option>
+                                    <option value="dBd">dBd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but_b" name="submit">Calculate</button>
+                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_b">
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="chart_b">
+                    <div id="chartContainer_b"></div>
+                </div>
+            </div>
+            <div id="sectionC" class="tab-pane fade">
+                <form method="post" class="form-horizontal" id="myform_c">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- lijevi dio forme !-->
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="d_c">d</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="d_c" name="d_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="d_sel_c" name="d_si_c" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="ht_c">h<sub>t</sub></label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="ht_c" name="ht_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="ht_sel_c" name="ht_si_c" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="hr_c">h<sub>r</sub></label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Distance" class="form-control" id="hr_c" name="hr_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="hr_sel_c" name="hr_si_c" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br />
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- desni dio forme -->
+                            <div class="row">
+                                <img class="col-sm-12" src="images/fsl_plane_c.png">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ispod bordera -->
+                    <div class="border"></div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="col-xs-2">
+                                <label class="control-label">
+                                    L
+                                    <sub>pb</sub>
+                                </label>
+                            </div>
+                            <div class="col-xs-7">
+                                <input type="text" placeholder="Loss" class="form-control" id="rez_c" value="" disabled="">
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control" id="rez_sel_c" name="rez_si_c" tabindex="-1">
+                                    <option value="dless">d'less</option>
+                                    <option value="dBi" selected="selected">dBi</option>
+                                    <option value="dBd">dBd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but_c" name="submit">Calculate</button>
+                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_c">
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </form>
+                <div id="chart_c">
+                    <div id="chartContainer_c"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- container / -->
+</body>
+
+</html>
