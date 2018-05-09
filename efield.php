@@ -91,6 +91,6 @@
 
     
      //upis rezultata za ispis
-    echo json_encode(array("rezultat" => round($result, 6)));
+    echo json_encode(array("rezultat" => $result));
 
     ?>

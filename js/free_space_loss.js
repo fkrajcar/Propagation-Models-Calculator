@@ -5,25 +5,26 @@ $(document).ready(function () { //funkcija za tabove
     });
 });
 
-function format(x){
+function format(x) {
+    x = parseFloat(x);
     console.log("usao u funk");
-    if (x > 99999){
+    if (x > 99999) {
         console.log("1");
         x = x.toExponential(3);
     }
-    else if(x > 0.01 && x < 100000){
+    else if (x > 0.01 && x < 100000) {
         console.log("2");
         x = x.toFixed(3);
     }
-    else if(x < 0 && x > -99999){
+    else if (x < 0 && x > -99999) {
         console.log("3");
         x = x.toFixed(3);
     }
-    else if(x <= -100000){
+    else if (x <= -100000) {
         console.log("4");
         x = x.toExponential(3);
     }
-    else if(x <= 0.01){
+    else if (x <= 0.01) {
         console.log("5");
         x = x.toExponential(3);
     }
@@ -103,7 +104,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
         var pt = parseFloat(pt_val.value);
 
 
-        if (   ( pt_sel_prev=="w" || pt_sel_prev=="nW" || pt_sel_prev=="mW" ) && pt < 0 ){
+        if ((pt_sel_prev == "w" || pt_sel_prev == "nW" || pt_sel_prev == "mW") && pt < 0) {
             alert("Can't be negative!");
             document.getElementById(sel_val).value = pt_sel_prev;
         }
@@ -236,26 +237,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pt
 
 
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
-            }
-
-            if (pt > 99999) {
-                pt = pt.toExponential(3);
-            }
-            else if (pt > 0.001 && pt < 100000) {
-                pt = pt.toFixed(3);
-            }
-            else if (pt < 0 && pt > -99999) {
-                pt = pt.toFixed(3);
-            }
-            else if (pt <= -100000) {
-                pt = pt.toExponential(3);
-            }
-            else if (pt <= 0.001) {
-                pt = pt.toExponential(3);
-            }
+            pt = format(pt);
 
             pt_val.value = pt;
         }
@@ -275,7 +257,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pr
         var pr = parseFloat(pr_val.value);
 
 
-        if (   ( pr_sel_prev=="w" || pr_sel_prev=="nW" || pr_sel_prev=="mW" ) && pr < 0 ){
+        if ((pr_sel_prev == "w" || pr_sel_prev == "nW" || pr_sel_prev == "mW") && pr < 0) {
             alert("Can't be negative!");
             document.getElementById(sel_val).value = pr_sel_prev;
         }
@@ -408,26 +390,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - pr
 
 
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
-            }
-
-            if (pr > 99999) {
-                pr = pr.toExponential(3);
-            }
-            else if (pr > 0.001 && pr < 100000) {
-                pr = pr.toFixed(3);
-            }
-            else if (pr < 0 && pr > -99999) {
-                pr = pr.toFixed(3);
-            }
-            else if (pr <= -100000) {
-                pr = pr.toExponential(3);
-            }
-            else if (pr <= 0.001) {
-                pr = pr.toExponential(3);
-            }
+            pr = format(pr);
 
             pr_val.value = pr;
         }
@@ -510,22 +473,8 @@ $(document).ready(function () { //reza - sub
 
                         //data_array.rezultat.toPrecision(8);
                         var rez = data_array.rezultat;
-                        
-                        if (rez > 99999){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez > 0.001 && rez < 100000){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez < 0 && rez > -99999){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez <= -100000){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez <= 0.001){
-                            rez = rez.toExponential(3);
-                        }
+
+                        rez = format(rez);
 
                         $("#rez").val(rez);
                         $("#chart").show();
@@ -580,24 +529,11 @@ $(document).ready(function () { //reza - chng
 
                 //data_array.rezultat.toPrecision(8);
                 var rez = data_array.rezultat;
-                        
-                        if (rez > 99999){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez > 0.001 && rez < 100000){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez < 0 && rez > -99999){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez <= -100000){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez <= 0.001){
-                            rez = rez.toExponential(3);
-                        }
 
-                        $("#rez").val(rez);
+                rez = format(rez);
+
+                $("#rez").val(rez);
+
                 var element_to_scroll_to = document.getElementById('chart');
                 element_to_scroll_to.scrollIntoView();
             }
@@ -615,24 +551,24 @@ $(document).ready(function () { //reza - chng
  */
 
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - gt 
+$(document).ready(function () { //promjene unosa/mjernih jedinica - gt 
     var in_val = "gt_b";
     var sel_val = "gt_sel_b";
 
     var gt_sel_prev = document.getElementById(sel_val).value;
 
-    $("#" + sel_val).change(function() {
+    $("#" + sel_val).change(function () {
         var gt_val = document.getElementById(in_val);
         var gt_sel = document.getElementById(sel_val);
         var gt = parseFloat(gt_val.value);
         console.log(gt);
 
-        if(gt_sel_prev=="dless" && gt < 0){
+        if (gt_sel_prev == "dless" && gt < 0) {
             alert("Can't be negative while dimensionless!");
             document.getElementById(sel_val).value = gt_sel_prev;
         }
 
-        if (!isNaN(gt) && ((gt_sel_prev=="dless" && gt > 0) || (gt_sel_prev!="dless")) ) {
+        if (!isNaN(gt) && ((gt_sel_prev == "dless" && gt > 0) || (gt_sel_prev != "dless"))) {
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
                     case "dBi":
@@ -666,52 +602,33 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gt
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (gt > 99999){
-                gt = gt.toExponential(3);
-            }
-            else if(gt > 0.001 && gt < 100000){
-                gt = gt.toFixed(3);
-            }
-            else if(gt < 0 && gt > -99999){
-                gt = gt.toFixed(3);
-            }
-            else if(gt <= -100000){
-                gt = gt.toExponential(3);
-            }
-            else if(gt <= 0.001){
-                gt = gt.toExponential(3);
-            }
 
-            gt_val.value = gt;
+            gt_val.value = format(gt);
         }
 
         gt_sel_prev = document.getElementById(sel_val).value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - gr
+$(document).ready(function () { //promjene unosa/mjernih jedinica - gr
     var in_val = "gr_b";
     var sel_val = "gr_sel_b";
 
     var gt_sel_prev = document.getElementById(sel_val).value;
 
-    $("#" + sel_val).change(function() {
+    $("#" + sel_val).change(function () {
         var gt_val = document.getElementById(in_val);
         var gt_sel = document.getElementById(sel_val);
         var gt = parseFloat(gt_val.value);
         console.log(gt);
 
-        if(gt_sel_prev=="dless" && gt < 0){
+        if (gt_sel_prev == "dless" && gt < 0) {
             alert("Can't be negative while dimensionless!");
             document.getElementById(sel_val).value = gt_sel_prev;
         }
 
-        if (!isNaN(gt) && ((gt_sel_prev=="dless" && gt > 0) || (gt_sel_prev!="dless")) ) {
+        if (!isNaN(gt) && ((gt_sel_prev == "dless" && gt > 0) || (gt_sel_prev != "dless"))) {
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
                     case "dBi":
@@ -745,40 +662,21 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (gt > 99999){
-                gt = gt.toExponential(3);
-            }
-            else if(gt > 0.001 && gt < 100000){
-                gt = gt.toFixed(3);
-            }
-            else if(gt < 0 && gt > -99999){
-                gt = gt.toFixed(3);
-            }
-            else if(gt <= -100000){
-                gt = gt.toExponential(3);
-            }
-            else if(gt <= 0.001){
-                gt = gt.toExponential(3);
-            }
 
-            gt_val.value = gt;
+            gt_val.value = format(gt);
         }
 
         gt_sel_prev = document.getElementById(sel_val).value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - d
+$(document).ready(function () { //promjene unosa/mjernih jedinica - d
     var in_val = "d_b";
     var sel_val = "d_sel_b";
     var d_sel_prev = document.getElementById(sel_val).value;
 
-    $("#" + sel_val).change(function() {
+    $("#" + sel_val).change(function () {
         var d_val = document.getElementById(in_val);
         var d_sel = document.getElementById(sel_val);
         var d = parseFloat(d_val.value);
@@ -819,41 +717,26 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
                 }
             }
 
-            if (d > 99999){
-                d = d.toExponential(3);
-            }
-            else if(d > 0.001 && d < 100000){
-                d = d.toFixed(3);
-            }
-            else if(d < 0 && d > -99999){
-                d = d.toFixed(3);
-            }
-            else if(d <= -100000){
-                d = d.toExponential(3);
-            }
-            else if(d <= 0.001){
-                d = d.toExponential(3);
-            }
 
-            d_val.value = d;
+            d_val.value = format(d);
 
         }
         d_sel_prev = document.getElementById(sel_val).value;
     });
 });
 
-$(document).ready(function() { //promjena unosa za frekvenciju
+$(document).ready(function () { //promjena unosa za frekvenciju
     var wave_sel = "wf";
 
-    var in_val ="freq";
+    var in_val = "freq";
     var in_sel = "freq_sel";
 
-    var wf = $('#'+wave_sel).val();
-    var o_prev = $('#'+in_sel).val();
-    var ulaz = $('#'+in_val).val();
+    var wf = $('#' + wave_sel).val();
+    var o_prev = $('#' + in_sel).val();
+    var ulaz = $('#' + in_val).val();
     var out;
 
-    $('#'+wave_sel).change(function() {
+    $('#' + wave_sel).change(function () {
 
         if ($('#wf').val() == '1') {
             $('#o1').text("mm")
@@ -867,33 +750,33 @@ $(document).ready(function() { //promjena unosa za frekvenciju
             $('#freq').attr("placeholder", "Frequency")
         }
 
-        ulaz = $('#'+in_val).val();
-        o = $('#'+in_sel).val();
+        ulaz = $('#' + in_val).val();
+        o = $('#' + in_sel).val();
         if (ulaz) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
                 out = out * 1000;
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'MHz') {
                 out = 3e8 / (ulaz * 1000000);
                 out = out * 100;
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'GHz') {
                 out = 3e8 / (ulaz * 1000000000);
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
         }
     });
 
-    $('#'+in_sel).change(function() {
-        o = $('#'+in_sel).val();
-        ulaz = $('#'+in_val).val();
-        var wf = $('#'+wave_sel).val();
+    $('#' + in_sel).change(function () {
+        o = $('#' + in_sel).val();
+        ulaz = $('#' + in_val).val();
+        var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
@@ -904,52 +787,52 @@ $(document).ready(function() { //promjena unosa za frekvenciju
                 // mijenjaj frekvenciju
                 if (o_prev == 'MHz') {
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000;
                         //ulaz = ulaz.toPrecision(3);
-                      //$('#freq').val(ulaz);  
-                    } 
-                    if (o == 'GHz'){
+                        //$('#freq').val(ulaz);  
+                    }
+                    if (o == 'GHz') {
                         ulaz /= 1000;
                         //ulaz = ulaz.toPrecision(3);
-                     //$('#freq').val(ulaz);   
+                        //$('#freq').val(ulaz);   
                     }
 
-                        
+
                 }
                 if (o_prev == 'GHz') {
 
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz *= 1000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);   
                     }
 
 
-                     
+
                 }
                 if (o_prev == 'Hz') {
 
 
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz /= 1000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'GHz'){
+                    if (o == 'GHz') {
                         ulaz /= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
-                       // $('#freq').val(ulaz);
+                        // $('#freq').val(ulaz);
                     }
 
 
-                     
+
                 }
 
 
@@ -971,40 +854,40 @@ $(document).ready(function() { //promjena unosa za frekvenciju
             }
         }
 
-        
-        
+
+
         ulaz = format(ulaz);
-        
-        $('#'+in_val).val(ulaz);
-        o_prev = $('#'+in_sel).val();
+
+        $('#' + in_val).val(ulaz);
+        o_prev = $('#' + in_sel).val();
     });
 });
 
 
-$(document).ready(function() {
-    $("#sub_but_b").click(function() {
+$(document).ready(function () {
+    $("#sub_but_b").click(function () {
         $('#myform_b').validate({ // pokrenut plugin
             rules: {
                 gt: {
                     number: true,
                     required: true,
 
-                    min: function(element){
+                    min: function (element) {
 
-                        if ( $("#gt_sel_b").val() == "dless" )
+                        if ($("#gt_sel_b").val() == "dless")
                             return 0.000000001;
                         else return;
                     }
 
-                
- 
+
+
                 },
                 gr: {
                     required: true,
                     number: true,
-                    min: function(element){
+                    min: function (element) {
 
-                        if ( $("#gr_sel_b").val() == "dless" )
+                        if ($("#gr_sel_b").val() == "dless")
                             return 0.000000001;
                         else return;
                     }
@@ -1012,28 +895,28 @@ $(document).ready(function() {
                 d: { //minimalno 1 metar za graf
                     required: true,
                     number: true,
-                    min:0.000000001,
-                    
+                    min: 0.000000001,
+
                 },
 
                 freq: {
                     required: true,
                     number: true,
-                    min:0.000000001
+                    min: 0.000000001
                 }
             },
 
 
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 element.parent().append(error); //postavi prikaz errora na kraj
             },
 
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({ //predaj formu php-u
                     type: 'post',
                     url: 'free_space_loss_b.php',
                     data: $('#myform_b').serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
 
                         var data_array = $.parseJSON(response);
@@ -1041,7 +924,7 @@ $(document).ready(function() {
                         var tocke_grafa = []; //array za tocke grafa
 
                         //uzmi JSON za tocke grafa
-                        $.each(data_array.tocke, function(key, value) {
+                        $.each(data_array.tocke, function (key, value) {
                             tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
                         });
 
@@ -1052,7 +935,7 @@ $(document).ready(function() {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                                valueFormatString:  "#.000 E+00000"
+                                valueFormatString: "#.000 E+00000"
                             },
                             axisX: {
                                 title: "Distance" + " [" + $("#d_sel_b").val() + "]"
@@ -1067,22 +950,8 @@ $(document).ready(function() {
 
                         //data_array.rezultat.toPrecision(8);
                         var rez = data_array.rezultat;
-                        
-                        if (rez > 99999){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez > 0.001 && rez < 100000){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez < 0 && rez > -99999){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez <= -100000){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez <= 0.001){
-                            rez = rez.toExponential(3);
-                        }
+
+                        rez = format(rez);
 
                         $("#rez_b").val(rez);
 
@@ -1096,15 +965,15 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $("#rez_sel_b").change(function() {
+$(document).ready(function () {
+    $("#rez_sel_b").change(function () {
         // pokrenut plugin
 
         $.ajax({ //predaj formu php-u
             type: 'post',
             url: 'free_space_loss_b.php',
             data: $('#myform_b').serialize(),
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
 
                 var data_array = $.parseJSON(response);
@@ -1112,7 +981,7 @@ $(document).ready(function() {
                 var tocke_grafa = []; //array za tocke grafa
 
                 //uzmi JSON za tocke grafa
-                $.each(data_array.tocke, function(key, value) {
+                $.each(data_array.tocke, function (key, value) {
                     tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
                 });
 
@@ -1123,7 +992,7 @@ $(document).ready(function() {
 
                     axisY: {
                         title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                        valueFormatString:  "#.000 E+00000"
+                        valueFormatString: "#.000 E+00000"
                     },
                     axisX: {
                         title: "Distance" + " [" + $("#d_sel_b").val() + "]"
@@ -1138,22 +1007,8 @@ $(document).ready(function() {
 
                 //data_array.rezultat.toPrecision(8);
                 var rez = data_array.rezultat;
-                
-                if (rez > 99999){
-                    rez = rez.toExponential(3);
-                }
-                else if(rez > 0.001 && rez < 100000){
-                    rez = rez.toFixed(3);
-                }
-                else if(rez < 0 && rez > -99999){
-                    rez = rez.toFixed(3);
-                }
-                else if(rez <= -100000){
-                    rez = rez.toExponential(3);
-                }
-                else if(rez <= 0.001){
-                    rez = rez.toExponential(3);
-                }
+
+                rez = format(rez);
 
                 $("#rez_b").val(rez);
 
@@ -1176,12 +1031,12 @@ $(document).ready(function() {
 *
 */
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - d
+$(document).ready(function () { //promjene unosa/mjernih jedinica - d
     var in_val = "d_c";
     var sel_val = "d_sel_c";
     var d_sel_prev = document.getElementById(sel_val).value;
 
-    $("#" + sel_val).change(function() {
+    $("#" + sel_val).change(function () {
         var d_val = document.getElementById(in_val);
         var d_sel = document.getElementById(sel_val);
         var d = parseFloat(d_val.value);
@@ -1229,58 +1084,58 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
     });
 });
 
-$(document).ready(function() { //promjena unosa za frekvenciju
+$(document).ready(function () { //promjena unosa za frekvenciju
     var wave_sel = "wf_c";
 
-    var in_val ="freq_c";
+    var in_val = "freq_c";
     var in_sel = "freq_sel_c";
 
-    var wf = $('#'+wave_sel).val();
-    var o_prev = $('#'+in_sel).val();
-    var ulaz = $('#'+in_val).val();
+    var wf = $('#' + wave_sel).val();
+    var o_prev = $('#' + in_sel).val();
+    var ulaz = $('#' + in_val).val();
     var out;
 
-    $('#'+wave_sel).change(function() {
+    $('#' + wave_sel).change(function () {
 
-        if ($('#'+wave_sel).val() == '1') {
+        if ($('#' + wave_sel).val() == '1') {
             $('#o1_c').text("mm")
             $('#o2_c').text("cm")
             $('#o3_c').text("m")
-            $('#'+in_val).attr("placeholder", "Wavelenght")
+            $('#' + in_val).attr("placeholder", "Wavelenght")
         } else {
             $('#o1_c').text("Hz")
             $('#o2_c').text("MHz")
             $('#o3_c').text("GHz")
-            $('#'+in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "Frequency")
         }
 
-        ulaz = $('#'+in_val).val();
-        o = $('#'+in_sel).val();
+        ulaz = $('#' + in_val).val();
+        o = $('#' + in_sel).val();
         if (ulaz) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
                 out = out * 1000;
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'MHz') {
                 out = 3e8 / (ulaz * 1000000);
                 out = out * 100;
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'GHz') {
                 out = 3e8 / (ulaz * 1000000000);
                 out = format(out);
-                $('#'+in_val).val(out);
+                $('#' + in_val).val(out);
             }
         }
     });
 
-    $('#'+in_sel).change(function() {
-        o = $('#'+in_sel).val();
-        ulaz = $('#'+in_val).val();
-        var wf = $('#'+wave_sel).val();
+    $('#' + in_sel).change(function () {
+        o = $('#' + in_sel).val();
+        ulaz = $('#' + in_val).val();
+        var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
@@ -1291,52 +1146,52 @@ $(document).ready(function() { //promjena unosa za frekvenciju
                 // mijenjaj frekvenciju
                 if (o_prev == 'MHz') {
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000;
                         //ulaz = ulaz.toPrecision(3);
-                      //$('#freq').val(ulaz);  
-                    } 
-                    if (o == 'GHz'){
+                        //$('#freq').val(ulaz);  
+                    }
+                    if (o == 'GHz') {
                         ulaz /= 1000;
                         //ulaz = ulaz.toPrecision(3);
-                     //$('#freq').val(ulaz);   
+                        //$('#freq').val(ulaz);   
                     }
 
-                        
+
                 }
                 if (o_prev == 'GHz') {
 
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz *= 1000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);   
                     }
 
 
-                     
+
                 }
                 if (o_prev == 'Hz') {
 
 
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz /= 1000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'GHz'){
+                    if (o == 'GHz') {
                         ulaz /= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
-                       // $('#freq').val(ulaz);
+                        // $('#freq').val(ulaz);
                     }
 
 
-                     
+
                 }
 
 
@@ -1358,44 +1213,44 @@ $(document).ready(function() { //promjena unosa za frekvenciju
             }
         }
 
-        
-        
+
+
         ulaz = format(ulaz);
-        
-        $('#'+in_val).val(ulaz);
-        o_prev = $('#'+in_sel).val();
+
+        $('#' + in_val).val(ulaz);
+        o_prev = $('#' + in_sel).val();
     });
 });
 
-$(document).ready(function() {
-    $("#sub_but_c").click(function() {
+$(document).ready(function () {
+    $("#sub_but_c").click(function () {
         $('#myform_c').validate({ // pokrenut plugin
             rules: {
                 d: { //minimalno 1 metar za graf
                     required: true,
                     number: true,
-                    min:0.000000001,
-                    
+                    min: 0.000000001,
+
                 },
 
                 freq: {
                     required: true,
                     number: true,
-                    min:0.000000001
+                    min: 0.000000001
                 }
             },
 
 
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 element.parent().append(error); //postavi prikaz errora na kraj
             },
 
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({ //predaj formu php-u
                     type: 'post',
                     url: 'free_space_loss_c.php',
                     data: $('#myform_c').serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
 
                         var data_array = $.parseJSON(response);
@@ -1403,7 +1258,7 @@ $(document).ready(function() {
                         var tocke_grafa = []; //array za tocke grafa
 
                         //uzmi JSON za tocke grafa
-                        $.each(data_array.tocke, function(key, value) {
+                        $.each(data_array.tocke, function (key, value) {
                             tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
                         });
 
@@ -1414,7 +1269,7 @@ $(document).ready(function() {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                                valueFormatString:  "#.000 E+00000"
+                                valueFormatString: "#.000 E+00000"
                             },
                             axisX: {
                                 title: "Distance" + " [" + $("#d_sel_c").val() + "]"
@@ -1429,7 +1284,7 @@ $(document).ready(function() {
 
                         //data_array.rezultat.toPrecision(8);
                         var rez = data_array.rezultat;
-                        
+
                         rez = format(rez);
 
                         $("#rez_c").val(rez);
@@ -1444,57 +1299,57 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $("#rez_sel_c").change(function() {
+$(document).ready(function () {
+    $("#rez_sel_c").change(function () {
         // pokrenut plugin
 
         $.ajax({ //predaj formu php-u
-                    type: 'post',
-                    url: 'free_space_loss_c.php',
-                    data: $('#myform_c').serialize(),
-                    success: function(response) {
-                        console.log(response);
+            type: 'post',
+            url: 'free_space_loss_c.php',
+            data: $('#myform_c').serialize(),
+            success: function (response) {
+                console.log(response);
 
-                        var data_array = $.parseJSON(response);
+                var data_array = $.parseJSON(response);
 
-                        var tocke_grafa = []; //array za tocke grafa
+                var tocke_grafa = []; //array za tocke grafa
 
-                        //uzmi JSON za tocke grafa
-                        $.each(data_array.tocke, function(key, value) {
-                            tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
-                        });
-
-                        var chart = new CanvasJS.Chart("chartContainer_c", { //opcije za graf
-
-                            zoomEnabled: true,
-                            exportEnabled: true,
-
-                            axisY: {
-                                title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                                valueFormatString:  "#.000 E+00000"
-                            },
-                            axisX: {
-                                title: "Distance" + " [" + $("#d_sel_c").val() + "]"
-                            },
-                            data: [{
-                                markerType: "none",
-                                type: "spline",
-                                dataPoints: tocke_grafa
-                            }]
-                        });
-                        chart.render();
-
-                        //data_array.rezultat.toPrecision(8);
-                        var rez = data_array.rezultat;
-                        
-                        rez = format(rez);
-
-                        $("#rez_c").val(rez);
-
-                        $("#chart_c").show();
-                        var element_to_scroll_to = document.getElementById('chart_c');
-                        element_to_scroll_to.scrollIntoView();
-                    }
+                //uzmi JSON za tocke grafa
+                $.each(data_array.tocke, function (key, value) {
+                    tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
                 });
+
+                var chart = new CanvasJS.Chart("chartContainer_c", { //opcije za graf
+
+                    zoomEnabled: true,
+                    exportEnabled: true,
+
+                    axisY: {
+                        title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
+                        valueFormatString: "#.000 E+00000"
+                    },
+                    axisX: {
+                        title: "Distance" + " [" + $("#d_sel_c").val() + "]"
+                    },
+                    data: [{
+                        markerType: "none",
+                        type: "spline",
+                        dataPoints: tocke_grafa
+                    }]
+                });
+                chart.render();
+
+                //data_array.rezultat.toPrecision(8);
+                var rez = data_array.rezultat;
+
+                rez = format(rez);
+
+                $("#rez_c").val(rez);
+
+                $("#chart_c").show();
+                var element_to_scroll_to = document.getElementById('chart_c');
+                element_to_scroll_to.scrollIntoView();
+            }
+        });
     });
 });

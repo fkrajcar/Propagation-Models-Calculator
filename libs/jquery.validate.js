@@ -1441,12 +1441,14 @@ $.extend( $.validator, {
 
 		// https://jqueryvalidation.org/min-method/
 		min: function( value, element, param ) {
-			return this.optional( element ) || value >= param;
+			console.log("val" + value);
+			console.log(param);
+			return this.optional( element ) || parseFloat(value) >= param;
 		},
 
 		// https://jqueryvalidation.org/max-method/
 		max: function( value, element, param ) {
-			return this.optional( element ) || value <= param;
+			return this.optional( element ) || parseFloat(value) <= param;
 		},
 
 		// https://jqueryvalidation.org/range-method/

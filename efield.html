@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>E-field at Receiver Antenna</title>
+    <title>E-Field at Receiver Antenna</title>
     <link rel="icon" href="images/antenna.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,19 +47,19 @@
                             <a href="erp.html">Effective Radiated Power (ERP)</a>
                         </li>
                         <li>
-                            <a href="">Fresnel Zones</a>
+                            <a href="fresnel_zones.html">Fresnel Zones</a>
                         </li>
                         <li>
-                            <a href="">Rayleigh Criterion for Surface Roughness</a>
+                            <a href="rayleigh.html">Rayleigh Criterion for Surface Roughness</a>
                         </li>
                         <li>
-                            <a href="">Plane-earth Model</a>
+                            <a href="plane_earth.html">Plane-earth Model</a>
                         </li>
                         <li>
-                            <a href="">Free Space Loss for Plane-earth Model</a>
+                            <a href="fsl_plane.html">Free Space Loss for Plane-earth Model</a>
                         </li>
                         <li>
-                            <a href="">Hata/COST231-Hata Model</a>
+                            <a href="hata.html">Hata/COST231-Hata Model</a>
                         </li>
                     </ul>
                 </li>
@@ -69,7 +69,7 @@
     <!-- Nav cont -->
     <div class="container">
         <div class="page-header">
-            <h1 style="font-size: 30px">E-field at Receiver Antenna</h1>
+            <h1 style="font-size: 30px">E-Field at Receiver Antenna</h1>
         </div>
 
         <ul class="nav nav-tabs" id="myTab">
@@ -79,7 +79,9 @@
             </li>
             <li>
                 <a href="#sectionB" style="min-width:250px; text-align: center; font-size: 15px">
-                    Compute P<sub>r</sub></a>
+                    Compute P
+                    <sub>r</sub>
+                </a>
             </li>
         </ul>
         <br />
@@ -100,8 +102,8 @@
                                     <select class="form-control input-md" id="pt_sel" name="pt_si" tabindex="-1">
                                         <option value="nW">nW</option>
                                         <option value="mW">mW</option>
-                                        <option value="w" selected="selected">W</option>
-                                        <option value="dBm">dBm</option>
+                                        <option value="w">W</option>
+                                        <option value="dBm" selected="selected">dBm</option>
                                         <option value="dBW">dBW</option>
                                     </select>
                                 </div>
@@ -147,7 +149,7 @@
                             <div class="row">
                                 <img class="col-sm-6" src="images/efield_e.png">
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -163,7 +165,7 @@
                                 </label>
                             </div>
                             <div class="col-xs-7">
-                                <input type="text" placeholder="E-field" class="form-control" id="rez" value="" disabled="">
+                                <input type="text" placeholder="E-Field" class="form-control" id="rez" value="" disabled="">
                             </div>
                             <div class="col-xs-3">
                                 <select class="form-control" id="rez_sel" name="rez_si" tabindex="-1">
@@ -191,7 +193,7 @@
                 <form method="post" class="form-horizontal" id="myform_pr">
                     <div class="row">
                         <div class="col-sm-6">
-                            
+
 
                             <div class="form-group">
                                 <label class="col-xs-2 control-label" for="E">E</label>
@@ -249,10 +251,10 @@
                         <div class="col-sm-6">
                             <!-- desni dio forme -->
                             <div class="row">
-                                
+
 
                                 <img class="col-sm-6" src="images/efield_pr.png">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -273,11 +275,11 @@
                             </div>
                             <div class="col-xs-3">
                                 <select class="form-control" id="rez_pr_sel" name="rez_pr_si" tabindex="-1">
-                                    <option value="pW" selected="selected">pW</option>
+                                    <option value="pW">pW</option>
                                     <option value="nW">nW</option>
                                     <option value="mW">mW</option>
                                     <option value="w">W</option>
-                                    <option value="dBm">dBm</option>
+                                    <option value="dBm" selected="selected">dBm</option>
                                     <option value="dBW">dBW</option>
                                 </select>
                             </div>

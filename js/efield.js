@@ -1,5 +1,5 @@
-$(document).ready(function() { //resetiraj unose i errore
-    $("#res").click(function() {
+$(document).ready(function () { //resetiraj unose i errore
+    $("#res").click(function () {
         $("#myform")[0].reset();
         $("label.error").hide();
         $(".error").removeClass("error");
@@ -14,48 +14,70 @@ $(document).ready(function () { //funkcija za tabove
     });
 });
 
-function numDigits(x) {
-    x = Number(String(x).replace(/[^0-9]/g, ''));
-    return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+function format(x) {
+    x = parseFloat(x);
+    console.log("usao u funk");
+    if (x > 99999) {
+        console.log("1");
+        x = x.toExponential(3);
+    }
+    else if (x > 0.01 && x < 100000) {
+        console.log("2");
+        x = x.toFixed(3);
+    }
+    else if (x < 0 && x > -99999) {
+        console.log("3");
+        x = x.toFixed(3);
+    }
+    else if (x <= -100000) {
+        console.log("4");
+        x = x.toExponential(3);
+    }
+    else if (x <= 0.01) {
+        console.log("5");
+        x = x.toExponential(3);
+    }
+
+    return x;
 }
 
-$(document).ready(function() { //na klik za input odaberi cijeli input (lakse brisanje/kopiranje)
-    $("#gt").click(function() {
+$(document).ready(function () { //na klik za input odaberi cijeli input (lakse brisanje/kopiranje)
+    $("#gt").click(function () {
         this.select();
     });
-    $("#gr").click(function() {
+    $("#gr").click(function () {
         this.select();
     });
-    $("#e").click(function() {
+    $("#e").click(function () {
         this.select();
     });
-    $("#d").click(function() {
+    $("#d").click(function () {
         this.select();
     });
-    $("#pt").click(function() {
+    $("#pt").click(function () {
         this.select();
     });
-    $("#freq").click(function() {
+    $("#freq").click(function () {
         this.select();
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - gt 
+$(document).ready(function () { //promjene unosa/mjernih jedinica - gt 
 
     var gt_sel_prev = document.getElementById("gt_sel").value;
 
-    $("#gt_sel").change(function() {
+    $("#gt_sel").change(function () {
         var gt_val = document.getElementById("gt");
         var gt_sel = document.getElementById("gt_sel");
         var gt = parseFloat(gt_val.value);
         //console.log(gt);
 
-        if(gt_sel_prev=="dless" && gt < 0){
+        if (gt_sel_prev == "dless" && gt < 0) {
             alert("Can't be negative while dimensionless!");
             document.getElementById("gt_sel").value = gt_sel_prev;
         }
 
-        if (!isNaN(gt) && ((gt_sel_prev=="dless" && gt > 0) || (gt_sel_prev!="dless")) ) {
+        if (!isNaN(gt) && ((gt_sel_prev == "dless" && gt > 0) || (gt_sel_prev != "dless"))) {
 
             if (gt_sel_prev == "dless") {
                 switch (gt_sel.value) {
@@ -94,40 +116,21 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gt
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (gt > 99999){
-                gt = gt.toExponential(3);
-            }
-            else if(gt > 0.001 && gt < 100000){
-                gt = gt.toFixed(3);
-            }
-            else if(gt < 0 && gt > -99999){
-                gt = gt.toFixed(3);
-            }
-            else if(gt <= -100000){
-                gt = gt.toExponential(3);
-            }
-            else if(gt <= 0.001){
-                gt = gt.toExponential(3);
-            }
 
-            gt_val.value = gt;
-            
+            gt_val.value = format(gt);
+
         }
 
         gt_sel_prev = document.getElementById("gt_sel").value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - d
+$(document).ready(function () { //promjene unosa/mjernih jedinica - d
 
     var d_sel_prev = document.getElementById("d_sel").value;
 
-    $("#d_sel").change(function() {
+    $("#d_sel").change(function () {
         var d_val = document.getElementById("d");
         var d_sel = document.getElementById("d_sel");
         var d = parseFloat(d_val.value);
@@ -168,47 +171,19 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - d
                 }
             }
 
-            function numDigits(x) {
-                x = Number(String(x).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
-            }
 
-            console.log("broj znam" + numDigits(d));
-
-
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
-
-            if (d > 99999){
-                d = d.toExponential(3);
-            }
-            else if(d > 0.001 && d < 100000){
-                d = d.toFixed(3);
-            }
-            else if(d < 0 && d > -99999){
-                d = d.toFixed(3);
-            }
-            else if(d <= -100000){
-                d = d.toExponential(3);
-            }
-            else if(d <= 0.001){
-                d = d.toExponential(3);
-            }
-
-            d_val.value = d;
+            d_val.value = format(d);
 
         }
         d_sel_prev = document.getElementById("d_sel").value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - e
+$(document).ready(function () { //promjene unosa/mjernih jedinica - e
 
     var e_sel_prev = document.getElementById("e_sel").value;
 
-    $("#e_sel").change(function() {
+    $("#e_sel").change(function () {
         var e_val = document.getElementById("e");
         var e_sel = document.getElementById("e_sel");
         var e = parseFloat(e_val.value);
@@ -218,89 +193,70 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - e
             if (e_sel_prev == "uVm") {
                 switch (e_sel.value) {
                     case "Vm":
-                        e /= 1e6; 
+                        e /= 1e6;
                         break;
 
                     case "dBuVm":
                         e /= 1e6;
-                        e = 20*Math.log10(e) + 120;
+                        e = 20 * Math.log10(e) + 120;
                         break;
                 }
             } else if (e_sel_prev == "Vm") {
                 switch (e_sel.value) {
                     case "uVm":
-                        e *= 1e6; 
+                        e *= 1e6;
                         break;
 
                     case "dBuVm":
-                        e = 20*Math.log10(e) + 120;
+                        e = 20 * Math.log10(e) + 120;
                         break;
 
                 }
             } else if (e_sel_prev == "dBuVm") {
                 switch (e_sel.value) {
                     case "uVm":
-                        e = Math.pow(10, (e-120) / 20);
+                        e = Math.pow(10, (e - 120) / 20);
                         e *= 1e6;
                         break;
 
                     case "Vm":
-                        e = Math.pow(10, (e-120) / 20);
+                        e = Math.pow(10, (e - 120) / 20);
                         break;
 
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (e > 99999){
-                e = e.toExponential(3);
-            }
-            else if(e > 0.001 && e < 100000){
-                e = e.toFixed(3);
-            }
-            else if(e < 0 && e > -99999){
-                e = e.toFixed(3);
-            }
-            else if(e <= -100000){
-                e = e.toExponential(3);
-            }
-            else if(e <= 0.001){
-                e = e.toExponential(3);
-            }
 
-            e_val.value = e;
+            e_val.value = format(e);
 
         }
         e_sel_prev = document.getElementById("e_sel").value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - pt
+$(document).ready(function () { //promjene unosa/mjernih jedinica - pt
 
     var pt_sel_prev = document.getElementById("pt_sel").value;
 
-    $("#pt_sel").change(function() {
+    $("#pt_sel").change(function () {
         var pt_val = document.getElementById("pt");
         var pt_sel = document.getElementById("pt_sel");
         var pt = parseFloat(pt_val.value);
 
 
-        if (   ( pt_sel_prev=="w" || pt_sel_prev=="nW" || pt_sel_prev=="mW" ) && pt < 0 ){
+        if ((pt_sel_prev == "w" || pt_sel_prev == "nW" || pt_sel_prev == "mW") && pt < 0) {
             alert("Can't be negative!");
             document.getElementById(sel_val).value = pt_sel_prev;
         }
 
-        if (!isNaN(pt) && (  (pt_sel_prev=="w" && pt > 0) || (pt_sel_prev=="mW" && pt > 0) || (pt_sel_prev=="nW" && pt > 0) || ( pt_sel_prev!="w" && pt_sel_prev!="nW" && pt_sel_prev!="mW" )   ) ) {
+        if (!isNaN(pt) && ((pt_sel_prev == "w" && pt > 0) || (pt_sel_prev == "mW" && pt > 0) || (pt_sel_prev == "nW" && pt > 0) || (pt_sel_prev != "w" && pt_sel_prev != "nW" && pt_sel_prev != "mW"))) {
 
             if (pt_sel_prev == "mW") {
                 switch (pt_sel.value) {
                     case "w":
                         pt = pt / 1000;
-                        
+
 
                         break;
 
@@ -420,49 +376,29 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - pt
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (pt > 99999){
-                pt = pt.toExponential(3);
-            }
-            else if(pt > 0.001 && pt < 100000){
-                pt = pt.toFixed(3);
-            }
-            else if(pt < 0 && pt > -99999){
-                pt = pt.toFixed(3);
-            }
-            else if(pt <= -100000){
-                pt = pt.toExponential(3);
-            }
-            else if(pt <= 0.001){
-                pt = pt.toExponential(3);
-            }
-
-            pt_val.value = pt;
+            pt_val.value = format(pt);
         }
 
         pt_sel_prev = document.getElementById("pt_sel").value;
     });
 });
 
-$(document).ready(function() { //promjene unosa/mjernih jedinica - gr 
+$(document).ready(function () { //promjene unosa/mjernih jedinica - gr 
 
     var gr_sel_prev = document.getElementById("gr_sel").value;
 
-    $("#gr_sel").change(function() {
+    $("#gr_sel").change(function () {
         var gr_val = document.getElementById("gr");
         var gr_sel = document.getElementById("gr_sel");
         var gr = parseFloat(gr_val.value);
 
-        if(gr_sel_prev=="dless" && gr < 0){
+        if (gr_sel_prev == "dless" && gr < 0) {
             alert("Can't be negative while dimensionless!");
             document.getElementById("gr_sel").value = gr_sel_prev;
         }
 
-        if (!isNaN(gr) && ((gr_sel_prev=="dless" && gr > 0) || (gr_sel_prev!="dless")) ) {
+        if (!isNaN(gr) && ((gr_sel_prev == "dless" && gr > 0) || (gr_sel_prev != "dless"))) {
             if (gr_sel_prev == "dless") {
                 switch (gr_sel.value) {
                     case "dBi":
@@ -498,28 +434,8 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
                 }
             }
 
-            function numDigits(z) {
-                z = Number(String(z).replace(/[^0-9]/g, ''));
-                return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-            }
 
-            if (gr > 99999){
-                gr = gr.toExponential(3);
-            }
-            else if(gr > 0.001 && gr < 100000){
-                gr = gr.toFixed(3);
-            }
-            else if(gr < 0 && gr > -99999){
-                gr = gr.toFixed(3);
-            }
-            else if(gr <= -100000){
-                gr = gr.toExponential(3);
-            }
-            else if(gr <= 0.001){
-                gr = gr.toExponential(3);
-            }
-
-            gr_val.value = gr;
+            gr_val.value = format(gr);
 
         }
 
@@ -528,8 +444,8 @@ $(document).ready(function() { //promjene unosa/mjernih jedinica - gr
     });
 });
 
-$(document).ready(function() { //promjena unosa za frekvenciju
-    $('#wf').change(function() {
+$(document).ready(function () { //promjena unosa za frekvenciju
+    $('#wf').change(function () {
         if ($('#wf').val() == '1') {
             $('#o1').text("mm")
             $('#o2').text("cm")
@@ -544,98 +460,114 @@ $(document).ready(function() { //promjena unosa za frekvenciju
     });
 });
 
-$(document).ready(function() { //promjena unosa za frekvenciju
-    var wf = $('#wf').val();
-    var o_prev = $('#freq_sel').val();
-    var ulaz = $('#freq').val();
-    console.log(ulaz);
+$(document).ready(function () { //promjena unosa za frekvenciju
+    var wave_sel = "wf";
+
+    var in_val = "freq";
+    var in_sel = "freq_sel";
+
+    var wf = $('#' + wave_sel).val();
+    var o_prev = $('#' + in_sel).val();
+    var ulaz = $('#' + in_val).val();
     var out;
 
-    $('#wf').change(function() {
-        ulaz = $('#freq').val();
-        o = $('#freq_sel').val();
+    $('#' + wave_sel).change(function () {
+
+        if ($('#' + wave_sel).val() == '1') {
+            $('#o1').text("mm")
+            $('#o2').text("cm")
+            $('#o3').text("m")
+            $('#' + in_val).attr("placeholder", "Wavelenght")
+        } else {
+            $('#o1').text("Hz")
+            $('#o2').text("MHz")
+            $('#o3').text("GHz")
+            $('#' + in_val).attr("placeholder", "Frequency")
+        }
+
+        ulaz = $('#' + in_val).val();
+        o = $('#' + in_sel).val();
         if (ulaz) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
-                out = out.toPrecision(3);
-                $('#freq').val(out * 1000);
+                out = out * 1000;
+                out = format(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'MHz') {
                 out = 3e8 / (ulaz * 1000000);
-                out = out.toPrecision(3);
-                $('#freq').val(out * 100);
+                out = out * 100;
+                out = format(out);
+                $('#' + in_val).val(out);
             }
             if (o == 'GHz') {
                 out = 3e8 / (ulaz * 1000000000);
-                out = out.toPrecision(3);
-                $('#freq').val(out);
+                out = format(out);
+                $('#' + in_val).val(out);
             }
-
-
         }
     });
 
-    $('#freq_sel').change(function() {
-        console.log(ulaz);
-        o = $('#freq_sel').val();
-        ulaz = $('#freq').val();
-        var wf = $('#wf').val();
+    $('#' + in_sel).change(function () {
+        o = $('#' + in_sel).val();
+        ulaz = $('#' + in_val).val();
+        var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
-        
+        //console.log(ulaz);
 
-        if (!isNaN(ulaz) && ulaz ) {
+        if (ulaz) {
             if (wf == 0) {
 
                 // mijenjaj frekvenciju
                 if (o_prev == 'MHz') {
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000;
                         //ulaz = ulaz.toPrecision(3);
-                      //$('#freq').val(ulaz);  
-                    } 
-                    if (o == 'GHz'){
+                        //$('#freq').val(ulaz);  
+                    }
+                    if (o == 'GHz') {
                         ulaz /= 1000;
                         //ulaz = ulaz.toPrecision(3);
-                     //$('#freq').val(ulaz);   
+                        //$('#freq').val(ulaz);   
                     }
 
-                        
+
                 }
                 if (o_prev == 'GHz') {
 
 
-                    if (o == 'Hz'){
+                    if (o == 'Hz') {
                         ulaz *= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz *= 1000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);   
                     }
 
 
-                     
+
                 }
                 if (o_prev == 'Hz') {
 
 
-                    if (o == 'MHz'){
+                    if (o == 'MHz') {
                         ulaz /= 1000000;
                         //ulaz = ulaz.toPrecision(3);
                         //$('#freq').val(ulaz);
                     }
-                    if (o == 'GHz'){
+                    if (o == 'GHz') {
                         ulaz /= 1000000000;
                         //ulaz = ulaz.toPrecision(3);
-                       // $('#freq').val(ulaz);
+                        // $('#freq').val(ulaz);
                     }
 
 
-                     
+
                 }
 
 
@@ -654,98 +586,76 @@ $(document).ready(function() { //promjena unosa za frekvenciju
                     if (o == 'MHz') ulaz /= 10; //cm
                     if (o == 'GHz') ulaz /= 1000; //m
                 }
-
-
             }
-
-            ulaz = ulaz.toExponential(3);
-            $('#freq').val(ulaz);
         }
 
-        
-        o_prev = $('#freq_sel').val();
-        //console.log(o_prev);
+
+
+        ulaz = format(ulaz);
+
+        $('#' + in_val).val(ulaz);
+        o_prev = $('#' + in_sel).val();
     });
 });
 
-$(document).ready(function() {
-    
-    $("#sub_but").click(function() {
+$(document).ready(function () {
+
+    $("#sub_but").click(function () {
         $('#myform').validate({ // pokrenut plugin
             rules: {
                 gt: {
                     number: true,
                     required: true,
 
-                    min: function(element){
+                    min: function (element) {
 
-                        if ( $("#gt_sel").val() == "dless" )
+                        if ($("#gt_sel").val() == "dless")
                             return 0.000000001;
                         else return;
                     }
 
-                
- 
+
+
                 },
-                
+
                 d: { //minimalno 1 metar za graf
                     required: true,
                     number: true,
-                    min:0.000000001,
-                    
+                    min: 0.000000001,
+
                 },
                 pt: {
                     required: true,
                     number: true,
-                    min: function(element){
+                    min: function (element) {
                         var pt = $("#pt_sel").val();
 
-                        if ( pt == "nW" || pt == "mW" || pt == "w")
+                        if (pt == "nW" || pt == "mW" || pt == "w")
                             return 0.000000001;
                         else return;
                     }
                 },
-                
+
             },
 
 
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 element.parent().append(error); //postavi prikaz errora na kraj
             },
 
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({ //predaj formu php-u
                     type: 'post',
                     url: 'efield.php',
                     data: $('#myform').serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
 
                         var data_array = $.parseJSON(response);
 
                         var rez = data_array.rezultat;
 
-                        function numDigits(z) {
-                            z = Number(String(z).replace(/[^0-9]/g, ''));
-                            return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-                        }
-
-                        if (rez > 99999){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez > 0.001 && rez < 100000){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez < 0 && rez > -99999){
-                            rez = rez.toFixed(3);
-                        }
-                        else if(rez <= -100000){
-                            rez = rez.toExponential(3);
-                        }
-                        else if(rez <= 0.001){
-                            rez = rez.toExponential(3);
-                        }
-
+                        rez = format(rez);
                         $("#rez").val(rez);
                     }
                 });
@@ -754,15 +664,15 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $("#rez_sel").change(function() {
+$(document).ready(function () {
+    $("#rez_sel").change(function () {
         // pokrenut plugin
 
         $.ajax({ //predaj formu php-u
             type: 'post',
             url: 'efield.php',
             data: $('#myform').serialize(),
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
 
                 var data_array = $.parseJSON(response);
@@ -770,30 +680,11 @@ $(document).ready(function() {
                 //data_array.rezultat.toPrecision(8);
                 var rez = data_array.rezultat;
 
-                function numDigits(z) {
-                    z = Number(String(z).replace(/[^0-9]/g, ''));
-                    return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-                }
-
-                if (rez > 99999){
-                    rez = rez.toExponential(3);
-                }
-                else if(rez > 0.001 && rez < 100000){
-                    rez = rez.toFixed(3);
-                }
-                else if(rez < 0 && rez > -99999){
-                    rez = rez.toFixed(3);
-                }
-                else if(rez <= -100000){
-                    rez = rez.toExponential(3);
-                }
-                else if(rez <= 0.001){
-                    rez = rez.toExponential(3);
-                }
+                rez = format(rez);
 
                 $("#rez").val(rez);
 
-                
+
             }
         });
     });
@@ -801,22 +692,22 @@ $(document).ready(function() {
 
 //rez2
 
-$(document).ready(function() {
-    
-    $("#sub_but_pr").click(function() {
+$(document).ready(function () {
+
+    $("#sub_but_pr").click(function () {
         $('#myform_pr').validate({ // pokrenut plugin
             rules: {
                 e: {
                     number: true,
                     required: true,
                 },
-                
+
                 gr: {
                     required: true,
                     number: true,
-                    min: function(element){
+                    min: function (element) {
 
-                        if ( $("#gr_sel").val() == "dless" )
+                        if ($("#gr_sel").val() == "dless")
                             return 0.000000001;
                         else return;
                     }
@@ -825,51 +716,33 @@ $(document).ready(function() {
                 freq: {
                     required: true,
                     number: true,
-                    min:0.000000001
+                    min: 0.000000001
                 }
-                
+
             },
 
 
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 element.parent().append(error); //postavi prikaz errora na kraj
             },
 
-            submitHandler: function(form) {
+            submitHandler: function (form) {
                 $.ajax({ //predaj formu php-u
                     type: 'post',
                     url: 'efield_pr.php',
                     data: $('#myform_pr').serialize(),
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
 
                         var data_array = $.parseJSON(response);
 
                         var rez_pr = data_array.rezultat;
-                        function numDigits(z) {
-                            z = Number(String(z).replace(/[^0-9]/g, ''));
-                            return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-                        }
 
-                        if (rez_pr > 99999){
-                            rez_pr = rez_pr.toExponential(3);
-                        }
-                        else if(rez_pr > 0.001 && rez_pr < 100000){
-                            rez_pr = rez_pr.toFixed(3);
-                        }
-                        else if(rez_pr < 0 && rez_pr > -99999){
-                            rez_pr = rez_pr.toFixed(3);
-                        }
-                        else if(rez_pr <= -100000){
-                            rez_pr = rez_pr.toExponential(3);
-                        }
-                        else if(rez_pr <= 0.001){
-                            rez_pr = rez_pr.toExponential(3);
-                        }
+                        rez_pr = format(rez_pr);
 
                         $("#rez_pr").val(rez_pr);
 
-                        
+
                     }
                 });
             }
@@ -877,44 +750,25 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $("#rez_pr_sel").change(function() {
+$(document).ready(function () {
+    $("#rez_pr_sel").change(function () {
         // pokrenut plugin
 
         $.ajax({ //predaj formu php-u
             type: 'post',
             url: 'efield_pr.php',
             data: $('#myform_pr').serialize(),
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
 
                 var data_array = $.parseJSON(response);
 
                 var rez_pr = data_array.rezultat;
-                function numDigits(z) {
-                    z = Number(String(z).replace(/[^0-9]/g, ''));
-                    return Math.max(Math.floor(Math.log10(Math.abs(z))), 0) + 1;
-                }
-
-                if (rez_pr > 99999){
-                    rez_pr = rez_pr.toExponential(3);
-                }
-                else if(rez_pr > 0.001 && rez_pr < 100000){
-                    rez_pr = rez_pr.toFixed(3);
-                }
-                else if(rez_pr < 0 && rez_pr > -99999){
-                    rez_pr = rez_pr.toFixed(3);
-                }
-                else if(rez_pr <= -100000){
-                    rez_pr = rez_pr.toExponential(3);
-                }
-                else if(rez_pr <= 0.001){
-                    rez_pr = rez_pr.toExponential(3);
-                }
+                rez_pr = format(rez_pr);
 
                 $("#rez_pr").val(rez_pr);
 
-                
+
             }
         });
     });

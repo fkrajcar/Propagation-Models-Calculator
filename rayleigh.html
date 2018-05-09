@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Free Space Loss</title>
+    <title>Rayleigh Criterion for Surface Roughness</title>
     <link rel="icon" href="images/antenna.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
     <script src="libs/additional-methods.js"></script>
     <!-- Moj JQ i CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <script src="js/free_space_loss.js"></script>
+    <script src="js/rayleigh.js"></script>
 
 
 
@@ -72,78 +72,73 @@
     <!-- Nav cont -->
     <div class="container">
         <div class="page-header">
-            <h1 style="font-size: 30px">Free Space Loss</h1>
+            <h1 style="font-size: 30px">Rayleigh Criterion for Surface Roughness</h1>
         </div>
 
         <ul class="nav nav-tabs" id="myTab">
             <li class="active">
                 <a href="#sectionA" style="min-width:250px; text-align: center; font-size: 15px">
-                    P
-                    <sub>t</sub>/P
-                    <sub>r</sub>
+                    Compute H
                 </a>
             </li>
             <li>
                 <a href="#sectionB" style="min-width:250px; text-align: center; font-size: 15px">
-                    G
-                    <sub>t</sub>, G
-                    <sub>r</sub>, f, d</a>
+                    Compare H
+                </a>
             </li>
             <li>
                 <a href="#sectionC" style="min-width:250px; text-align: center; font-size: 15px">
-                    Isotropic antennas</a>
+                    Compute C
+                </a>
             </li>
         </ul>
         <br />
         <div class="tab-content">
             <div id="sectionA" class="tab-pane fade in active">
-                <form method="post" class="form-horizontal" id="myform">
+                <form method="post" class="form-horizontal" id="myform_a">
                     <div class="row">
                         <div class="col-sm-6">
                             <!-- lijevi dio forme !-->
-
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="pt">P
-                                    <sub>t</sub>
+                                <label class="col-xs-2" for="freq_a">
+                                    <select class="form-control" style="min-width:75px;" id="wf_a" name="wff_a" tabindex="-1">
+                                        <option value="0">f</option>
+                                        <option value="1">λ</option>
+                                    </select>
                                 </label>
                                 <div class="col-xs-7">
-                                    <input type="text" placeholder="Transmitter power" class="form-control" id="pt" name="pt" value="">
+                                    <input type="text" placeholder="Frequency" class="form-control" id="freq_a" name="freq_a" value="">
                                 </div>
                                 <div class="col-xs-3">
-                                    <select class="form-control input-md" id="pt_sel" name="pt_si" tabindex="-1">
-                                        <option value="nW">nW</option>
-                                        <option value="mW">mW</option>
-                                        <option value="w">W</option>
-                                        <option value="dBm" selected="selected">dBm</option>
-                                        <option value="dBW">dBW</option>
+                                    <select class="form-control" id="freq_sel_a" name="freq_si_a" tabindex="-1">
+                                        <option id="o1_a" value="Hz">Hz</option>
+                                        <option id="o2_a" value="MHz" selected="selected">MHz</option>
+                                        <option id="o3_a" value="GHz">GHz</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="psi_a">Psi</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Psi" class="form-control" id="psi_a" name="psi_a" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="psi_sel_a" name="psi_si_a" tabindex="-1">
+                                        <option value="rad">rad</option>
+                                        <option value="stup" selected="selected">°</option>
                                     </select>
                                 </div>
                             </div>
 
 
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="pr">P
-                                    <sub>r</sub>
-                                </label>
-                                <div class="col-xs-7">
-                                    <input type="text" placeholder="Power received" class="form-control" id="pr" name="pr" value="">
-                                </div>
-                                <div class="col-xs-3">
-                                    <select class="form-control input-md" id="pr_sel" name="pr_si" tabindex="-1">
-                                        <option value="nW">nW</option>
-                                        <option value="mW">mW</option>
-                                        <option value="w">W</option>
-                                        <option value="dBm" selected="selected">dBm</option>
-                                        <option value="dBW">dBW</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <br />
                         </div>
                         <div class="col-sm-6">
                             <!-- desni dio forme -->
                             <div class="row">
-                                <img class="col-sm-12" src="images/free_space_1.png">
+                                <img class="col-sm-6" src="images/rayleigh_1.png">
                             </div>
                         </div>
                     </div>
@@ -154,18 +149,17 @@
                         <div class="col-sm-6">
                             <div class="col-xs-2">
                                 <label class="control-label">
-                                    L
-                                    <sub>f</sub>
+                                    H
                                 </label>
                             </div>
                             <div class="col-xs-7">
-                                <input type="text" placeholder="Loss" class="form-control" id="rez" value="" disabled="">
+                                <input type="text" placeholder="H" class="form-control" id="rez_a" value="" disabled="">
                             </div>
                             <div class="col-xs-3">
-                                <select class="form-control" id="rez_sel" name="rez_si" tabindex="-1">
-                                    <option value="dless">d'less</option>
-                                    <option value="dBi" selected="selected">dBi</option>
-                                    <option value="dBd">dBd</option>
+                                <select class="form-control" id="rez_sel_a" name="rez_si_a" tabindex="-1">
+                                    <option value="cm">cm</option>
+                                    <option value="m" selected="selected">m</option>
+                                    <option value="km">km</option>
                                 </select>
                             </div>
                         </div>
@@ -173,16 +167,13 @@
                     <br />
                     <div class="row">
                         <div class="col-xs-6">
-                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but" name="submit">Calculate</button>
-                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res">
+                            <button class="btn btn-primary col-xs-6" type="submit" id="sub_but_a" name="submit">Calculate</button>
+                            <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_a">
                         </div>
                     </div>
                     <br />
                     <br />
                 </form>
-                <div id="chart">
-                    <div id="chartContainer"></div>
-                </div>
             </div>
 
             <!-- efield_pr -->
@@ -192,44 +183,44 @@
                         <div class="col-sm-6">
                             <!-- lijevi dio forme !-->
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="gt_b">
-                                    G
-                                    <sub>t</sub>
+                                <label class="col-xs-2" for="freq_b">
+                                    <select class="form-control" style="min-width:75px;" id="wf_b" name="wff_b" tabindex="-1">
+                                        <option value="0">f</option>
+                                        <option value="1">λ</option>
+                                    </select>
                                 </label>
                                 <div class="col-xs-7">
-                                    <input type="text" placeholder="Transmitter gain" class="form-control" id="gt_b" name="gt_b" value="">
+                                    <input type="text" placeholder="Frequency" class="form-control" id="freq_b" name="freq_b" value="">
                                 </div>
                                 <div class="col-xs-3">
-                                    <select class="form-control" id="gt_sel_b" name="gt_si_b" tabindex="-1">
-                                        <option value="dless">d'less</option>
-                                        <option value="dBi" selected="selected">dBi</option>
-                                        <option value="dBd">dBd</option>
+                                    <select class="form-control" id="freq_sel_b" name="freq_si_b" tabindex="-1">
+                                        <option id="o1_b" value="Hz">Hz</option>
+                                        <option id="o2_b" value="MHz" selected="selected">MHz</option>
+                                        <option id="o3_b" value="GHz">GHz</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="gr_b">
-                                    G
-                                    <sub>r</sub>
-                                </label>
+                                <label class="col-xs-2 control-label" for="psi_b">Psi</label>
                                 <div class="col-xs-7">
-                                    <input type="text" placeholder="Receiver gain" class="form-control" id="gr_b" name="gr_b" value="">
+                                    <input type="text" placeholder="Psi" class="form-control" id="psi_b" name="psi_b" value="">
                                 </div>
                                 <div class="col-xs-3">
-                                    <select class="form-control" id="gr_sel_b" name="gr_si_b" tabindex="-1">
-                                        <option value="dless">d'less</option>
-                                        <option value="dBi" selected="selected">dBi</option>
-                                        <option value="dBd">dBd</option>
+                                    <select class="form-control" id="psi_sel_b" name="psi_si_b" tabindex="-1">
+                                        <option value="rad">rad</option>
+                                        <option value="stup" selected="selected">°</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="d_b">d</label>
+                                <label class="col-xs-2 control-label" for="h_b">H<sub>i</sub></label>
                                 <div class="col-xs-7">
-                                    <input type="text" placeholder="Distance" class="form-control" id="d_b" name="d_b" value="">
+                                    <input type="text" placeholder="H" class="form-control" id="h_b" name="h_b" value="">
                                 </div>
                                 <div class="col-xs-3">
-                                    <select class="form-control" id="d_sel_b" name="d_si_b" tabindex="-1">
+                                    <select class="form-control" id="h_sel_b" name="h_si_b" tabindex="-1">
                                         <option value="cm">cm</option>
                                         <option value="m" selected="selected">m</option>
                                         <option value="km">km</option>
@@ -237,31 +228,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-xs-2" for="freq">
-                                    <select class="form-control" style="min-width:75px;" id="wf" name="wff" tabindex="-1">
-                                        <option value="0">f</option>
-                                        <option value="1">λ</option>
-                                    </select>
-                                </label>
-                                <div class="col-xs-7">
-                                    <input type="text" placeholder="Frequency" class="form-control" id="freq" name="freq" value="">
-                                </div>
-                                <div class="col-xs-3">
-                                    <select class="form-control" id="freq_sel" name="freq_si" tabindex="-1">
-                                        <option id="o1" value="Hz">Hz</option>
-                                        <option id="o2" value="MHz" selected="selected">MHz</option>
-                                        <option id="o3" value="GHz">GHz</option>
-                                    </select>
-                                </div>
-                            </div>
+
+
                             <br />
                         </div>
                         <div class="col-sm-6">
                             <!-- desni dio forme -->
                             <div class="row">
-                                <img class="col-sm-12" src="images/free_space_2.png">
-                                <img class="col-sm-12" src="images/free_space_2_2.png">
+                                <img class="col-sm-6" src="images/rayleigh_2.png">
                             </div>
                         </div>
                     </div>
@@ -272,18 +246,17 @@
                         <div class="col-sm-6">
                             <div class="col-xs-2">
                                 <label class="control-label">
-                                    L
-                                    <sub>f</sub>
+                                    H
                                 </label>
                             </div>
                             <div class="col-xs-7">
-                                <input type="text" placeholder="Loss" class="form-control" id="rez_b" value="" disabled="">
+                                <input type="text" placeholder="H" class="form-control" id="rez_b" value="" disabled="">
                             </div>
                             <div class="col-xs-3">
                                 <select class="form-control" id="rez_sel_b" name="rez_si_b" tabindex="-1">
-                                    <option value="dless">d'less</option>
-                                    <option value="dBi" selected="selected">dBi</option>
-                                    <option value="dBd">dBd</option>
+                                    <option value="cm">cm</option>
+                                    <option value="m" selected="selected">m</option>
+                                    <option value="km">km</option>
                                 </select>
                             </div>
                         </div>
@@ -295,11 +268,13 @@
                             <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_b">
                         </div>
                     </div>
+
                     <br />
                     <br />
                 </form>
-                <div id="chart_b">
-                    <div id="chartContainer_b"></div>
+                <div class ="row">
+                    <div class="col-sm-12 well" id="rough" hidden>       
+                    </div>
                 </div>
             </div>
             <div id="sectionC" class="tab-pane fade">
@@ -307,21 +282,6 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <!-- lijevi dio forme !-->
-
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="d_c">d</label>
-                                <div class="col-xs-7">
-                                    <input type="text" placeholder="Distance" class="form-control" id="d_c" name="d_c" value="">
-                                </div>
-                                <div class="col-xs-3">
-                                    <select class="form-control" id="d_sel_c" name="d_si_c" tabindex="-1">
-                                        <option value="cm">cm</option>
-                                        <option value="m" selected="selected">m</option>
-                                        <option value="km">km</option>
-                                    </select>
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <label class="col-xs-2" for="freq_c">
                                     <select class="form-control" style="min-width:75px;" id="wf_c" name="wff_c" tabindex="-1">
@@ -340,12 +300,40 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="psi_c">Psi</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Psi" class="form-control" id="psi_c" name="psi_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="psi_sel_c" name="psi_si_c" tabindex="-1">
+                                        <option value="rad">rad</option>
+                                        <option value="stup" selected="selected">°</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="h_c">Sigma</label>
+                                <div class="col-xs-7">
+                                    <input type="text" placeholder="Sigma" class="form-control" id="h_c" name="h_c" value="">
+                                </div>
+                                <div class="col-xs-3">
+                                    <select class="form-control" id="h_sel_c" name="h_si_c" tabindex="-1">
+                                        <option value="cm">cm</option>
+                                        <option value="m" selected="selected">m</option>
+                                        <option value="km">km</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <br />
                         </div>
                         <div class="col-sm-6">
                             <!-- desni dio forme -->
                             <div class="row">
-                                <img class="col-sm-12" src="images/free_space_3.png">
+                                <img class="col-sm-6" src="images/rayleigh_3.png">
                             </div>
                         </div>
                     </div>
@@ -356,19 +344,11 @@
                         <div class="col-sm-6">
                             <div class="col-xs-2">
                                 <label class="control-label">
-                                    L
-                                    <sub>b</sub>
+                                    C
                                 </label>
                             </div>
-                            <div class="col-xs-7">
-                                <input type="text" placeholder="Loss" class="form-control" id="rez_c" value="" disabled="">
-                            </div>
-                            <div class="col-xs-3">
-                                <select class="form-control" id="rez_sel_c" name="rez_si_c" tabindex="-1">
-                                    <option value="dless">d'less</option>
-                                    <option value="dBi" selected="selected">dBi</option>
-                                    <option value="dBd">dBd</option>
-                                </select>
+                            <div class="col-xs-10">
+                                <input type="text" placeholder="Rayleigh Criterion" class="form-control" id="rez_c" value="" disabled="">
                             </div>
                         </div>
                     </div>
@@ -379,12 +359,10 @@
                             <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res_c">
                         </div>
                     </div>
+
                     <br />
                     <br />
                 </form>
-                <div id="chart_c">
-                    <div id="chartContainer_c"></div>
-                </div>
             </div>
         </div>
     </div>
