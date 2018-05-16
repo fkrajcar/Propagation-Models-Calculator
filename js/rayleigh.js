@@ -3,6 +3,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("#myform_a")[0].reset();
         $("label.error").hide();
         $(".error").removeClass("error");
+        location.reload();
     });
 });
 
@@ -11,6 +12,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("#myform_b")[0].reset();
         $("label.error").hide();
         $(".error").removeClass("error");
+        location.reload();
         $("#rough").hide();
     });
 });
@@ -20,6 +22,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("#myform_c")[0].reset();
         $("label.error").hide();
         $(".error").removeClass("error");
+        location.reload();
     });
 });
 
@@ -194,7 +197,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             $('#o1_a').text("Hz")
             $('#o2_a').text("MHz")
             $('#o3_a').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "frequency")
         }
 
         ulaz = $('#' + in_val).val();
@@ -337,7 +340,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             $('#o1_b').text("Hz")
             $('#o2_b').text("MHz")
             $('#o3_b').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "frequency")
         }
 
         ulaz = $('#' + in_val).val();
@@ -480,7 +483,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             $('#o1_c').text("Hz")
             $('#o2_c').text("MHz")
             $('#o3_c').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "frequency")
         }
 
         ulaz = $('#' + in_val).val();

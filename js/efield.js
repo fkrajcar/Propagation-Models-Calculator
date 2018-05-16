@@ -4,6 +4,21 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        location.reload();
+    });
+});
+
+$(document).ready(function () { //resetiraj unose i errore
+    $("#res_pr").click(function () {
+        $("#myform")[0].reset();
+        $("label.error").hide();
+        $(".error").removeClass("error");
+        $("#chart").hide();
+        $('#o1').text("Hz");
+        $('#o2').text("MHz");
+        $('#o3').text("GHz");
+        $('#freq').attr("placeholder", "frequency");
+        location.reload();
     });
 });
 
@@ -445,22 +460,6 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - gr
 });
 
 $(document).ready(function () { //promjena unosa za frekvenciju
-    $('#wf').change(function () {
-        if ($('#wf').val() == '1') {
-            $('#o1').text("mm")
-            $('#o2').text("cm")
-            $('#o3').text("m")
-            $('#freq').attr("placeholder", "Wavelenght")
-        } else {
-            $('#o1').text("Hz")
-            $('#o2').text("MHz")
-            $('#o3').text("GHz")
-            $('#freq').attr("placeholder", "Frequency")
-        }
-    });
-});
-
-$(document).ready(function () { //promjena unosa za frekvenciju
     var wave_sel = "wf";
 
     var in_val = "freq";
@@ -469,6 +468,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     var wf = $('#' + wave_sel).val();
     var o_prev = $('#' + in_sel).val();
     var ulaz = $('#' + in_val).val();
+    ulaz = parseFloat(ulaz);
     var out;
 
     $('#' + wave_sel).change(function () {
@@ -482,12 +482,13 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             $('#o1').text("Hz")
             $('#o2').text("MHz")
             $('#o3').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "frequency")
         }
 
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         o = $('#' + in_sel).val();
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
                 out = out * 1000;
@@ -511,12 +512,13 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     $('#' + in_sel).change(function () {
         o = $('#' + in_sel).val();
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
 
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (wf == 0) {
 
                 // mijenjaj frekvenciju
@@ -587,13 +589,15 @@ $(document).ready(function () { //promjena unosa za frekvenciju
                     if (o == 'GHz') ulaz /= 1000; //m
                 }
             }
+
+            ulaz = format(ulaz);
+
+            $('#' + in_val).val(ulaz);
         }
 
 
 
-        ulaz = format(ulaz);
-
-        $('#' + in_val).val(ulaz);
+        
         o_prev = $('#' + in_sel).val();
     });
 });

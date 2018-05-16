@@ -6,6 +6,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("#chart").hide();
         $("img").hide();
         $("#home_icon").show();
+        location.reload();
     });
 });
 
@@ -15,15 +16,129 @@ $(document).ready(function () { //resetiraj unose i errore
     	console.log(area);
     	var city = $("#city").val();
     	console.log(city);
-
+        city = "small";
     	if (area == "urban"){
     		$("#city_form").show();
     	}else{
     		$("#city_form").hide();
+            $("#city").val("small").change();
     	}
+
+        if (city == "big"){
+            $("#hr").attr("placeholder", "height of receiver: no further conditions");
+        }else{
+            switch( $("#hr_sel").val() ) {
+                case "m":
+                    $("#hr").attr("placeholder", "height of receiver: [1, 10]" + $("#hr_sel").val());
+                    break;
+                case "km":
+                    $("#hr").attr("placeholder", "height of receiver: [0.001, 0.01]" + $("#hr_sel").val());
+                    break;
+                case "cm":
+                    $("#hr").attr("placeholder", "height of receiver: [100, 1000]" + $("#hr_sel").val());
+                    break;
+            }
+        }
+
+        in_val = "freq";
+        wf = $("#wf").val();
+
+        if(wf == 1){
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [200 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [20 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.2 - 2]m");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [150 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [15 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.15 - 2]m");
+                        break;
+                }
+            }
+        }else{
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 1.5e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 1500]MHz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 1.5]GHz");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 2e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 2]GHz");
+                        break;
+                }
+            }
+        }
+
+
+
+
+
     });
     $("img").hide();
     $("#home_icon").show();
+
+    $("#city").change(function () {
+        var city = $("#city").val();
+        if (city == "big"){
+            $("#hr").attr("placeholder", "height of receiver: no further conditions");
+        }else{
+            switch( $("#hr_sel").val() ) {
+                case "m":
+                    $("#hr").attr("placeholder", "height of receiver: [1, 10]" + $("#hr_sel").val());
+                    break;
+                case "km":
+                    $("#hr").attr("placeholder", "height of receiver: [0.001, 0.01]" + $("#hr_sel").val());
+                    break;
+                case "cm":
+                    $("#hr").attr("placeholder", "height of receiver: [100, 1000]" + $("#hr_sel").val());
+                    break;
+            }
+        }
+    });
 });
 
 
@@ -74,6 +189,17 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
         var d_val = document.getElementById(in_val);
         var d_sel = document.getElementById(sel_val);
         var d = parseFloat(d_val.value);
+        switch(d_sel.value){
+            case "m":
+                $("#d").attr("placeholder", "distance: [1000, 20000]" + d_sel.value);
+                break;
+            case "km":
+                $("#d").attr("placeholder", "distance: [1, 20]" + d_sel.value);
+                break;
+            case "cm":
+                $("#d").attr("placeholder", "distance: [1e+5, 2e+6]" + d_sel.value);
+                break;
+        }
 
         if (!isNaN(d)) {
 
@@ -118,7 +244,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
     });
 });
 
-$(document).ready(function () { //promjene unosa/mjernih jedinica - d
+$(document).ready(function () { //promjene unosa/mjernih jedinica - hr
     var in_val = "hr";
     var sel_val = "hr_sel";
     var d_sel_prev = document.getElementById(sel_val).value;
@@ -127,6 +253,23 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
         var d_val = document.getElementById(in_val);
         var d_sel = document.getElementById(sel_val);
         var d = parseFloat(d_val.value);
+
+        if( $("#city").val()!="big" ){
+            switch(d_sel.value){
+                case "m":
+                    $("#" + in_val).attr("placeholder", "height of receiver: [1, 10]" + d_sel.value);
+                    break;
+                case "km":
+                    $("#" + in_val).attr("placeholder", "height of receiver: [0.001, 0.01]" + d_sel.value);
+                    break;
+                case "cm":
+                    $("#" + in_val).attr("placeholder", "height of receiver: [100, 1000]" + d_sel.value);
+                    break;
+            }
+        }else{
+            $("#" + in_val).attr("placeholder", "height of receiver: no further conditions");
+        }
+        
 
         if (!isNaN(d)) {
 
@@ -180,6 +323,17 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
         var d_val = document.getElementById(in_val);
         var d_sel = document.getElementById(sel_val);
         var d = parseFloat(d_val.value);
+        switch(d_sel.value){
+            case "m":
+                $("#" + in_val).attr("placeholder", "height of transmitter: [30, 200]" + d_sel.value);
+                break;
+            case "km":
+                $("#" + in_val).attr("placeholder", "height of transmitter: [0.03, 0.2]" + d_sel.value);
+                break;
+            case "cm":
+                $("#" + in_val).attr("placeholder", "height of transmitter: [3000, 20000]" + d_sel.value);
+                break;
+        }
 
         if (!isNaN(d)) {
 
@@ -237,17 +391,86 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     var out;
 
     $('#' + wave_sel).change(function () {
-
         if ($('#' + wave_sel).val() == '1') {
             $('#o1').text("mm")
             $('#o2').text("cm")
             $('#o3').text("m")
-            $('#' + in_val).attr("placeholder", "Wavelenght")
+            
+
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [200 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [20 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.2 - 2]m");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [150 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [15 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.15 - 2]m");
+                        break;
+                }
+            }
+
+
+
         } else {
             $('#o1').text("Hz")
             $('#o2').text("MHz")
             $('#o3').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 1.5e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 1500]MHz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 1.5]GHz");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 2e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 2]GHz");
+                        break;
+                }
+            }
         }
 
         ulaz = $('#' + in_val).val();
@@ -279,9 +502,79 @@ $(document).ready(function () { //promjena unosa za frekvenciju
         ulaz = $('#' + in_val).val();
         ulaz = parseFloat(ulaz);
         var wf = $('#' + wave_sel).val();
-        //console.log(o_prev);
-        //console.log(o);
-        //console.log(ulaz);
+
+        if(wf == 1){
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [200 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [20 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.2 - 2]m");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [150 - 2000]mm");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [15 - 200]cm");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "Wavelenght: [0.15 - 2]m");
+                        break;
+                }
+            }
+        }else{
+            if( $("#area").val() != "urban" ){
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 1.5e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 1500]MHz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 1.5]GHz");
+                        break;
+                }
+            }else{
+                switch($("#freq_sel").val()){
+                    case "Hz":
+                        $('#' + in_val).attr("placeholder", "frequency: [1.5e+8 - 2e+9]Hz");
+                        break;
+
+
+                    case "MHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        break;
+
+
+                    case "GHz":
+                        $('#' + in_val).attr("placeholder", "frequency: [0.15 - 2]GHz");
+                        break;
+                }
+            }
+        }
+
+
+        
 
         if (!isNaN(ulaz) ) {
             if (wf == 0) {
@@ -365,6 +658,406 @@ $(document).ready(function () { //promjena unosa za frekvenciju
         
         o_prev = $('#' + in_sel).val();
     });
+});
+
+
+$(document).ready(function () {
+
+    $('#myform').validate({ // pokrenut plugin
+        onkeyup: function (element, event) {
+            if (event.which === 9 && this.elementValue(element) === "") {
+                return;
+            } else {
+                this.element(element);
+            }
+        },
+        rules: {
+            d: { //minimalno 1 metar za graf
+                required: true,
+                number: true,
+                min: function(element){
+                    var d_sel = $("#d_sel").val();
+                    switch(d_sel){
+                        case "m":
+                            return 1000;
+                            break;
+                        case "km":
+                            return 1;
+                            break;
+                        case "cm":
+                            return 100000;
+                            break;
+                        
+                    }
+                },
+                max: function(element){
+                    
+                    var d_sel = $("#d_sel").val();
+                    switch(d_sel){
+                        case "m":
+                            return 20000;
+                            break;
+                        case "km":
+                            return 20;
+                            break;
+                        case "cm":
+                            return 2000000;
+                            break;
+                    }
+                    
+                }
+
+            },
+            hr: {
+                required: true,
+                number: true,
+                min: function(element){
+                    var area_sel = $("#area").val();
+                    var city_sel = $("#city").val();
+
+                    if(area_sel == "urban" && city_sel == "big"){
+                        return 0;
+                    }else{
+                        var hr_sel = $("#hr_sel").val();
+                        switch(hr_sel){
+                            case "m":
+                                return 1;
+                                break;
+                            case "km":
+                                return 0.001;
+                                break;
+                            case "cm":
+                                return 100;
+                                break;
+                        }
+                    }
+                },
+                max: function(element){
+                    var area_sel = $("#area").val();
+                    var city_sel = $("#city").val();
+
+                    if(area_sel == "urban" && city_sel == "big"){
+                        return Infinity;
+                    }else{
+                        var hr_sel = $("#hr_sel").val();
+                        switch(hr_sel){
+                            case "m":
+                                return 10;
+                                break;
+                            case "km":
+                                return 0.01;
+                                break;
+                            case "cm":
+                                return 1000;
+                                break;
+                        }
+                    }
+                }
+            },
+            ht: {
+                required: true,
+                number: true,
+                min: function (element) {
+                    var ht_sel = $("#ht_sel").val();
+                    switch(ht_sel){
+                        case "m":
+                            return 30;
+                            break;
+                        case "km":
+                            return 0.03;
+                            break;
+                        case "cm":
+                            return 3000;
+                            break;
+                    }
+                },
+                max: function (element) {
+                    var ht_sel = $("#ht_sel").val();
+                    switch(ht_sel){
+                        case "m":
+                            return 200;
+                            break;
+                        case "km":
+                            return 0.2;
+                            break;
+                        case "cm":
+                            return 20000;
+                            break;
+                    }
+                }
+            },
+            freq: {
+                required: true,
+                number: true,
+                min: function(element){
+                    if ($("#wf").val() == '0'){
+                        switch ( $("#freq_sel").val() ) {
+                            //console.log("usao");
+                            case "Hz":
+                                return 150000000;
+                                break;
+
+                            case "MHz":
+                                return 150;
+                                break;
+                            case "GHz":
+                                return 0.15;
+                                break;
+                        }
+                    }else{
+                        var area_sel = $("#area").val();
+                        if (area_sel == "urban"){
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return 150;
+                                    break;
+
+                                case "MHz":
+                                    return 15;
+                                    break;
+                                case "GHz":
+                                    return 0.15;
+                                    break;
+                            }
+                        }else{
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return 200;
+                                    break;
+
+                                case "MHz":
+                                    return 20;
+                                    break;
+                                case "GHz":
+                                    return 0.2;
+                                    break;
+                            }
+                        }   
+                    }
+                    
+                },
+                max: function(element){
+                    var area_sel = $("#area").val();
+                    console.log("wfff" + $("#wf").val());
+                    if(area_sel != "urban"){
+                        if ($("#wf").val() == '0'){
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return 1500000000;
+                                    break;
+
+                                case "MHz":
+                                    return 1500;
+                                    break;
+                                case "GHz":
+                                    return 1.5;
+                                    break;
+                            }
+                        }else{
+                            switch ( $("#freq_sel").val() ) {
+                            //console.log("usao");
+                                case "Hz":
+                                    return 2000;
+                                    break;
+
+                                case "MHz":
+                                    return 200;
+                                    break;
+                                case "GHz":
+                                    return 2;
+                                    break;
+                            }
+                        }
+                    }else{
+                        if($("#wf").val() == '0'){
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return 2000000000;
+                                    break;
+
+                                case "MHz":
+                                    return 2000;
+                                    break;
+                                case "GHz":
+                                    return 2;
+                                    break;
+                            }
+                        }else{
+                            switch ( $("#freq_sel").val() ) {
+                                //console.log("usao");
+                                case "Hz":
+                                    return 2000;
+                                    break;
+
+                                case "MHz":
+                                    return 200;
+                                    break;
+                                case "GHz":
+                                    return 2;
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        messages: {
+         
+            freq: {
+                min: function(element){
+                    var area_sel = $("#area").val();
+                    if($("#wf").val() == '0'){
+                        switch ($("#freq_sel").val()) {
+                            case "Hz":
+                                return "Minimum frequency for "+ $("#area").val() +" area is" + format(150000000)+ " Hz";
+                                break;
+
+                            case "MHz":
+                                return "Minimum frequency for "+ $("#area").val() +" area is 150 MHz";
+                                break;
+                            case "GHz":
+                                return "Minimum frequency for "+ $("#area").val() +" area is 0.15 GHz";
+                                break;
+                        }
+                    }else{
+                        if(area_sel != "urban"){
+                            switch ($("#freq_sel").val()) {
+                                case "Hz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 200 mm";
+                                    break;
+
+                                case "MHz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 20 cm";
+                                    break;
+                                case "GHz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 0.2 m";
+                                    break;
+                            }
+                        }else{
+                            switch ($("#freq_sel").val()) {
+                                case "Hz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 150 mm";
+                                    break;
+
+                                case "MHz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 15 cm";
+                                    break;
+                                case "GHz":
+                                    return "Minimum lambda for "+ $("#area").val() +" area is 0.15 m";
+                                    break;
+                            }
+                        }
+                        
+                    }
+                    
+                        
+                    
+                },
+                
+                max: function(element){
+                    var area_sel = $("#area").val();
+                    if($("#wf").val() == '0'){
+                        if(area_sel != "urban"){
+                            switch ($("#freq_sel").val()) {
+                                case "Hz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is" + format(1500000000)+ " Hz";
+                                    break;
+
+                                case "MHz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is 1500 MHz";
+                                    break;
+                                case "GHz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is 1.5 GHz";
+                                    break;
+                            }
+                            
+                        }else{
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is" + format(2000000000)+ " Hz";
+                                    break;
+
+                                case "MHz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is 2000 MHz";
+                                    break;
+                                case "GHz":
+                                    return "Maximum frequency for "+ $("#area").val() +" area is 2 GHz";
+                                    break;
+                            }
+                        }
+                    }else{
+                        if(area_sel != "urban"){
+                            switch ($("#freq_sel").val()) {
+                                case "Hz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 2000 mm";
+                                    break;
+
+                                case "MHz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 200 cm";
+                                    break;
+                                case "GHz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 2 m";
+                                    break;
+                            }
+                            
+                        }else{
+                            switch ( $("#freq_sel").val() ) {
+                                case "Hz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 2000 mm";
+                                    break;
+
+                                case "MHz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 200 cm";
+                                    break;
+                                case "GHz":
+                                    return "Maximum lambda for "+ $("#area").val() +" area is 0.2 m";
+                                    break;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        },
+        errorPlacement: function (error, element) {
+            element.parent().append(error); //postavi prikaz errora na kraj
+        },
+        submitHandler: function (form) {    
+            $.ajax({ //predaj formu php-u
+                type: 'post',
+                url: 'hata.php',
+                data: $('#myform').serialize(),
+                success: function (response) {
+                    console.log("odg od php: " + response);
+
+                    var data_array = $.parseJSON(response);
+
+                    var tocke_grafa = []; //array za tocke grafa
+
+                    //uzmi JSON za tocke grafa
+                    $.each(data_array.tocke, function (key, value) {
+                        tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
+                    });
+
+
+                    //data_array.rezultat.toPrecision(8);
+                    var rez = data_array.rezultat;
+                    var hata = data_array.hata;
+                    var ahr = data_array.ar_ret;
+
+                    rez = format(rez);
+
+                    $("img").hide();
+                    $("#home_icon").show();
+
+                    $("#" + hata).show();
+                    $("#" + ahr).show();
+                    $("#rez").val(rez);
+                }
+            });
+        }
+    });
+    
 });
 
 $(document).ready(function () {
@@ -600,7 +1293,6 @@ $(document).ready(function () {
                     }
                 }
             },
-            
             messages: {
 		     
 		        freq: {
@@ -719,14 +1411,10 @@ $(document).ready(function () {
                     }
 		        }
 		    },
-			
-
             errorPlacement: function (error, element) {
                 element.parent().append(error); //postavi prikaz errora na kraj
             },
-
-            submitHandler: function (form) {
-            	
+            submitHandler: function (form) { 	
                 $.ajax({ //predaj formu php-u
                     type: 'post',
                     url: 'hata.php',
@@ -756,9 +1444,6 @@ $(document).ready(function () {
 
                         $("#" + hata).show();
                         $("#" + ahr).show();
-
-
-                        
                         $("#rez").val(rez);
                     }
                 });

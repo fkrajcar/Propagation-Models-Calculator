@@ -38,6 +38,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        location.reload();
     });
 });
 
@@ -47,6 +48,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart_b").hide();
+        location.reload();
     });
 });
 
@@ -56,6 +58,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart_c").hide();
+        location.reload();
     });
 });
 
@@ -456,10 +459,17 @@ $(document).ready(function () { //reza - sub
 
                             axisY: {
                                 title: "FSPL" + " [" + rez_sel.value + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
                                 title: "Transmitter power" + " [" + pt_sel.value + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -512,11 +522,18 @@ $(document).ready(function () { //reza - chng
 
                     axisY: {
                         title: "FSPL" + " [" + rez_sel.value + "]",
-                        valueFormatString: "#.000 E+00000"
+                        labelFormatter: function (e) {
+                            return format(e.value) ;
+                        }
                     },
                     axisX: {
                         title: "Transmitter power" + " [" + pt_sel.value + "]"
                     },
+                    toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
                     data: [{
                         markerType: "none",
                         type: "spline",
@@ -909,10 +926,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_b").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_b").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -966,10 +990,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_b").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_b").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -1218,10 +1249,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_c").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_c").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -1275,10 +1313,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_c").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_c").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",

@@ -17,6 +17,9 @@
     <!-- Moj JQ i CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="js/fresnel_zones.js"></script>
+    
+
+    <script src="https://use.fontawesome.com/aeb440ba51.js"></script>
 </head>
 
 <body>
@@ -53,7 +56,7 @@
                             <a href="rayleigh.html">Rayleigh Criterion for Surface Roughness</a>
                         </li>
                         <li>
-                            <a href="plane_earth.html">Plane-earth Model</a>
+                            <a href="plane_earth.html">Propagation over a Plane Earth</a>
                         </li>
                         <li>
                             <a href="fsl_plane.html">Free Space Loss for Plane-earth Model</a>
@@ -67,7 +70,7 @@
         </div>
     </nav>
     <!-- Nav cont -->
-    <div class="container">
+    <div class="container" style="padding-bottom: 30px;">
         <div class="page-header">
             <h1 style="font-size: 30px">Fresnel Zones</h1>
         </div>
@@ -76,19 +79,19 @@
                 <div class="col-sm-6">
                     <!-- lijevi dio forme !-->
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="n">n</label>
+                        <label class="col-xs-2 control-label" for="n">n-th Zone</label>
                         <div class="col-xs-10">
-                            <input type="text" placeholder="Distance" class="form-control" id="n" name="n" value="">
+                            <input type="text" placeholder="n-th Fresnel Zone" class="form-control" id="n" name="n" value="1">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-2 control-label" for="d1">d<sub>1</sub></label>
                         <div class="col-xs-7">
-                            <input type="text" placeholder="Distance" class="form-control" id="d1" name="d1" value="">
+                            <input type="text" placeholder="distance" class="form-control" id="d1" name="d1" value="">
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" style="position: absolute;right: 0px;top: 96px;">
                             <select class="form-control" id="d1_sel" name="d1_si" tabindex="-1">
-                                <option value="cm">cm</option>
+                                <option value="cm" hidden>cm</option>
                                 <option value="m" selected="selected">m</option>
                                 <option value="km">km</option>
                             </select>
@@ -97,11 +100,11 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label" for="d2">d<sub>2</sub></label>
                         <div class="col-xs-7">
-                            <input type="text" placeholder="Distance" class="form-control" id="d2" name="d2" value="">
+                            <input type="text" placeholder="distance" class="form-control" id="d2" name="d2" value="">
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-3" hidden>
                             <select class="form-control" id="d2_sel" name="d2_si" tabindex="-1">
-                                <option value="cm">cm</option>
+                                <option value="cm" hidden>cm</option>
                                 <option value="m" selected="selected">m</option>
                                 <option value="km">km</option>
                             </select>
@@ -115,7 +118,7 @@
                             </select>
                         </label>
                         <div class="col-xs-7">
-                            <input type="text" placeholder="Frequency" class="form-control" id="freq" name="freq" value="">
+                            <input type="text" placeholder="frequency" class="form-control" id="freq" name="freq" value="">
                         </div>
                         <div class="col-xs-3">
                             <select class="form-control" id="freq_sel" name="freq_si" tabindex="-1">
@@ -130,7 +133,8 @@
                 <div class="col-sm-6">
                     <!-- desni dio forme -->
                     <div class="row">
-                        <img class="img-responsive col-sm-12" style="max-width: 300px;" src="images/fresnel_zones_1.png">
+                        <img class="img-responsive col-sm-6" style="max-width: 300px;" src="images/fresnel_zones_1.png">
+                        <img class="img-responsive col-sm-6" style="max-width: 260px;" src="images/fresnel_zones_1_1.png">
                         <figure class="col-sm-12">
                             <img class="img-responsive" src="images/fresnel_zones_2.png">
                             <figcaption>Source: <a href="http://afar.net/fresnel-zone-calculator/" target="_blank">afar.net</a></figcaption>
@@ -155,11 +159,14 @@
                     </div>
                     <div class="col-xs-3">
                         <select class="form-control" id="rez_sel" name="rez_si" tabindex="-1">
-                            <option value="cm">cm</option>
+                            <option value="cm" hidden>cm</option>
                             <option value="m" selected="selected">m</option>
                             <option value="km">km</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-primary" target="_blank" href="fresnel_zones_2.html">Draw additional Fresnel Zones</a>
                 </div>
             </div>
             <br />
@@ -168,13 +175,26 @@
                     <button class="btn btn-primary col-xs-6" type="submit" id="sub_but" name="submit">Calculate</button>
                     <input class="btn btn-danger col-xs-offset-1 col-xs-5" type="reset" value="Reset" id="res">
                 </div>
+                 <div id="legend" class="col-xs-6" hidden>
+                    n-th Fresnel zone:
+                    <ul>
+                        
+                        <li style="display: inline; padding-right:30px; padding-left: 5px"><i class="fa fa-square" style="color:red;"></i>  n</li>
+                        <li style="display: inline; padding-right:30px"><i class="fa fa-square" style="color:blue;"></i>  n+1</li>
+                        <li style="display: inline; padding-right:30px"><i class="fa fa-square" style="color:green;"></i>  n+2</li>
+                    </ul>
+                </div> 
+            </div>
             </div>
             <br />
             <br />
         </form>
-        <div id="chart">
+
+        <div id="chart" class="col-md-12">
             <div id="chartContainer"></div>
         </div>
+
+
     </div>
     <!-- container / -->
 </body>

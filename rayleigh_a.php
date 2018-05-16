@@ -58,7 +58,7 @@
     $psi = floatval($psi);
     
 
-    $result = $lambda / ( 8*sin(deg2rad($psi)) ); //rezultat za metre, Hz, dBi i dBm, za rez u dBm print
+    $result = $lambda / ( 8*sin(deg2rad($psi)) );
     
     
     switch($rez_sel) //zadnje prije ispisa svega, ovdje napravit za tocke i pretvorbu u kilometre

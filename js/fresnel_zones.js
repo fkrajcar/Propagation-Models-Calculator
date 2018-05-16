@@ -4,6 +4,8 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        $("#legend").hide();
+        location.reload();
     });
 });
 
@@ -95,7 +97,7 @@ $(document).ready(function () { //promjene unosa/mjernih jedinica - d
 
 $(document).ready(function () { //promjene unosa/mjernih jedinica - d
     var in_val = "d2";
-    var sel_val = "d2_sel";
+    var sel_val = "d1_sel";
     var d_sel_prev = document.getElementById(sel_val).value;
 
     $("#" + sel_val).change(function () {
@@ -169,7 +171,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
             $('#o1').text("Hz")
             $('#o2').text("MHz")
             $('#o3').text("GHz")
-            $('#' + in_val).attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "frequency")
         }
 
         ulaz = $('#' + in_val).val();
@@ -333,6 +335,126 @@ $(document).ready(function () {
                         console.log(response);
 
                         var data_array = $.parseJSON(response);
+                        var tocke_grafa = []; //array za tocke grafa
+                        var tocke_neg = [];
+                        var tocke_grafa2 = []; //array za tocke grafa
+                        var tocke_neg2 = [];
+                        var tocke_grafa3 = []; //array za tocke grafa
+                        var tocke_neg3 = [];
+
+                        //uzmi JSON za tocke grafa
+                        $.each(data_array.tocke, function (key, value) {
+                            tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke, function (key, value) {
+                            tocke_neg.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
+
+                        $.each(data_array.tocke2, function (key, value) {
+                            tocke_grafa2.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke2, function (key, value) {
+                            tocke_neg2.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
+
+                        $.each(data_array.tocke3, function (key, value) {
+                            tocke_grafa3.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke3, function (key, value) {
+                            tocke_neg3.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
+
+                        var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
+
+                            zoomEnabled: true,
+                            exportEnabled: true,
+                            
+
+                            axisY: {
+                                title: "h=rn [m]",
+                                labelFormatter: function (e) {
+                                    if(e.value<0){
+                                        e.value *= -1;
+                                        return format(e.value);
+                                    }else{
+                                        return format(e.value);
+                                    }
+                                    
+                                }, 
+                                
+                                //minimum: 0
+                            },
+   
+                            axisX: {
+                                title: "distance" + "[m]",
+
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
+                            data: [
+                            {
+                                
+                                type: "line",
+                                lineColor: "red",
+                                legendText: "n",
+                                
+                                legendMarkerColor: "red",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa,
+                                lineColor: "red"
+                            },
+                            {
+                                
+                                type: "line",
+                                lineColor: "blue",
+                                legendText: "n+1",
+                                
+                                //legendMarkerColor: "#008000",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg2
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa2,
+                                lineColor: "blue"
+                            },
+                            {
+                                
+                                type: "line",
+                                lineColor: "green",
+                                legendText: "n+2",
+                                
+                                //legendMarkerColor: "green",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg3
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa3,
+                                lineColor: "green"
+                            }
+                            ],
+                            
+                        });
+                        chart.render();
+
+                        
 
                         //data_array.rezultat.toPrecision(8);
                         var rez = data_array.rezultat;
@@ -340,6 +462,10 @@ $(document).ready(function () {
                         rez = format(rez);
 
                         $("#rez").val(rez);
+                        $("#chart").show();
+                        $("#legend").show();
+                        var element_to_scroll_to = document.getElementById('chart');
+                        element_to_scroll_to.scrollIntoView();
                     }
                 });
             }
@@ -351,21 +477,144 @@ $(document).ready(function () {
     $("#rez_sel").change(function () {
         // pokrenut plugin
         $.ajax({ //predaj formu php-u
-            type: 'post',
-            url: 'fresnel_zones.php',
-            data: $('#myform').serialize(),
-            success: function (response) {
-                console.log(response);
+                    type: 'post',
+                    url: 'fresnel_zones.php',
+                    data: $('#myform').serialize(),
+                    success: function (response) {
+                        console.log(response);
 
-                var data_array = $.parseJSON(response);
+                        var data_array = $.parseJSON(response);
+                        var tocke_grafa = []; //array za tocke grafa
+                        var tocke_neg = [];
+                        var tocke_grafa2 = []; //array za tocke grafa
+                        var tocke_neg2 = [];
+                        var tocke_grafa3 = []; //array za tocke grafa
+                        var tocke_neg3 = [];
 
-                //data_array.rezultat.toPrecision(8);
-                var rez = data_array.rezultat;
+                        //uzmi JSON za tocke grafa
+                        $.each(data_array.tocke, function (key, value) {
+                            tocke_grafa.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke, function (key, value) {
+                            tocke_neg.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
 
-                rez = format(rez);
+                        $.each(data_array.tocke2, function (key, value) {
+                            tocke_grafa2.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke2, function (key, value) {
+                            tocke_neg2.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
 
-                $("#rez").val(rez);
-            }
-        });
+                        $.each(data_array.tocke3, function (key, value) {
+                            tocke_grafa3.push({ x: value[0], y: parseFloat(value[1]) });
+                        });
+                        $.each(data_array.tocke3, function (key, value) {
+                            tocke_neg3.push({ x: value[0], y: parseFloat(value[1])*-1 });
+                        });
+
+                        var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
+
+                            zoomEnabled: true,
+                            exportEnabled: true,
+                            
+
+                            axisY: {
+                                title: "h=rn [m]",
+                                labelFormatter: function (e) {
+                                    if(e.value<0){
+                                        e.value *= -1;
+                                        return format(e.value);
+                                    }else{
+                                        return format(e.value);
+                                    }
+                                    
+                                }, 
+                                
+                                //minimum: 0
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
+                            axisX: {
+                                title: "distance" + "[m]",
+
+                            },
+                            data: [
+                            {
+                                
+                                type: "line",
+                                lineColor: "red",
+                                legendText: "n",
+                                
+                                legendMarkerColor: "red",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa,
+                                lineColor: "red"
+                            },
+                            {
+                                
+                                type: "line",
+                                lineColor: "blue",
+                                legendText: "n+1",
+                                
+                                //legendMarkerColor: "#008000",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg2
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa2,
+                                lineColor: "blue"
+                            },
+                            {
+                                
+                                type: "line",
+                                lineColor: "green",
+                                legendText: "n+2",
+                                
+                                //legendMarkerColor: "green",
+                                legendMarkerType: "square",
+                                
+                                dataPoints: tocke_neg3
+                                
+                            },
+                            {
+                                
+                                type: "spline",
+                                dataPoints: tocke_grafa3,
+                                lineColor: "green"
+                            }
+                            ],
+                            
+                        });
+                        chart.render();
+                        chart = {};
+
+                        
+
+                        //data_array.rezultat.toPrecision(8);
+                        var rez = data_array.rezultat;
+
+                        rez = format(rez);
+
+                        $("#rez").val(rez);
+                        $("#legend").show();
+                        var element_to_scroll_to = document.getElementById('chart');
+                        element_to_scroll_to.scrollIntoView();
+                    }
+                });
     });
 });

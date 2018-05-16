@@ -4,6 +4,9 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        $("#first").css("border","none");
+        $("#second").css("border","none");
+        location.reload();
     });
 });
 
@@ -47,8 +50,151 @@ $(document).ready(function () { //na klik za input odaberi cijeli input (lakse b
     $("#pt").click(function () {
         this.select();
     });
-    $("#ht, #hr").click(function () {
+    $("#ht, #hr, #freq").click(function () {
         this.select();
+    });
+});
+
+$(document).ready(function () { //promjena unosa za frekvenciju
+    var wave_sel = "wf";
+
+    var in_val = "freq";
+    var in_sel = "freq_sel";
+
+    var wf = $('#' + wave_sel).val();
+    var o_prev = $('#' + in_sel).val();
+    var ulaz = $('#' + in_val).val();
+    ulaz = parseFloat(ulaz);
+    var out;
+
+    $('#' + wave_sel).change(function () {
+
+        if ($('#' + wave_sel).val() == '1') {
+            $('#o1').text("mm")
+            $('#o2').text("cm")
+            $('#o3').text("m")
+            $('#' + in_val).attr("placeholder", "Wavelenght")
+        } else {
+            $('#o1').text("Hz")
+            $('#o2').text("MHz")
+            $('#o3').text("GHz")
+            $('#' + in_val).attr("placeholder", "frequency")
+        }
+
+        ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
+        o = $('#' + in_sel).val();
+        if (!isNaN(ulaz) ) {
+            if (o == 'Hz') {
+                out = 3e8 / ulaz;
+                out = out * 1000;
+                out = format(out);
+                $('#' + in_val).val(out);
+            }
+            if (o == 'MHz') {
+                out = 3e8 / (ulaz * 1000000);
+                out = out * 100;
+                out = format(out);
+                $('#' + in_val).val(out);
+            }
+            if (o == 'GHz') {
+                out = 3e8 / (ulaz * 1000000000);
+                out = format(out);
+                $('#' + in_val).val(out);
+            }
+        }
+    });
+
+    $('#' + in_sel).change(function () {
+        o = $('#' + in_sel).val();
+        ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
+        var wf = $('#' + wave_sel).val();
+        //console.log(o_prev);
+        //console.log(o);
+        //console.log(ulaz);
+
+        if (!isNaN(ulaz) ) {
+            if (wf == 0) {
+
+                // mijenjaj frekvenciju
+                if (o_prev == 'MHz') {
+
+                    if (o == 'Hz') {
+                        ulaz *= 1000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);  
+                    }
+                    if (o == 'GHz') {
+                        ulaz /= 1000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);   
+                    }
+
+
+                }
+                if (o_prev == 'GHz') {
+
+
+                    if (o == 'Hz') {
+                        ulaz *= 1000000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);
+                    }
+                    if (o == 'MHz') {
+                        ulaz *= 1000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);   
+                    }
+
+
+
+                }
+                if (o_prev == 'Hz') {
+
+
+                    if (o == 'MHz') {
+                        ulaz /= 1000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        //$('#freq').val(ulaz);
+                    }
+                    if (o == 'GHz') {
+                        ulaz /= 1000000000;
+                        //ulaz = ulaz.toPrecision(3);
+                        // $('#freq').val(ulaz);
+                    }
+
+
+
+                }
+
+
+            } else if (wf == 1) {
+                if (o_prev == 'MHz') { //cm
+
+                    if (o == 'Hz') ulaz *= 10; //mm
+                    if (o == 'GHz') ulaz /= 100; //m
+                }
+                if (o_prev == 'GHz') { //m
+
+                    if (o == 'Hz') ulaz *= 1000; //mm
+                    if (o == 'MHz') ulaz *= 100; //cm
+                }
+                if (o_prev == 'Hz') { //mm
+                    if (o == 'MHz') ulaz /= 10; //cm
+                    if (o == 'GHz') ulaz /= 1000; //m
+                }
+            }
+
+            ulaz = format(ulaz);
+
+            $('#' + in_val).val(ulaz);
+        }
+
+
+
+        
+        o_prev = $('#' + in_sel).val();
     });
 });
 
@@ -537,7 +683,12 @@ $(document).ready(function () {
                     number: true,
                     min: 0.000000001,
 
-                }
+                },
+                freq: {
+                    required: true,
+                    number: true,
+                    min: 0.000000001
+                },
                 
             },
 
@@ -566,14 +717,33 @@ $(document).ready(function () {
                         var chart = new CanvasJS.Chart("chartContainer", { //opcije za graf
 
                             zoomEnabled: true,
+                            zoomType: "xy",
                             exportEnabled: true,
 
                             axisY: {
                                 title: "Power received" + " [" + rez_sel.value + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
+                            toolTip:{
+                                enabled: false,       //disable here
+                                 //disable here
+                              },
                             axisX: {
-                                title: "Distance" + " [" + d_sel.value + "]"
+                                title: "distance [m]"
+                                ,
+
+
+
+                                stripLines:[
+                                {                
+                                    value: parseFloat(data_array.granica),
+                                    label: "Granica " + format(data_array.granica) + "m",
+                                    showOnTop: true,
+                                    labelFontSize:16,
+                                }
+                                ],
                             },
                             data: [{
                                 markerType: "none",
@@ -588,8 +758,12 @@ $(document).ready(function () {
 
                         rez = format(rez);
 
-                        $("#rez").val(rez);
+                        //$("#first").css("border","none");
+                        //$("#second").css("border","none");
+                        
+                        
 
+                        $("#rez").val(rez);
                         $("#chart").show();
                         var element_to_scroll_to = document.getElementById('chart');
                         element_to_scroll_to.scrollIntoView();
@@ -627,10 +801,28 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Power received" + " [" + rez_sel.value + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
+                            toolTip:{
+                                enabled: false,       //disable here
+                                 //disable here
+                              },
                             axisX: {
-                                title: "Distance" + " [" + d_sel.value + "]"
+                                title: "distance [m]"
+                                ,
+
+
+
+                                stripLines:[
+                                {                
+                                    value: parseFloat(data_array.granica),
+                                    label: "Granica " + format(data_array.granica) + "m",
+                                    showOnTop: true,
+                                    labelFontSize:16,
+                                }
+                                ],
                             },
                             data: [{
                                 markerType: "none",
@@ -645,8 +837,12 @@ $(document).ready(function () {
 
                         rez = format(rez);
 
-                        $("#rez").val(rez);
+                        //$("#first").css("border","none");
+                        //$("#second").css("border","none");
+                        
+                        
 
+                        $("#rez").val(rez);
                         $("#chart").show();
                         var element_to_scroll_to = document.getElementById('chart');
                         element_to_scroll_to.scrollIntoView();

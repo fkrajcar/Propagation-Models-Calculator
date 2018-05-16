@@ -38,6 +38,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        location.reload();
     });
 });
 
@@ -47,6 +48,11 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart_b").hide();
+        $('#o1').text("Hz")
+        $('#o2').text("MHz")
+        $('#o3').text("GHz")
+        $('#freq').attr("placeholder", "Frequency")
+        location.reload();
     });
 });
 
@@ -56,6 +62,11 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart_c").hide();
+        $('#o1_c').text("Hz");
+        $('#o2_c').text("MHz");
+        $('#o3_c').text("GHz");
+        $('#freq_c').attr("placeholder", "Frequency");
+        location.reload();
     });
 });
 
@@ -458,10 +469,17 @@ $(document).ready(function () { //reza - sub
 
                             axisY: {
                                 title: "FSPL" + " [" + rez_sel.value + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
                                 title: "Transmitter power" + " [" + pt_sel.value + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -514,11 +532,18 @@ $(document).ready(function () { //reza - chng
 
                     axisY: {
                         title: "FSPL" + " [" + rez_sel.value + "]",
-                        valueFormatString: "#.000 E+00000"
+                        labelFormatter: function (e) {
+                            return format(e.value) ;
+                        }
                     },
                     axisX: {
                         title: "Transmitter power" + " [" + pt_sel.value + "]"
                     },
+                    toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
                     data: [{
                         markerType: "none",
                         type: "spline",
@@ -734,25 +759,27 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     var wf = $('#' + wave_sel).val();
     var o_prev = $('#' + in_sel).val();
     var ulaz = $('#' + in_val).val();
+    ulaz = parseFloat(ulaz);
     var out;
 
     $('#' + wave_sel).change(function () {
 
-        if ($('#wf').val() == '1') {
+        if ($('#' + wave_sel).val() == '1') {
             $('#o1').text("mm")
             $('#o2').text("cm")
             $('#o3').text("m")
-            $('#freq').attr("placeholder", "Wavelenght")
+            $('#' + in_val).attr("placeholder", "Wavelenght")
         } else {
             $('#o1').text("Hz")
             $('#o2').text("MHz")
             $('#o3').text("GHz")
-            $('#freq').attr("placeholder", "Frequency")
+            $('#' + in_val).attr("placeholder", "Frequency")
         }
 
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         o = $('#' + in_sel).val();
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
                 out = out * 1000;
@@ -776,12 +803,13 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     $('#' + in_sel).change(function () {
         o = $('#' + in_sel).val();
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
 
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (wf == 0) {
 
                 // mijenjaj frekvenciju
@@ -852,13 +880,15 @@ $(document).ready(function () { //promjena unosa za frekvenciju
                     if (o == 'GHz') ulaz /= 1000; //m
                 }
             }
+
+            ulaz = format(ulaz);
+
+            $('#' + in_val).val(ulaz);
         }
 
 
 
-        ulaz = format(ulaz);
-
-        $('#' + in_val).val(ulaz);
+        
         o_prev = $('#' + in_sel).val();
     });
 });
@@ -935,10 +965,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_b").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_b").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -992,10 +1029,17 @@ $(document).ready(function () {
 
                     axisY: {
                         title: "Free Space Loss" + " [" + $("#rez_sel_b").val() + "]",
-                        valueFormatString: "#.000 E+00000"
+                        labelFormatter: function (e) {
+                            return format(e.value) ;
+                        }
                     },
+                    toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
                     axisX: {
-                        title: "Distance" + " [" + $("#d_sel_b").val() + "]"
+                        title: "distance" + " [" + $("#d_sel_b").val() + "]"
                     },
                     data: [{
                         markerType: "none",
@@ -1093,6 +1137,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     var wf = $('#' + wave_sel).val();
     var o_prev = $('#' + in_sel).val();
     var ulaz = $('#' + in_val).val();
+    ulaz = parseFloat(ulaz);
     var out;
 
     $('#' + wave_sel).change(function () {
@@ -1110,8 +1155,9 @@ $(document).ready(function () { //promjena unosa za frekvenciju
         }
 
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         o = $('#' + in_sel).val();
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (o == 'Hz') {
                 out = 3e8 / ulaz;
                 out = out * 1000;
@@ -1135,12 +1181,13 @@ $(document).ready(function () { //promjena unosa za frekvenciju
     $('#' + in_sel).change(function () {
         o = $('#' + in_sel).val();
         ulaz = $('#' + in_val).val();
+        ulaz = parseFloat(ulaz);
         var wf = $('#' + wave_sel).val();
         //console.log(o_prev);
         //console.log(o);
         //console.log(ulaz);
 
-        if (ulaz) {
+        if (!isNaN(ulaz) ) {
             if (wf == 0) {
 
                 // mijenjaj frekvenciju
@@ -1211,13 +1258,15 @@ $(document).ready(function () { //promjena unosa za frekvenciju
                     if (o == 'GHz') ulaz /= 1000; //m
                 }
             }
+
+            ulaz = format(ulaz);
+
+            $('#' + in_val).val(ulaz);
         }
 
 
 
-        ulaz = format(ulaz);
-
-        $('#' + in_val).val(ulaz);
+        
         o_prev = $('#' + in_sel).val();
     });
 });
@@ -1269,10 +1318,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + $("#d_sel_c").val() + "]"
+                                title: "distance" + " [" + $("#d_sel_c").val() + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -1326,10 +1382,17 @@ $(document).ready(function () {
 
                     axisY: {
                         title: "Free Space Loss" + " [" + $("#rez_sel_c").val() + "]",
-                        valueFormatString: "#.000 E+00000"
+                        labelFormatter: function (e) {
+                            return format(e.value) ;
+                        }
                     },
+                    toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
+                            },
                     axisX: {
-                        title: "Distance" + " [" + $("#d_sel_c").val() + "]"
+                        title: "distance" + " [" + $("#d_sel_c").val() + "]"
                     },
                     data: [{
                         markerType: "none",

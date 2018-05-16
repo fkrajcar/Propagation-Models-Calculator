@@ -4,6 +4,12 @@ $(document).ready(function () { //resetiraj unose i errore
         $("label.error").hide();
         $(".error").removeClass("error");
         $("#chart").hide();
+        $('#freq').attr("placeholder", "Frequency");
+        $('#o1').text("Hz");
+        $('#o2').text("MHz");
+        $('#o3').text("GHz");
+        document.getElementById("myform").reset();
+        location.reload();
     });
 });
 
@@ -518,7 +524,6 @@ $(document).ready(function () { //promjena unosa za frekvenciju
 });
 
 $(document).ready(function () {
-
     $("#sub_but").click(function () {
         $('#myform').validate({ // pokrenut plugin
             rules: {
@@ -599,10 +604,17 @@ $(document).ready(function () {
 
                             axisY: {
                                 title: "Power received" + " [" + rez_sel.value + "]",
-                                valueFormatString: "#.000 E+00000"
+                                labelFormatter: function (e) {
+                                    return format(e.value) ;
+                                }
                             },
                             axisX: {
-                                title: "Distance" + " [" + d_sel.value + "]"
+                                title: "distance" + " [" + d_sel.value + "]"
+                            },
+                            toolTip: {
+                              contentFormatter: function(e){
+                                return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                              }
                             },
                             data: [{
                                 markerType: "none",
@@ -632,13 +644,12 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#rez_sel").change(function () {
         // pokrenut plugin
-
         $.ajax({ //predaj formu php-u
             type: 'post',
             url: 'friis.php',
             data: $('#myform').serialize(),
             success: function (response) {
-                console.log(response);
+                //console.log(response);
 
                 var data_array = $.parseJSON(response);
 
@@ -656,16 +667,22 @@ $(document).ready(function () {
 
                     axisY: {
                         title: "Power received" + " [" + rez_sel.value + "]",
-                        valueFormatString: "##.000 E+0"
+                        labelFormatter: function (e) {
+                            return format(e.value) ;
+                        }
                     },
                     axisX: {
-                        title: "Distance" + " [" + d_sel.value + "]"
+                        title: "distance" + " [" + d_sel.value + "]"
+                    },
+                    toolTip: {
+                      contentFormatter: function(e){
+                        return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
+                      }
                     },
                     data: [{
                         markerType: "none",
                         type: "spline",
                         dataPoints: tocke_grafa
-
                     }]
                 });
                 chart.render();

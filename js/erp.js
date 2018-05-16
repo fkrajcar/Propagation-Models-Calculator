@@ -3,6 +3,7 @@ $(document).ready(function () { //resetiraj unose i errore
         $("#myform_a, #myform_b")[0].reset();
         $("label.error").hide();
         $(".error").removeClass("error");
+        location.reload();
     });
 });
 
