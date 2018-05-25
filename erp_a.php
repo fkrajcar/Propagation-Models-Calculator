@@ -16,7 +16,7 @@
         break;
 
         case 'dBd':
-        $gt = pow(10, ($gt+2.15) / 10);
+        $gt = $gt + 2.15;
         break;
     }
 

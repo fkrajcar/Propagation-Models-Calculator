@@ -292,7 +292,6 @@ $(document).ready(function () { //promjena unosa za frekvenciju
 });
 
 $(document).ready(function () {
-
     $("#sub_but").click(function () {
         $('#myform').validate({ // pokrenut plugin
             rules: {
@@ -333,6 +332,12 @@ $(document).ready(function () {
                     data: $('#myform').serialize(),
                     success: function (response) {
                         console.log(response);
+                        var granica = $("#d1").val();
+                        if ( $("#d1_sel").val() == "km" ){
+                            granica = parseFloat(granica);
+                            granica = granica * 1000;
+                        }
+                        console.log(granica);
 
                         var data_array = $.parseJSON(response);
                         var tocke_grafa = []; //array za tocke grafa
@@ -387,6 +392,14 @@ $(document).ready(function () {
    
                             axisX: {
                                 title: "distance" + "[m]",
+                                stripLines:[
+                                {                
+                                    value: granica,
+                                    label: "Granica " + granica + "m",
+                                    showOnTop: true,
+                                    labelFontSize:16,
+                                }
+                                ],
 
                             },
                             toolTip: {
@@ -482,6 +495,12 @@ $(document).ready(function () {
                     data: $('#myform').serialize(),
                     success: function (response) {
                         console.log(response);
+                        var granica = $("#d1").val();
+                        if ( $("#d1_sel").val() == "km" ){
+                            granica = parseFloat(granica);
+                            granica = granica * 1000;
+                        }
+                        console.log(granica);
 
                         var data_array = $.parseJSON(response);
                         var tocke_grafa = []; //array za tocke grafa
@@ -533,14 +552,23 @@ $(document).ready(function () {
                                 
                                 //minimum: 0
                             },
+   
+                            axisX: {
+                                title: "distance" + "[m]",
+                                stripLines:[
+                                {                
+                                    value: granica,
+                                    label: "Granica " + granica + "m",
+                                    showOnTop: true,
+                                    labelFontSize:16,
+                                }
+                                ],
+
+                            },
                             toolTip: {
                               contentFormatter: function(e){
                                 return ( "x: " + format(e.entries[0].dataPoint.x) + " y: " + format(e.entries[0].dataPoint.y) + "" ) ;
                               }
-                            },
-                            axisX: {
-                                title: "distance" + "[m]",
-
                             },
                             data: [
                             {
@@ -601,7 +629,6 @@ $(document).ready(function () {
                             
                         });
                         chart.render();
-                        chart = {};
 
                         
 
@@ -611,6 +638,7 @@ $(document).ready(function () {
                         rez = format(rez);
 
                         $("#rez").val(rez);
+                        $("#chart").show();
                         $("#legend").show();
                         var element_to_scroll_to = document.getElementById('chart');
                         element_to_scroll_to.scrollIntoView();

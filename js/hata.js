@@ -102,7 +102,7 @@ $(document).ready(function () { //resetiraj unose i errore
 
 
                     case "MHz":
-                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]MHz");
                         break;
 
 
@@ -462,7 +462,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
 
 
                     case "MHz":
-                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]MHz");
                         break;
 
 
@@ -562,7 +562,7 @@ $(document).ready(function () { //promjena unosa za frekvenciju
 
 
                     case "MHz":
-                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]Hz");
+                        $('#' + in_val).attr("placeholder", "frequency: [150 - 2000]MHz");
                         break;
 
 

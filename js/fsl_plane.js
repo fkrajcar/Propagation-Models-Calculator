@@ -458,7 +458,7 @@ $(document).ready(function () { //reza - sub
                             exportEnabled: true,
 
                             axisY: {
-                                title: "FSPL" + " [" + rez_sel.value + "]",
+                                title: "Free Space Loss" + " [" + rez_sel.value + "]",
                                 labelFormatter: function (e) {
                                     return format(e.value) ;
                                 }
@@ -521,7 +521,7 @@ $(document).ready(function () { //reza - chng
                     exportEnabled: true,
 
                     axisY: {
-                        title: "FSPL" + " [" + rez_sel.value + "]",
+                        title: "Free Space Loss" + " [" + rez_sel.value + "]",
                         labelFormatter: function (e) {
                             return format(e.value) ;
                         }
